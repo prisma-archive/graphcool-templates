@@ -1,0 +1,12 @@
+type Location {
+  id: ID!
+  event: Event @relation(name: "EventLocation")
+  lat: Float!
+  lng: Float!
+}
+
+type Event {
+  id: ID!
+  description: String!
+  location: Location @relation(name: "EventLocation")
+}
