@@ -51,7 +51,9 @@ mutation testPushNotification {
       lat: 52.501107
       lng: 13.450851
     }
-  )
+  ) {
+    id
+  }
 }
 ```
 
