@@ -1,0 +1,6 @@
+type Item {
+  id: ID!
+  name: String!
+  # we set it to optional so we can automatically generate it
+  slug: String @isUnique
+}
