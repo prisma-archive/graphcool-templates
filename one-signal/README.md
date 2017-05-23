@@ -31,7 +31,7 @@ graphcool init --schema one-signal.graphql
 
   This will trigger the push notification whenever a new event is created.
 
-* Paste the code from `function.js` as the inline function and replace **the OneSignal APP ID and APP KEY**.
+* Paste the code from `one-signal.js` as the inline function and replace **the OneSignal APP ID and APP KEY**.
 
 ## Test the Code
 
