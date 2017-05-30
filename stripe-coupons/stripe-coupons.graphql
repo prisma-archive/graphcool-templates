@@ -1,0 +1,4 @@
+type Coupon {
+  id: ID!
+  key: String!
+}
