@@ -31,7 +31,7 @@ graphcool init --schema https://graphqlbin.com/instagram.graphql
 
   This will trigger the Slack notification whenever a new post is created.
 
-* Paste the code from `slack-bot-notifications.js` as the inline function and replace **the Webhook URL**.
+* Paste the code from `slack-bot-notifications.js` as the inline function and replace `__SLACK_WEBHOOK_ID__` with the URL to your bot.
 
 ## Test the Code
 
