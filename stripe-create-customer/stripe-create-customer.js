@@ -1,5 +1,5 @@
 const fetch = require('isomorphic-fetch');
-const stripe = require('stripe')('sk_test_gidPHOtIgje94G6SxfgDUyFJ');
+const stripe = require('stripe')('__SK_TEST__');
 
 module.exports = event => {
     const id = event.data.Customer.node.id;
