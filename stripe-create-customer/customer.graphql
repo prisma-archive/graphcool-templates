@@ -1,0 +1,7 @@
+type Customer implements Node {
+  createdAt: DateTime!
+  email: String!
+  id: ID! @isUnique
+  stripeCustomerId: String
+  updatedAt: DateTime!
+}
