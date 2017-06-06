@@ -1,0 +1,13 @@
+# Use this subscription query when setting up your server side subscription
+subscription {
+    Customer(filter: {
+        mutation_in: [CREATED]
+    }) {
+        updatedFields
+        node {
+            id
+            stripeCustomerId
+            email
+        }
+    }
+}
