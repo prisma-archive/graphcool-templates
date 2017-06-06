@@ -10,6 +10,17 @@ npm -g install graphcool
 graphcool init --schema one-signal.graphql
 ```
 
+## Contributors
+
+A big thank you to all contributors and supporters of this repository 💚 
+
+<a href="https://github.com/marktani/" target="_blank">
+  <img src="https://github.com/marktani.png?size=64" width="64" height="64" alt="marktani">
+</a>
+<a href="https://github.com/yusinto/" target="_blank">
+  <img src="https://github.com/yusinto.png?size=64" width="64" height="64" alt="yusinto">
+</a>
+
 ## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
 
 Join our [Slack community](http://slack.graph.cool/) if you run into issues or have questions. We love talking to you!
