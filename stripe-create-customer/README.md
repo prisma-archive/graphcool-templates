@@ -1,7 +1,8 @@
 # stripe-create-customer
 
-Create a stripe customer when a new graphcool customer is created
-using server side subscription️
+Creates a new stripe customer when a new customer is created in graphcool.
+
+Gets triggered after a new customer is created in graphcool and updates it with the stripe customerId. 
 
 ## Getting Started
 
@@ -9,7 +10,6 @@ using server side subscription️
 npm -g install graphcool
 graphcool init --schema customer.graphql
 ```
-
 
 ## Setup Stripe
 
@@ -25,13 +25,7 @@ graphcool init --schema customer.graphql
 
 ## Test the Code
 
-Go to the Graphcool Playground:
-
-```sh
-graphcool playground
-```
-
-Run this mutation to create a new coupon and trigger the coupon check:
+Go to the Graphcool Playground and run this mutation to create a new customer:
 
 ```graphql
 mutation {
@@ -43,20 +37,20 @@ mutation {
 }
 ```
 
-This should return the `id` of the new coupon node, because `my-coupon-code` is a valid code.
+This should return the `id` of the new customer and a null stripeCustomerId because
+it has not been created yet. Remember, our subscription runs <u><i>after</i>≤/u> the mutation.
 
-Run this mutation to create a new coupon and trigger the coupon check:
+Run the query below now with the id returned above to see that our function has run and 
+updated the customer row with the stripe customer id:
+
 
 ```graphql
-mutation testStripeCoupon {
-  createCoupon(
-    key: "wrong-code"
-  ) {
+query {
+  Customer(id: "__PASTE_ID_FROM_PREVIOUS_MUTATION__") {
     id
+    stripeCustomerId
   }
 }
 ```
 
-This should return an error message, because `wrong-code` is an invalid code.
-
-![](http://i.imgur.com/5RHR6Ku.png)
+This should return a valid stripe customer id. That's it!

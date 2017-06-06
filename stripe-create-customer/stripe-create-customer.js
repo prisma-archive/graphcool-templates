@@ -1,11 +1,9 @@
 const fetch = require('isomorphic-fetch');
-const stripe = require('stripe')('__SK_TEST__');
+const stripe = require('stripe')('__STRIPE_KEY__');
 
 module.exports = event => {
     const id = event.data.Customer.node.id;
     const email = event.data.Customer.node.email;
-    const loginType = event.data.Customer.node.loginType;
-    const loginToken = event.data.Customer.node.loginToken;
     const graphCoolEndpoint = 'https://api.graph.cool/simple/v1/cj2q45mbs06v40103q55dqfm4';
 
     const updateGraphCoolCustomer = (id, stripeCustomerId) => {
@@ -19,8 +17,6 @@ module.exports = event => {
                   {
                     id
                     stripeCustomerId
-                    loginType
-                    loginToken
                     email
                   }
                 }`
@@ -52,7 +48,7 @@ module.exports = event => {
 
     return new Promise((resolve, reject) => {
         createStripeCustomer(email)
-            .then(stripeCustomerId => updateGraphCoolCustomer(id, email, loginType, loginToken, stripeCustomerId))
+            .then(stripeCustomerId => updateGraphCoolCustomer(id, stripeCustomerId))
             .then(response => response.json())
             .then(responseJson => {
                 console.log(`Successfully updated graphcool customer: ${JSON.stringify(responseJson)}`);
