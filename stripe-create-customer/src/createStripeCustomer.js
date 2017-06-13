@@ -1,7 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import stripeInit from 'stripe';
 import {stripeKey, graphCoolEndpoint} from './constants';
-import "regenerator-runtime/runtime";
 
 const stripe = stripeInit(stripeKey);
 
@@ -21,12 +20,18 @@ const updateGraphCoolCustomer = async (id, stripeCustomerId) => {
       `
   });
 
-  const response = await fetch(graphCoolEndpoint, {
-    headers: {'content-type': 'application/json'},
-    method: 'POST',
-    body: updateCustomer,
-  });
-  return await response.json();
+  try {
+    const response = await fetch(graphCoolEndpoint, {
+      headers: {'content-type': 'application/json'},
+      method: 'POST',
+      body: updateCustomer,
+    });
+    return await response.json();
+  }
+  catch (err) {
+    console.log(`Error updating GraphCool customer: ${JSON.stringify(err)}`);
+    throw err;
+  }
 };
 
 const createStripeCustomer = async email => {
@@ -45,7 +50,7 @@ const createStripeCustomer = async email => {
 };
 
 const main = event => {
-  const {id, email} = event.data.node;
+  const {id, email} = event.data.Customer.node;
 
   return new Promise(async (resolve, reject) => {
     try {

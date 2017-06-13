@@ -1,5 +1,6 @@
 .DS_Store
 .idea
+jest_*
 node_modules
 npm-debug.log
 dist

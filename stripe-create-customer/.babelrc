@@ -12,5 +12,10 @@
   "plugins": [
     "array-includes",
     "transform-async-to-generator",
-  ]
+  ],
+  "env": {
+    "test": {
+      "plugins": ["babel-plugin-rewire"]
+    }
+  }
 }
