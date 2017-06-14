@@ -1,16 +1,35 @@
-jest.mock('stripe', () => ({
-  customers: {
-    create: email => ({id: 'somestripeid'}),
-  }
-}));
-
-import main from './createStripeCustomer';
-const createStripeCustomer = main.__get__('createStripeCustomer');
-
 describe('createStripeCustomer', () => {
-  it('should return stripe customer object on success', async () => {
-    const stripeCustomer = await createStripeCustomer('some@email');
-    expect(stripeCustomer).toEqual({id: 'horny bastard'});
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it('successfully created stripe customer', async () => {
+    jest.doMock('stripe', () => (stripeKey) => ({
+      customers: {
+        create: email => ({id: 'testStripeId'}),
+      }
+    }));
+    const {createStripeCustomer} = require("./createStripeCustomer");
+    const testEmail = "borris@becker.com";
+    const stripeCustomer = await createStripeCustomer(testEmail);
+    expect(stripeCustomer.id).toEqual('testStripeId');
+  });
+
+  it('should throw an error when stripe customer creation fails', async () => {
+    jest.doMock('stripe', () => (stripeKey) => ({
+      customers: {
+        create: email => {
+          throw new Error(`error creating stripe customer ${email}`);
+        }
+      }
+    }));
+    const {createStripeCustomer} = require("./createStripeCustomer");
+    const testEmail = "borris@becker.com";
+
+    try {
+      await createStripeCustomer(testEmail);
+    } catch (err) {
+      expect(err).toEqual(`error creating stripe customer ${testEmail}`);
+    }
   });
 });
-

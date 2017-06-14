@@ -17,7 +17,6 @@
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-array-includes": "^2.0.3",
-    "babel-plugin-rewire": "^1.1.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
@@ -27,5 +26,10 @@
     "testdouble": "^3.0.0",
     "webpack": "^2.6.1",
     "webpack-node-externals": "^1.6.0"
+  },
+  "jest": {
+    "setupFiles": [
+      "./testSetup.js"
+    ]
   }
 }
