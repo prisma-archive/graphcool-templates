@@ -63,7 +63,7 @@ describe('createStripeCustomer', () => {
             }
         }));
         fetch.mockSuccess({id: 'graphCoolId', stripeCustomerId: 'stripeId'});
-        const main = require("./createStripeCustomer").default;
+        const main = require("./createStripeCustomer");
         const event = {
             data: {
                 Customer: {
@@ -100,7 +100,7 @@ describe('createStripeCustomer', () => {
             }
         }));
         fetch.mockFailure('something went wrong when updating graph cool customer');
-        const main = require("./createStripeCustomer").default;
+        const main = require("./createStripeCustomer");
         const event = {
             data: {
                 Customer: {

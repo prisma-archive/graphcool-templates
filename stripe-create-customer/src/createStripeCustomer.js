@@ -4,7 +4,7 @@ import {stripeKey, graphCoolEndpoint} from './constants';
 
 const stripe = stripeInit(stripeKey);
 
-export const updateGraphCoolCustomer = async (id, stripeCustomerId) => {
+const updateGraphCoolCustomer = async (id, stripeCustomerId) => {
   const updateCustomer = JSON.stringify({
     query: `
         mutation {
@@ -34,7 +34,7 @@ export const updateGraphCoolCustomer = async (id, stripeCustomerId) => {
   }
 };
 
-export const createStripeCustomer = async email => {
+const createStripeCustomer = async email => {
   console.log(`Creating stripe customer for ${email}`);
   let stripeCustomer;
 
@@ -66,4 +66,8 @@ const main = event => {
   });
 };
 
-export default main;
+module.exports = main;
+
+// export these local methods so we can unit test them
+module.exports.updateGraphCoolCustomer = updateGraphCoolCustomer;
+module.exports.createStripeCustomer = createStripeCustomer;
