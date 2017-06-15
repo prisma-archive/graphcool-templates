@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/createStripeCustomer.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --watchAll",
     "build": "webpack"
   },
   "author": "",
@@ -23,13 +23,12 @@
     "babel-preset-latest": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "jest": "^20.0.4",
-    "testdouble": "^3.0.0",
     "webpack": "^2.6.1",
     "webpack-node-externals": "^1.6.0"
   },
   "jest": {
     "setupFiles": [
-      "./testSetup.js"
+      "./test/testSetup.js"
     ]
   }
 }
