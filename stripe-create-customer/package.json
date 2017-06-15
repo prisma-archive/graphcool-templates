@@ -1,13 +1,14 @@
 {
   "name": "stripe-create-customer",
   "version": "1.0.0",
-  "description": "",
+  "description": "Example Graphcool Server Side Subscription function to create stripe customers",
   "main": "src/createStripeCustomer.js",
   "scripts": {
     "test": "jest --watchAll",
     "build": "webpack"
   },
-  "author": "",
+  "author": "Yusinto Ngadiman",
+  "homepage": "reactjunkie.com",
   "license": "ISC",
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
