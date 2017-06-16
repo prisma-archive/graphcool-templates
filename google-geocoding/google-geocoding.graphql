@@ -1,0 +1,11 @@
+type Location {
+  area: String
+  city: String
+  country: String
+  createdAt: DateTime!
+  id: ID!
+  lat: Float
+  lng: Float
+  street: String!
+  updatedAt: DateTime!
+}
