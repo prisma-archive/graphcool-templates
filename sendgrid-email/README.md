@@ -20,6 +20,8 @@ graphcool init --schema **missing schema**
     }) {
       node {
         id
+        nameFirst
+        email
       }
     }
   }
@@ -47,8 +49,6 @@ mutation createContact {
 		email: "jane@janedoe.com"
 	) {
 		id
-		nameFirst
-		email
 	}
 }
 ```
