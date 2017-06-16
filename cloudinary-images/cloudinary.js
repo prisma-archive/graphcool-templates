@@ -7,7 +7,7 @@ module.exports = function (event) {
     api_secret: '___CLOUDINARY_SECRET___'
   })
   return new Promise(function(resolve, reject) {
-    // The `transformation` option performs an on-the-fly image transformation: crops an image to a 400x400 circular thumbnail while automatically focusing on the face, and then scales down the result to a width of 200 pixels
+    // The `transformation` option performs an on-the-fly image transformation: crops an image to a 200x200 circular thumbnail while automatically focusing on the face
     cloudinary.uploader.upload(event.data.UserAvatar.node.file.url, (result) => {
       console.log(result)
       resolve(result)
