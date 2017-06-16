@@ -1,0 +1,16 @@
+{
+  "presets": [
+    [
+      "es2015",
+      {
+        "modules": false
+      }
+    ],
+    "latest",
+    "stage-0"
+  ],
+  "plugins": [
+    "array-includes",
+    "transform-async-to-generator",
+  ]
+}

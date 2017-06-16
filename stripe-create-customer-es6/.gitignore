@@ -1,0 +1,15 @@
+.DS_Store
+.idea
+jest_*
+node_modules
+npm-debug.log
+dist
+test/coverage
+.eslintcache
+yarn-error.log
+jest
+/buildTools/graphql/schema.graphql
+/buildTools/graphql/updateSchema.js.transpiled
+/buildTools/graphql/schema.json
+/src/universal/data/raw.json
+.**sw*
