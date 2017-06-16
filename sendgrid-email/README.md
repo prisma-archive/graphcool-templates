@@ -4,9 +4,15 @@ Send an email via SendGrid with Graphcool Functions ⚡️
 
 ## Getting Started
 
-```sh
-npm -g install graphcool
-graphcool init --schema **missing schema**
+* Create the following schema:
+```type Contacts implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+  nameFirst: String!
+  email: String!
+  user: User @relation(name: "UserToContactsRelation")
+}
 ```
 
 ## Setup
