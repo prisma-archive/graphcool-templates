@@ -73,8 +73,10 @@ a good idea before using the function in your Graphcool project!
 npm t
 ```
 
-## Contributor
+## Contributions
 
-Thanks so much to @yusinto for this example! :tada:
+Thanks so much to @yusinto for contributing this example! :tada:
 
 > Copying pasting uglified code is pretty bad and annoying. I'll look into how we can improve this in the next iteration. Check out my blog [reactjunkie.com](http://www.reactjunkie.com) for this and more of Graphcool functions soon.
+
+![](http://i.imgur.com/5RHR6Ku.png)
