@@ -26,6 +26,9 @@ A big thank you to all contributors and supporters of this repository 💚
 <a href="https://github.com/heymartinadams/" target="_blank">
   <img src="https://github.com/heymartinadams.png?size=64" width="64" height="64" alt="heymartinadams">
 </a>
+<a href="https://github.com/pbassut/" target="_blank">
+  <img src="https://github.com/pbassut.png?size=64" width="64" height="64" alt="pbassut">
+</a>
 
 ## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
 
