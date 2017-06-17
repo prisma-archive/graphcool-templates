@@ -1,4 +1,4 @@
-# sendgrid-email
+# cloudinary-images
 
 Upload, automatically transform an image using Cloudinary with Graphcool Functions ⚡️
 
