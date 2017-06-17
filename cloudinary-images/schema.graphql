@@ -1,0 +1,13 @@
+type UserAvatar implements Node {
+  cloudinaryUrl: String @isUnique
+  createdAt: DateTime!
+  file: File @relation(name: "UserAvatarToFileRelation")
+  id: ID! @isUnique
+  imageUrl: String
+  updatedAt: DateTime!
+  user: User @relation(name: "UserAvatarToUserRelation")
+}
+
+type File {
+  id: ID!
+}
