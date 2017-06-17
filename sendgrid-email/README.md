@@ -4,15 +4,9 @@ Send an email via SendGrid with Graphcool Functions ⚡️
 
 ## Getting Started
 
-* Create the following schema:
-```type Contacts implements Node {
-  createdAt: DateTime!
-  id: ID! @isUnique
-  updatedAt: DateTime!
-  nameFirst: String!
-  email: String!
-  user: User @relation(name: "UserToContactsRelation")
-}
+```sh
+npm -g install graphcool
+graphcool init --schema sendgrid-email.graphql
 ```
 
 ## Setup
@@ -45,20 +39,26 @@ Go to the Graphcool Playground:
 graphcool playground
 ```
 
-Run this mutation to create a new post and trigger the Slack notification:
+Run this mutation to create a new contact and send the email:
 
 ```graphql
 mutation createContact {
-	createContacts(
-		nameFirst: "Jane",
-		nameLast: "Doe"
-		email: "jane@janedoe.com"
-	) {
-		id
-	}
+  createContacts(
+    nameFirst: "Jane",
+    nameLast: "Doe"
+    email: "jane@janedoe.com"
+  ) {
+    id
+  }
 }
 ```
 
 You should receive an email like this:
 
 ![](./email.jpg)
+
+## Contributions
+
+Thanks so much @heymartinadams for contributing this example!
+
+![](http://i.imgur.com/5RHR6Ku.png)

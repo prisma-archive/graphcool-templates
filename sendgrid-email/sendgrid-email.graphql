@@ -1,0 +1,8 @@
+type Contacts implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+  nameFirst: String!
+  email: String!
+  user: User @relation(name: "UserToContactsRelation")
+}
