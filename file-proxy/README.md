@@ -129,6 +129,8 @@ The response should look something like this:
 ```
 The two extra fields, `description` and `category`, are added to the response.
 
+Additional suggestions: instead of creating seperate fields for the metadata, you can also use a JSON field so you can specify metadata more dynamically. Also, if you just need the metadata upload functionality, you can remove the newUrl part, and use the 'regular' URL for downloading.
+
 ### extension-file-proxy
 
 This example adds minimal file extension support to the download endpoint. It could be further extended to perform additional checks.
