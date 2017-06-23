@@ -11,7 +11,7 @@ export default (ctx, cb) => {
   const project = ctx.secrets.PROJECT_ID
 
   // Because the File node is created before the MyFile node, we only look
-  // at suspects older than 5 minutes. For authencation, we use a PAT.
+  // at suspects older than 5 minutes. For authentication, we use a PAT.
   const dateThreshold = moment().subtract(5, 'minutes').toISOString();
 
   // Retrieve the list of files not uploaded through our own endpoint
