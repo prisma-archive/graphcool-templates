@@ -43,6 +43,7 @@ app.post('/:projectid', (req, res) => {
         // This triggers the Permission Queries defined for MyFile
         // Ideally, we want to do this *before* uploading the file,
         // but because we use streaming we cannot do this first.
+        // We store the unencrypted file size in MyFile, to use when downloading
         request.post(
           {
             url: `https://api.graph.cool/simple/v1/${req.params.projectid}`,
@@ -52,7 +53,7 @@ app.post('/:projectid', (req, res) => {
               mutation {
                 createMyFile (secret: "${result.secret}",
                               name: "${result.name}",
-                              size: ${result.size},
+                              size: ${part.byteCount},
                               contentType: "${result.contentType}" ,
                               url: "${result.url.replace('files.graph.cool', req.headers.host + '/' + webtaskName)}",
                               fileId: "${result.id}")
@@ -100,14 +101,14 @@ app.get('/:projectid/:filesecret', (req, res) => {
       url: `https://api.graph.cool/simple/v1/${req.params.projectid}`,
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        query: `query { MyFile(secret: "${req.params.filesecret}") { id file { url } } }`
+        query: `query { MyFile(secret: "${req.params.filesecret}") { id size file { url } } }`
       })
     },
     (err,resp,body) => {
-      const response = JSON.parse(body);
-      const newId = response.data.MyFile == null ? null : response.data.MyFile.id;
+      const myFileResponse = JSON.parse(body);
+      const newId = myFileResponse.data.MyFile == null ? null : myFileResponse.data.MyFile.id;
 
-      if (newId == null && response.errors[0].code == '3008')
+      if (newId == null && myFileResponse.errors[0].code == '3008')
       {
         // If the user is not allowed to create a MyFile node, we return '403 Forbidden'
         // The uploaded file will be cleaned up by our watcher
@@ -116,13 +117,13 @@ app.get('/:projectid/:filesecret', (req, res) => {
       }
 
       // The request to the actual file
-      var resource = request.get(response.data.MyFile.file.url);
+      var resource = request.get(myFileResponse.data.MyFile.file.url);
 
       // As soon as we get a response, we copy the headers
-      // Content-length is removed, because the decrypted file does not have the same length
+      // Content-length is overridden with the original, unencrypted file size we stored before
       resource.on('response', (response) => {
         res.set(response.headers);
-        res.removeHeader('content-length');
+        res.set('content-length', myFileResponse.data.MyFile.size)
       });
 
       // To reduce the memory footprint, we use streaming again

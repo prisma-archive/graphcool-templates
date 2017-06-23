@@ -90,7 +90,7 @@ wt create ./multiple-file-proxy.js --name multiple
 Now, try to upload more than one file at once to your endpoint:
 
 ```sh
-curl -X POST '<webtask endpoint url>/__PROJECT_ID__' -F "file1=@small-logo.png;filename=small.png;file2=@logo.png;filename=large.png"
+curl -X POST '<webtask endpoint url>/__PROJECT_ID__' -F "file1=@small-logo.png;filename=small.png" -F "file2=@logo.png;filename=large.png"
 ```
 
 The response will be an array of File objects, like this:
