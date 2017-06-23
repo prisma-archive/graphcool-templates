@@ -48,4 +48,8 @@ mutation testGoogleGeocoding {
 
 The response should be the full address and coordinates of Sherlock Holmes' home. 🤓
 
+## Contributions
+
+Thanks so much [@kuldarkalvik](https://github.com/kuldarkalvik) for contributing this example! :tada:
+
 ![](http://i.imgur.com/5RHR6Ku.png)
