@@ -54,6 +54,8 @@ graphcool init --schema ./auth-file-proxy.graphql
 
 This will create a new project with our new `MyFile` type.
 
+> Unfortunately, due to an issue in the Graphcool CLI, the `@isUnique` attributes on the `secret` and `url` field are ignored when the project is created. These attributes have to be added manually in the Console.
+
 For the file watcher cron webtask, we also need a Permanent Auth Token. Open the Console for your new project using the `graphcool console` command, and create a new PAT on the Authentication tab on the Project Settings page. You can pick any name for the PAT. See the [Graphcool documentation](https://www.graph.cool/docs/reference/auth/authentication-tokens-eip7ahqu5o/#token-types) for more information on creating Permanent Auth Tokens.
 
 ### Webtask endpoints
