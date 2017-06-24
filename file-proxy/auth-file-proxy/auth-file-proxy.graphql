@@ -1,0 +1,12 @@
+type File {
+  myFile: MyFile @relation(name: "FileConnection")
+}
+
+type MyFile {
+  file: File @relation(name: "FileConnection")
+  contentType: String
+  name: String
+  secret: String @isUnique
+  size: Int
+  url: String @isUnique
+}
