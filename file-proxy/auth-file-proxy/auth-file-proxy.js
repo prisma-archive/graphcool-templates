@@ -8,15 +8,18 @@ import formData from 'form-data';
 import request from 'request';
 import bearerToken from 'express-bearer-token';
 
-var app = express();
+const app = express();
 app.use(bearerToken());
 
 // The upload endpoint
 app.post('/:projectid', (req, res) => {
   const webtaskName = req.originalUrl.split('/')[1];
+  const projectId = req.params.projectId;
+  const graphCoolFileEndpoint = `https://api.graph.cool/file/v1/${projectId}`;
+  const graphCoolSimpleEndpoint = `https://api.graph.cool/simple/v1/${projectId}`;
 
   // We set up a new multiparty form to process our request later on
-  var form = new multiparty.Form();
+  const form = new multiparty.Form();
 
   // Multiparty generates a 'part' event for every file in the request
   // This implementation assumes a single file is posted
@@ -26,17 +29,17 @@ app.post('/:projectid', (req, res) => {
     const cipher = crypto.createCipher('aes256', req.webtaskContext.secrets.FILE_ENC_PASSWORD);
 
     // We construct a new form for posting to the actual Graphcool File API
-    var formdata = new formData();
+    const formdata = new formData();
     // To reduce memory footprint for large file uploads, we use streaming
     formdata.append("data", part.pipe(cipher), { filename: part.filename, contentType: part["content-type"] });
 
     // Post the constructed form to the Graphcool File API
-    request.post(`https://api.graph.cool/file/v1/${req.params.projectid}`,
+    request.post(graphCoolFileEndpoint,
       {
         headers: { "transfer-encoding": "chunked" },
         _form: formdata
       }, (err, resp, body) => {
-        var result = JSON.parse(body);
+        const result = JSON.parse(body);
 
         // The File API has created a File node.
         // We create a MyFile node, linked to this File node.
@@ -46,7 +49,7 @@ app.post('/:projectid', (req, res) => {
         // We store the unencrypted file size in MyFile, to use when downloading
         request.post(
           {
-            url: `https://api.graph.cool/simple/v1/${req.params.projectid}`,
+            url: graphCoolSimpleEndpoint,
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({
               query: `
@@ -91,14 +94,16 @@ app.post('/:projectid', (req, res) => {
 
 // The download endpoint
 app.get('/:projectid/:filesecret', (req, res) => {
-
+  const projectId = req.params.projectId;
+  const graphCoolFileEndpoint = `https://api.graph.cool/file/v1/${projectId}`;
+  const graphCoolSimpleEndpoint = `https://api.graph.cool/simple/v1/${projectId}`;
   // The decryption method, using the same secret password
   const decipher = crypto.createDecipher('aes256', req.webtaskContext.secrets.FILE_ENC_PASSWORD);
 
   // First, we read the MyFile node with the user authentication to get the original file URL
   request.post(
     {
-      url: `https://api.graph.cool/simple/v1/${req.params.projectid}`,
+      url: graphCoolSimpleEndpoint,
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
         query: `query { MyFile(secret: "${req.params.filesecret}") { id size file { url } } }`
@@ -117,7 +122,7 @@ app.get('/:projectid/:filesecret', (req, res) => {
       }
 
       // The request to the actual file
-      var resource = request.get(myFileResponse.data.MyFile.file.url);
+      const resource = request.get(myFileResponse.data.MyFile.file.url);
 
       // As soon as we get a response, we copy the headers
       // Content-length is overridden with the original, unencrypted file size we stored before

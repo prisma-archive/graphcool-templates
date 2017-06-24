@@ -7,11 +7,14 @@ import multiparty from 'multiparty';
 import formData from 'form-data';
 import request from 'request';
 
-var app = express();
+const app = express();
 
 // The upload endpoint
 app.post('/:projectid', (req, res) => {
   const webtaskName = req.originalUrl.split('/')[1];
+  const projectId = req.params.projectId;
+  const graphCoolFileEndpoint = `https://api.graph.cool/file/v1/${projectId}`;
+  const graphCoolSimpleEndpoint = `https://api.graph.cool/simple/v1/${projectId}`;
 
   // We set up a new multiparty form to process our request later on
   const form = new multiparty.Form({ autoFields: true });
@@ -32,7 +35,7 @@ app.post('/:projectid', (req, res) => {
     formdata.append("data", part, { filename: part.filename, contentType: part["content-type"] });
 
     // Post the constructed form to the Graphcool File API
-    request.post(`https://api.graph.cool/file/v1/${req.params.projectid}`,
+    request.post(graphCoolFileEndpoint,
       {
         headers: { "transfer-encoding": "chunked" },
         _form: formdata
@@ -45,7 +48,7 @@ app.post('/:projectid', (req, res) => {
         // Metadata fields are added to the mutation and the response
         request.post(
           {
-            url: `https://api.graph.cool/simple/v1/${req.params.projectid}`,
+            url: graphCoolSimpleEndpoint,
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({
               query: `
@@ -81,7 +84,7 @@ app.post('/:projectid', (req, res) => {
 app.get('/:projectid/:filesecret', (req, res) => {
 
   // The request to the actual file
-  var resource = request.get(`https://files.graph.cool/${req.params.projectid}/${req.params.filesecret}`);
+  const resource = request.get(`https://files.graph.cool/${req.params.projectid}/${req.params.filesecret}`);
 
   // As soon as we get a response, we copy the headers and status code
   resource.on('response', (response) => {

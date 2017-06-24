@@ -77,13 +77,13 @@ To use these endpoints with authentication, you need to pass an `Authorization: 
 For test purposes, you can copy the Permanent Auth Token you have create above, and call the endpoint:
 
 ```sh
-curl -X POST '<webtask endpoint url>/__PROJECT_ID__' -F "data=@small-logo.png;filename=small.png" -H "Authorization: Bearer ey...<token>"
+curl -X POST '<webtask endpoint url>/__PROJECT_ID__' -F 'data=@small-logo.png;filename=small.png' -H 'Authorization: Bearer ey...<token>'
 ```
 
 You can use the URL from the response to try downloading the file, using the same token:
 
 ```sh
-curl -X GET '<file url>' -H "Authorization: Bearer ey...<token>"
+curl -X GET '<file url>' -H 'Authorization: Bearer ey...<token>'
 ```
 
 ### Extension points

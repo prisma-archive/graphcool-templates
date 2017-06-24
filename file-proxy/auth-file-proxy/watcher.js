@@ -8,7 +8,8 @@ process.env.TZ = 'UTC';
 
 export default (ctx, cb) => {
   // Load the project id from the supplied secret
-  const project = ctx.secrets.PROJECT_ID
+  const project = ctx.secrets.PROJECT_ID;
+  const graphCoolSimpleEndpoint = `https://api.graph.cool/simple/v1/${project}`;
 
   // Because the File node is created before the MyFile node, we only look
   // at suspects older than 5 minutes. For authentication, we use a PAT.
@@ -17,7 +18,7 @@ export default (ctx, cb) => {
   // Retrieve the list of files not uploaded through our own endpoint
   // Those are the ones not linked to a MyFile object
   request.post({
-      url: `https://api.graph.cool/simple/v1/${project}`,
+      url: graphCoolSimpleEndpoint,
       method: 'post',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
@@ -34,7 +35,7 @@ export default (ctx, cb) => {
         // Next, we create one batch delete mutation for all found files
         // Again using our PAT for authentication
         request.post({
-            url: `https://api.graph.cool/simple/v1/${project}`,
+            url: graphCoolSimpleEndpoint,
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({
               query: `mutation {
