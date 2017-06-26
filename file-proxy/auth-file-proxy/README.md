@@ -63,7 +63,7 @@ For the file watcher cron webtask, we also need a Permanent Auth Token. Open the
 You can deploy the webtask for this example to webtask.io by running the following command:
 
 ```sh
-wt create ./auth-file-proxy.js --name auth-file-proxy
+wt create ./auth-file-proxy.js --name auth-file-proxy --secret FILE_ENC_PASSWORD=<password>
 ```
 
 After running this command, `wt-cli` will return the url of your webtask. Using the `-name` argument, you can specify a different name for the webtask (the last part of the url).
@@ -77,7 +77,7 @@ To use these endpoints with authentication, you need to pass an `Authorization: 
 For test purposes, you can copy the Permanent Auth Token you have create above, and call the endpoint:
 
 ```sh
-curl -X POST '<webtask endpoint url>/__PROJECT_ID__' -F 'data=@small-logo.png;filename=small.png' -H 'Authorization: Bearer ey...<token>'
+curl -X POST '<webtask endpoint url>/__GRAPHCOOL_PROJECT_ID__' -F 'data=@../small-logo.png;filename=small.png' -H 'Authorization: Bearer ey...<token>'
 ```
 
 You can use the URL from the response to try downloading the file, using the same token:
@@ -95,7 +95,7 @@ Because the `MyFile` Type is a normal user Type, you can use any extension point
 To setup the cron webtask that will monitor unauthorized file uploads, use the following commands:
 
 ```sh
- wt cron schedule --name watcher --secret PROJECT_ID=<project id> --secret PAT=<pat> "*/10 * * * *" ./watcher.js
+ wt cron schedule --name watcher --secret GRAPHCOOL_PROJECT_ID=<project id> --secret PAT=<pat> "*/10 * * * *" ./watcher.js
 ```
 
 Use the project id and permanent auth token from above. This schedules the watcher to run every 10 minutes. You can pick a different interval by changing the `*/10 * * * *` schedule. The website [crontab.guru](https://contrab.guru) offers an easy way to create your own schedule.

@@ -59,7 +59,7 @@ app.post('/:projectId', (req, res) => {
                               name: "${result.name}",
                               size: ${part.byteCount},
                               contentType: "${result.contentType}" ,
-                              url: "${result.url.replace('files.graph.cool', req.headers.host + '/' + webtaskName)}",
+                              url: "${result.url.replace('files.graph.cool', `${req.headers.host}/${webtaskName}`)}",
                               fileId: "${result.id}")
                 {
                   name
@@ -71,55 +71,50 @@ app.post('/:projectId', (req, res) => {
               }`
             })
           },
-          (err,resp,body) => {
+          (err, resp, body) => {
             const response = JSON.parse(body);
-            const newId = response.data.createMyFile == null ? null : response.data.createMyFile.id;
+            const newId = response.data && response.data.createMyFile ? response.data.createMyFile.id : null;
 
-            if (newId == null && response.errors[0].code == '3008')
-            {
+            if (!newId && response.errors[0].code == '3008') {
               // If the user is not allowed to create a MyFile node, we return '403 Forbidden'
               // The uploaded file will be cleaned up by our watcher
-              res.status(403).send();
+              res.status(403).send('Unauthorized');
             }
             else {
               // Return the response body to the client, just like the 'normal' File API.
               res.status(200).send(response.data.createMyFile);
             }
-          }).auth(null, null, true, req.token == undefined ? null : req.token);
+          }).auth(null, null, true, req.token ? req.token : null);
       });
-    });
+  });
 
   // Let multiparty parse the incoming request
   form.parse(req);
 });
 
 // The download endpoint
-app.get('/:projectid/:filesecret', (req, res) => {
-  const projectId = req.params.projectId;
-  const graphCoolFileEndpoint = `https://api.graph.cool/file/v1/${projectId}`;
-  const graphCoolSimpleEndpoint = `https://api.graph.cool/simple/v1/${projectId}`;
+app.get('/:projectId/:fileSecret', (req, res) => {
+
   // The decryption method, using the same secret password
   const decipher = crypto.createDecipher('aes256', req.webtaskContext.secrets.FILE_ENC_PASSWORD);
 
   // First, we read the MyFile node with the user authentication to get the original file URL
   request.post(
     {
-      url: graphCoolSimpleEndpoint,
-      headers: { 'content-type': 'application/json' },
+      url: `https://api.graph.cool/simple/v1/${req.params.projectId}`,
+      headers: {'content-type': 'application/json'},
       body: JSON.stringify({
-        query: `query { MyFile(secret: "${req.params.filesecret}") { id size file { url } } }`
+        query: `query { MyFile(secret: "${req.params.fileSecret}") { id size file { url } } }`
       })
     },
-    (err,resp,body) => {
+    (err, resp, body) => {
       const myFileResponse = JSON.parse(body);
-      const newId = myFileResponse.data.MyFile == null ? null : myFileResponse.data.MyFile.id;
+      const newId = myFileResponse.data && myFileResponse.data.MyFile ? myFileResponse.data.MyFile.id : null;
 
-      if (newId == null && myFileResponse.errors[0].code == '3008')
-      {
+      if (!newId && myFileResponse.errors[0].code == '3008') {
         // If the user is not allowed to create a MyFile node, we return '403 Forbidden'
         // The uploaded file will be cleaned up by our watcher
-        res.status(403).send();
-        return;
+        res.status(403).send('Unauthorized');
       }
 
       // The request to the actual file
@@ -135,9 +130,7 @@ app.get('/:projectid/:filesecret', (req, res) => {
       // To reduce the memory footprint, we use streaming again
       resource.pipe(decipher).pipe(res);
 
-    }).auth(null, null, true, req.token == undefined ? null : req.token);
-
-
+    }).auth(null, null, true, req.token ? req.token : null);
 });
 
 export default Webtask.fromExpress(app);

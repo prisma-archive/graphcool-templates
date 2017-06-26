@@ -51,7 +51,7 @@ app.post('/:projectId', (req, res) => {
 
         const variables = {
           id: result.id,
-          newUrl: result.url.replace('files.graph.cool', req.headers.host + '/' + webtaskName)
+          newUrl: result.url.replace('files.graph.cool', `${req.headers.host}/${webtaskName}`)
         };
 
         gqlrequest(graphCoolSimpleEndpoint, query, variables)

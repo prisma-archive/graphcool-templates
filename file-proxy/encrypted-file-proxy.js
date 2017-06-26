@@ -22,8 +22,7 @@ app.post('/:projectId', (req, res) => {
 
   // Multiparty generates a 'part' event for every file in the request
   // This implementation assumes a single file is posted
-  form.on('part', function(part) {
-
+  form.on('part', part => {
     // This is the encryption method. The password used for encryption is taken from a secrets
     // Warning: this is *NOT* production ready encryption, but a simplified example
     const cipher = crypto.createCipher('aes256', req.webtaskContext.secrets.FILE_ENC_PASSWORD);
@@ -36,7 +35,7 @@ app.post('/:projectId', (req, res) => {
     // Post the constructed form to the Graphcool File API
     request.post(graphCoolFileEndpoint,
       {
-        headers: { 'transfer-encoding': 'chunked' },
+        headers: {'transfer-encoding': 'chunked'},
         _form: formdata
       }, (err, resp, body) => {
         const result = JSON.parse(body);
@@ -52,26 +51,25 @@ app.post('/:projectId', (req, res) => {
 
         const variables = {
           id: result.id,
-          newUrl: result.url.replace('files.graph.cool', req.headers.host + '/' + webtaskName)
+          newUrl: result.url.replace('files.graph.cool', `${req.headers.host}/${webtaskName}`)
         };
 
-        gqlrequest(graphCoolSimpleEndpoint, query, variables)
+        gqlRequest(graphCoolSimpleEndpoint, query, variables)
           .then(data => res.status(200).send(data.updateFile));
       });
-    });
+  });
 
   // Let multiparty parse the incoming request
   form.parse(req);
 });
 
 // The download endpoint
-app.get('/:projectid/:fileid', (req, res) => {
-
+app.get('/:projectId/:fileId', (req, res) => {
   // The decryption method, using the same secret password
   const decipher = crypto.createDecipher('aes256', req.webtaskContext.secrets.FILE_ENC_PASSWORD);
 
   // The request to the actual file
-  const resource = request.get(`https://files.graph.cool/${req.params.projectid}/${req.params.fileid}`);
+  const resource = request.get(`https://files.graph.cool/${req.params.projectId}/${req.params.fileId}`);
 
   // As soon as we get a response, we copy the headers
   // Content-length is removed, because the decrypted file does not have the same length

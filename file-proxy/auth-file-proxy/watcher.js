@@ -8,7 +8,7 @@ process.env.TZ = 'UTC';
 
 export default (ctx, cb) => {
   // Load the project id from the supplied secret
-  const project = ctx.secrets.PROJECT_ID;
+  const project = ctx.secrets.GRAPHCOOL_PROJECT_ID;
   const graphCoolSimpleEndpoint = `https://api.graph.cool/simple/v1/${project}`;
 
   // Because the File node is created before the MyFile node, we only look

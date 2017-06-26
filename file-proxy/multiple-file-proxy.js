@@ -28,6 +28,7 @@ app.post('/:projectId', (req, res) => {
     count++;
     // We construct a new form for posting to the actual Graphcool File API
     const formdata = new formData();
+
     // To reduce memory footprint for large file uploads, we use streaming
     formdata.append("data", part, { filename: part.filename, contentType: part["content-type"] });
 
@@ -37,7 +38,9 @@ app.post('/:projectId', (req, res) => {
         headers: { "transfer-encoding": "chunked" },
         _form: formdata
       }, (err, resp, body) => {
+
         const result = JSON.parse(body);
+
 
         // The File API has created a File node. We need to update the URL to
         // point to our own endpoint. Unfortunately, we can't, so we use a new

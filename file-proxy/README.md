@@ -57,7 +57,7 @@ After running this command, `wt-cli` will return the url of your webtask. Using 
 Your webtask is now deployed! You can upload a file using any tool that support `multipart/form-data`, like Postman, or the command-line tool `curl`:
 
 ```sh
-curl -X POST '<webtask endpoint url>/__PROJECT_ID__' -F 'data=@small-logo.png;filename=small.png'
+curl -X POST '<webtask endpoint url>/__GRAPHCOOL_PROJECT_ID__' -F 'data=@small-logo.png;filename=small.png'
 ```
 
 This uploads the local file `small-logo.png` with the new name `small.png`. The response should look something like this:
@@ -66,7 +66,7 @@ This uploads the local file `small-logo.png` with the new name `small.png`. The 
 {
   "name": "small.png",
   "size": 123456,
-  "newUrl": "https://<webtask endpoint url>/__PROJECT_ID__/__SECRET__",
+  "newUrl": "https://<webtask endpoint url>/__GRAPHCOOL_PROJECT_ID__/__SECRET__",
   "id": "<omitted>",
   "contentType": "image/png"
 }
@@ -90,7 +90,7 @@ wt create ./multiple-file-proxy.js --name multiple
 Now, try to upload more than one file at once to your endpoint:
 
 ```sh
-curl -X POST '<webtask endpoint url>/__PROJECT_ID__' -F 'file1=@small-logo.png;filename=small.png' -F 'file2=@logo.png;filename=large.png'
+curl -X POST '<webtask endpoint url>/__GRAPHCOOL_PROJECT_ID__' -F 'file1=@small-logo.png;filename=small.png' -F 'file2=@logo.png;filename=large.png'
 ```
 
 The response will be an array of File objects, like this:
@@ -100,14 +100,14 @@ The response will be an array of File objects, like this:
   {
     "name": "small.png",
     "size": 123456,
-    "newUrl": "https://<webtask endpoint url>/__PROJECT_ID__/__SECRET__",
+    "newUrl": "https://<webtask endpoint url>/__GRAPHCOOL_PROJECT_ID__/__SECRET__",
     "id": "<omitted>",
     "contentType": "image/png"
   },
   {
     "name": "large.png",
     "size": 234567,
-    "newUrl": "https://<webtask endpoint url>/__PROJECT_ID__/__SECRET__",
+    "newUrl": "https://<webtask endpoint url>/__GRAPHCOOL_PROJECT_ID__/__SECRET__",
     "id": "<omitted>",
     "contentType": "image/png"
   }
@@ -135,7 +135,7 @@ wt create ./metadata-file-proxy.js --name metadata
 Now, let's see what happens if we specify the two extra metadata fields when uploading a file. Make sure to specify the metadata fields **first**. This is due to the file streaming implementation.
 
 ```sh
-curl -X POST '<webtask endpoint url>/__PROJECT_ID__' -F 'description=Example picture;category=examples;data=@small-logo.png;filename=small.png'
+curl -X POST '<webtask endpoint url>/__GRAPHCOOL_PROJECT_ID__' -F 'description=Example picture;category=examples;data=@small-logo.png;filename=small.png'
 ```
 
 The response should look something like this:
@@ -144,7 +144,7 @@ The response should look something like this:
 {
   "name": "small.png",
   "size": 123456,
-  "newUrl": "https://<webtask endpoint url>/__PROJECT_ID__/__SECRET__",
+  "newUrl": "https://<webtask endpoint url>/__GRAPHCOOL_PROJECT_ID__/__SECRET__",
   "id": "<omitted>",
   "contentType": "image/png",
   "description": "Example picture",
@@ -172,7 +172,7 @@ wt create ./extension-file-proxy.js --name extension
 Now upload a file like before:
 
 ```sh
-curl -X POST '<webtask endpoint url>/__PROJECT_ID__' -F 'data=@small-logo.png;filename=small.png'
+curl -X POST '<webtask endpoint url>/__GRAPHCOOL_PROJECT_ID__' -F 'data=@small-logo.png;filename=small.png'
 ```
 
 The `newUrl` field in the response now includes the file extension:
@@ -180,7 +180,7 @@ The `newUrl` field in the response now includes the file extension:
 ```json
 {
   ...
-  "newUrl": "https://<webtask endpoint url>/__PROJECT_ID__/__SECRET__.png",
+  "newUrl": "https://<webtask endpoint url>/__GRAPHCOOL_PROJECT_ID__/__SECRET__.png",
   ...
 }
 ```
