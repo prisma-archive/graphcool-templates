@@ -57,7 +57,7 @@ After running this command, `wt-cli` will return the url of your webtask. Using 
 Your webtask is now deployed! You can upload a file using any tool that support `multipart/form-data`, like Postman, or the command-line tool `curl`:
 
 ```sh
-curl -X POST "<webtask endpoint url>/__GRAPHCOOL_PROJECT_ID__" -F "data=@small-logo.png;filename=small.png"
+curl -X POST '<webtask endpoint url>/__GRAPHCOOL_PROJECT_ID__' -F 'data=@small-logo.png;filename=small.png'
 ```
 
 This uploads the local file `small-logo.png` with the new name `small.png`. The response should look something like this:
