@@ -51,4 +51,8 @@ query {
 }
 ```
 
+## Contributions
+
+Thanks so much [@yusinto](https://github.com/yusinto) for contributing this example! :tada:
+
 This should return the new customer with a valid Stripe customer id. That's it!

@@ -75,7 +75,7 @@ npm t
 
 ## Contributions
 
-Thanks so much to @yusinto for contributing this example! :tada:
+Thanks so much [@yusinto](https://github.com/yusinto) for contributing this example! :tada:
 
 > Copying pasting uglified code is pretty bad and annoying. I'll look into how we can improve this in the next iteration. Check out my blog [reactjunkie.com](http://www.reactjunkie.com) for this and more of Graphcool functions soon.
 

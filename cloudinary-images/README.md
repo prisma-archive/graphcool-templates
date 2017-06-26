@@ -40,6 +40,6 @@ graphcool init --schema cloudinary-images.graphql
 
 ## Contributions
 
-Thanks so much @heymartinadams for contributing this example!
+Thanks so much [@heymartinadams](https://github.com/heymartinadams) for contributing this example! :tada:
 
 ![](http://i.imgur.com/5RHR6Ku.png)
