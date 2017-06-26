@@ -8,7 +8,7 @@ process.env.TZ = 'UTC';
 
 export default (ctx, cb) => {
   // Load the project id from the supplied secret
-  const project = ctx.secrets.PROJECT_ID
+  const project = ctx.secrets.PROJECT_ID;
 
   // Because the File node is created before the MyFile node, we only look
   // at suspects older than 5 minutes. For authentication, we use a PAT.

@@ -1,4 +1,4 @@
-"use latest"
+'use latest'
 
 import Webtask from 'webtask-tools';
 import express from 'express';
@@ -12,7 +12,7 @@ var app = express();
 app.use(bearerToken());
 
 // The upload endpoint
-app.post('/:projectid', (req, res) => {
+app.post('/:projectId', (req, res) => {
   const webtaskName = req.originalUrl.split('/')[1];
 
   // We set up a new multiparty form to process our request later on
@@ -20,7 +20,7 @@ app.post('/:projectid', (req, res) => {
 
   // Multiparty generates a 'part' event for every file in the request
   // This implementation assumes a single file is posted
-  form.on('part', function(part) {
+  form.on('part', part => {
     // This is the encryption method. The password used for encryption is taken from a secrets
     // Warning: this is *NOT* production ready encryption, but a simplified example
     const cipher = crypto.createCipher('aes256', req.webtaskContext.secrets.FILE_ENC_PASSWORD);
@@ -28,12 +28,12 @@ app.post('/:projectid', (req, res) => {
     // We construct a new form for posting to the actual Graphcool File API
     var formdata = new formData();
     // To reduce memory footprint for large file uploads, we use streaming
-    formdata.append("data", part.pipe(cipher), { filename: part.filename, contentType: part["content-type"] });
+    formdata.append('data', part.pipe(cipher), {filename: part.filename, contentType: part['content-type']});
 
     // Post the constructed form to the Graphcool File API
-    request.post(`https://api.graph.cool/file/v1/${req.params.projectid}`,
+    request.post(`https://api.graph.cool/file/v1/${req.params.projectId}`,
       {
-        headers: { "transfer-encoding": "chunked" },
+        headers: {'transfer-encoding': 'chunked'},
         _form: formdata
       }, (err, resp, body) => {
         var result = JSON.parse(body);
@@ -46,8 +46,8 @@ app.post('/:projectid', (req, res) => {
         // We store the unencrypted file size in MyFile, to use when downloading
         request.post(
           {
-            url: `https://api.graph.cool/simple/v1/${req.params.projectid}`,
-            headers: { 'content-type': 'application/json' },
+            url: `https://api.graph.cool/simple/v1/${req.params.projectId}`,
+            headers: {'content-type': 'application/json'},
             body: JSON.stringify({
               query: `
               mutation {
@@ -55,7 +55,7 @@ app.post('/:projectid', (req, res) => {
                               name: "${result.name}",
                               size: ${part.byteCount},
                               contentType: "${result.contentType}" ,
-                              url: "${result.url.replace('files.graph.cool', req.headers.host + '/' + webtaskName)}",
+                              url: "${result.url.replace('files.graph.cool', `${req.headers.host}/${webtaskName}`)}",
                               fileId: "${result.id}")
                 {
                   name
@@ -67,30 +67,29 @@ app.post('/:projectid', (req, res) => {
               }`
             })
           },
-          (err,resp,body) => {
+          (err, resp, body) => {
             const response = JSON.parse(body);
-            const newId = response.data.createMyFile == null ? null : response.data.createMyFile.id;
+            const newId = response.data && response.data.createMyFile ? response.data.createMyFile.id : null;
 
-            if (newId == null && response.errors[0].code == '3008')
-            {
+            if (!newId && response.errors[0].code == '3008') {
               // If the user is not allowed to create a MyFile node, we return '403 Forbidden'
               // The uploaded file will be cleaned up by our watcher
-              res.status(403).send();
+              res.status(403).send('Unauthorized');
             }
             else {
               // Return the response body to the client, just like the 'normal' File API.
               res.status(200).send(response.data.createMyFile);
             }
-          }).auth(null, null, true, req.token == undefined ? null : req.token);
+          }).auth(null, null, true, req.token ? req.token : null);
       });
-    });
+  });
 
   // Let multiparty parse the incoming request
   form.parse(req);
 });
 
 // The download endpoint
-app.get('/:projectid/:filesecret', (req, res) => {
+app.get('/:projectId/:fileSecret', (req, res) => {
 
   // The decryption method, using the same secret password
   const decipher = crypto.createDecipher('aes256', req.webtaskContext.secrets.FILE_ENC_PASSWORD);
@@ -98,26 +97,24 @@ app.get('/:projectid/:filesecret', (req, res) => {
   // First, we read the MyFile node with the user authentication to get the original file URL
   request.post(
     {
-      url: `https://api.graph.cool/simple/v1/${req.params.projectid}`,
-      headers: { 'content-type': 'application/json' },
+      url: `https://api.graph.cool/simple/v1/${req.params.projectId}`,
+      headers: {'content-type': 'application/json'},
       body: JSON.stringify({
-        query: `query { MyFile(secret: "${req.params.filesecret}") { id size file { url } } }`
+        query: `query { MyFile(secret: "${req.params.fileSecret}") { id size file { url } } }`
       })
     },
-    (err,resp,body) => {
+    (err, resp, body) => {
       const myFileResponse = JSON.parse(body);
-      const newId = myFileResponse.data.MyFile == null ? null : myFileResponse.data.MyFile.id;
+      const newId = myFileResponse.data && myFileResponse.data.MyFile ? myFileResponse.data.MyFile.id : null;
 
-      if (newId == null && myFileResponse.errors[0].code == '3008')
-      {
+      if (!newId && myFileResponse.errors[0].code == '3008') {
         // If the user is not allowed to create a MyFile node, we return '403 Forbidden'
         // The uploaded file will be cleaned up by our watcher
-        res.status(403).send();
-        return;
+        res.status(403).send('Unauthorized');
       }
 
       // The request to the actual file
-      var resource = request.get(myFileResponse.data.MyFile.file.url);
+      const resource = request.get(myFileResponse.data.MyFile.file.url);
 
       // As soon as we get a response, we copy the headers
       // Content-length is overridden with the original, unencrypted file size we stored before
@@ -129,9 +126,7 @@ app.get('/:projectid/:filesecret', (req, res) => {
       // To reduce the memory footprint, we use streaming again
       resource.pipe(decipher).pipe(res);
 
-    }).auth(null, null, true, req.token == undefined ? null : req.token);
-
-
+    }).auth(null, null, true, req.token ? req.token : null);
 });
 
 export default Webtask.fromExpress(app);
