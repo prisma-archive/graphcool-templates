@@ -1,4 +1,4 @@
-"use latest"
+'use latest';
 
 import Webtask from 'webtask-tools';
 import express from 'express';
@@ -31,12 +31,12 @@ app.post('/:projectId', (req, res) => {
     // We construct a new form for posting to the actual Graphcool File API
     const formdata = new formData();
     // To reduce memory footprint for large file uploads, we use streaming
-    formdata.append("data", part.pipe(cipher), { filename: part.filename, contentType: part["content-type"] });
+    formdata.append('data', part.pipe(cipher), { filename: part.filename, contentType: part['content-type'] });
 
     // Post the constructed form to the Graphcool File API
     request.post(graphCoolFileEndpoint,
       {
-        headers: { "transfer-encoding": "chunked" },
+        headers: { 'transfer-encoding': 'chunked' },
         _form: formdata
       }, (err, resp, body) => {
         const result = JSON.parse(body);

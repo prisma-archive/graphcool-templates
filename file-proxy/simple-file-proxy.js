@@ -1,4 +1,4 @@
-"use latest"
+'use latest';
 
 import Webtask from 'webtask-tools';
 import express from 'express';
