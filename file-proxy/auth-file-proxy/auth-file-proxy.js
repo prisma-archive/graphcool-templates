@@ -7,12 +7,13 @@ import multiparty from 'multiparty';
 import formData from 'form-data';
 import request from 'request';
 import bearerToken from 'express-bearer-token';
+import { request as gqlrequest } from 'graphql-request';
 
 const app = express();
 app.use(bearerToken());
 
 // The upload endpoint
-app.post('/:projectid', (req, res) => {
+app.post('/:projectId', (req, res) => {
   const webtaskName = req.originalUrl.split('/')[1];
   const projectId = req.params.projectId;
   const graphCoolFileEndpoint = `https://api.graph.cool/file/v1/${projectId}`;

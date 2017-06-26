@@ -6,11 +6,12 @@ import multiparty from 'multiparty';
 import formData from 'form-data';
 import request from 'request';
 import path from 'path';
+import { request as gqlrequest } from 'graphql-request';
 
 const app = express();
 
 // The upload endpoint
-app.post('/:projectid', (req, res) => {
+app.post('/:projectId', (req, res) => {
   const webtaskName = req.originalUrl.split('/')[1];
   const projectId = req.params.projectId;
   const graphCoolFileEndpoint = `https://api.graph.cool/file/v1/${projectId}`;
@@ -42,31 +43,19 @@ app.post('/:projectid', (req, res) => {
         // The File API has created a File node. We need to update the URL to
         // point to our own endpoint. Unfortunately, we can't, so we use a new
         // field on the File Type to store our URL.
-        request.post(
-          {
-            url: graphCoolSimpleEndpoint,
-            method: 'post',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({
-              query: `
-                mutation {
-                  updateFile (id: "${result.id}",
-                              newUrl: "${result.url.replace('files.graph.cool', req.headers.host + '/' + webtaskName)}${extension}")
-                  {
-                    name
-                    size
-                    newUrl
-                    id
-                    contentType
-                  }
-                }
-              `
-            })
-          },
-          (err,resp,body) => {
-            // Return the HTTP status code and body to the client, just like the 'normal' File API.
-            res.status(resp.statusCode).send(JSON.parse(body).data.updateFile);
-          });
+        const query = `
+          mutation updateFile($id: ID!, $newUrl: String!) {
+            updateFile (id: $id, newUrl: $newUrl)
+            { name size newUrl id contentType }
+          }`;
+
+        const variables = {
+          id: result.id,
+          newUrl: result.url.replace('files.graph.cool', req.headers.host + '/' + webtaskName)
+        };
+
+        gqlrequest(graphCoolSimpleEndpoint, query, variables)
+          .then(data => res.status(200).send(data.updateFile));
       });
     });
 

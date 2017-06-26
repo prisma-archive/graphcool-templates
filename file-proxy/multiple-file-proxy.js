@@ -5,11 +5,12 @@ import express from 'express';
 import multiparty from 'multiparty';
 import formData from 'form-data';
 import request from 'request';
+import { request as gqlrequest } from 'graphql-request';
 
 const app = express();
 
 // The upload endpoint
-app.post('/:projectid', (req, res) => {
+app.post('/:projectId', (req, res) => {
   const webtaskName = req.originalUrl.split('/')[1];
   const projectId = req.params.projectId;
   const graphCoolFileEndpoint = `https://api.graph.cool/file/v1/${projectId}`;
@@ -41,31 +42,19 @@ app.post('/:projectid', (req, res) => {
         // The File API has created a File node. We need to update the URL to
         // point to our own endpoint. Unfortunately, we can't, so we use a new
         // field on the File Type to store our URL.
-        request.post(
-          {
-            url: graphCoolSimpleEndpoint,
-            method: 'post',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({
-              query: `
-                mutation {
-                  updateFile (id: "${result.id}",
-                              newUrl: "${result.url.replace('files.graph.cool', req.headers.host + '/' + webtaskName)}")
-                  {
-                    name
-                    size
-                    newUrl
-                    id
-                    contentType
-                  }
-                }
-              `
-            })
-          },
-          (err,resp,body) => {
-            // Collect the response for the current file
-            fileUploadResponses.push(JSON.parse(body).data.updateFile);
-          });
+        const query = `
+          mutation updateFile($id: ID!, $newUrl: String!) {
+            updateFile (id: $id, newUrl: $newUrl)
+            { name size newUrl id contentType }
+          }`;
+
+        const variables = {
+          id: result.id,
+          newUrl: result.url.replace('files.graph.cool', req.headers.host + '/' + webtaskName)
+        };
+
+        gqlrequest(graphCoolSimpleEndpoint, query, variables)
+          .then(data => fileUploadResponses.push(data.updateFile));
       });
   });
 
