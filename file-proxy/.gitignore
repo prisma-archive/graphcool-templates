@@ -1,0 +1,4 @@
+*.lock
+node_modules
+*.graphcool
+package-lock.json
