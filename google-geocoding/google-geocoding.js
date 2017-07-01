@@ -38,7 +38,7 @@ module.exports = function (event) {
         error: {
           fullError: err,
           userError: 'Something unexpected happened when checking your address, please try again.'
-        })
+        }
       })
     })
 }
