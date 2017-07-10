@@ -5,7 +5,7 @@ module.exports = function (event) {
   const eventData = event.data
   const repoUrl = eventData.repoUrl
   const [owner, name] = repoUrl.replace('https://github.com/', '').split('/')
-  const githubApiToken = __GITHUB_API_TOKEN__
+  const githubApiToken = '__GITHUB_API_TOKEN__'
 
   const fetchRepoQuery = `
     query ($owner: String!, $name: String!) {
@@ -82,13 +82,13 @@ module.exports = function (event) {
   }
 
   const requestOptions = {
-  	method: 'POST',
+    method: 'POST',
     body: JSON.stringify(requestBody),
     headers: {
       Authorization: `bearer ${githubApiToken}`
     }
   }
-    
+
   return fetch('https://api.github.com/graphql', requestOptions)
     .then((response) => {
       if (response.ok) {

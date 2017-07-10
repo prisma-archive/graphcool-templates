@@ -1,6 +1,6 @@
 # github-fetch-repo
 
-Save Github Repo info with Graphcool Functions ⚡️
+Save Github Repo information with Graphcool Functions ⚡️
 
 ## Getting Started
 
@@ -11,9 +11,12 @@ graphcool init --schema github-repo.graphql
 
 ## Setup
 
-Create a new Request Pipeline function
+* Generate a new [GitHub API token](https://github.com/settings/tokens/new) with access to `repo`:
+  ![](./github-token.png)
 
-Paste the code from `github-fetch-repo.js` as an inline function at the Transform Argument step and replace `__GITHUB_API_TOKEN__` with your unique Github API Token.
+* Create a new Request Pipeline function
+
+  Paste the code from `github-fetch-repo.js` as an inline function at the `TRANSFORM_ARGUMENT` step when a `GithubRepo is created` and replace `__GITHUB_API_TOKEN__` with your unique Github API Token.
 
 ## Test the Code
 
@@ -26,7 +29,7 @@ graphcool playground
 Run this mutation to create a new Github Repository:
 
 ```graphql
-mutation($repoUrl: String!) {
+mutation {
   createGithubRepo(
     repoUrl: "https://github.com/facebook/react"
   ) {
