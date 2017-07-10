@@ -9,6 +9,13 @@ module.exports = function(event) {
     return fetch(
       `https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${googleToken}`)
       .then(response => response.json())
+      .then(parsedResponse => {
+        if (parsedResponse.error_description) {
+          return Promise.reject(parsedResponse.error_description)
+        } else {
+          return parsedResponse
+        }
+      })
   }
 
   function getGraphcoolUser(googleUser) {
