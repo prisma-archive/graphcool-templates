@@ -1,0 +1,20 @@
+type GithubRepo implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  name: String @isUnique
+  updatedAt: DateTime!
+  avatar: String
+  changelog: String
+  description: String
+  homepageUrl: String
+  issues: Int
+  lastCommit: Json
+  lastRelease: Json
+  license: String
+  owner: String
+  primaryLanguage: Json
+  pullRequests: Int
+  readme: String
+  repoUrl: String! @isUnique
+  stars: Int
+}
