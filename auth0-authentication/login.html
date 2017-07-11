@@ -1,0 +1,49 @@
+<html>
+
+<head>
+  <title>Graphcool Auth0 example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+
+</head>
+
+<body>
+  <script src="https://cdn.auth0.com/js/lock/10.17/lock.min.js"></script>
+  <script>
+    function getNonce() {
+      var x = 2147483648;
+      return Math.floor(Math.random() * x).toString(36) +
+        Math.abs(Math.floor(Math.random() * x) ^ new Date().getMilliseconds).toString(36);
+    };
+
+    // Flow will be redirected to /login-callback.html after successful login
+    var serverUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
+    var redirectUrl = serverUrl + '/login-callback.html';
+    var nonce = getNonce();
+
+    // provide your Auth0 client ID and domain 
+    const __AUTH0_CLIENT_ID__ = ''
+    const __AUTH0_DOMAIN__ = ''
+
+    var lock = new Auth0Lock(
+      __AUTH0_CLIENT_ID__,
+      __AUTH0_DOMAIN__,
+      {
+        allowedConnections: ["Username-Password-Authentication", "google-oauth2", "facebook"],
+        rememberLastLogin: false,
+        socialButtonStyle: "big",
+        languageDictionary: { "title": "Graphcool Examples" },
+        language: "en",
+        theme: { "logo": "assets/graphcool-logo.svg", "primaryColor": "#40DF7D" },
+
+        auth: {
+          redirectUrl,
+          responseType: 'token id_token',
+          scope: 'openid profile email',
+        }
+      });
+
+    lock.show();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+type User {
+  id: ID!
+
+  # Must be unique
+  # Make it required if Facebook is the only authorization method in your app
+  auth0UserId: String @isUnique
+  
+  name: String
+  
+  nickname: String
+  
+  picture: String
+}
