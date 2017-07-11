@@ -7,7 +7,7 @@ module.exports = function(event) {
 
   function getFacebookAccountData(facebookToken) {
     return fetch(
-      `https://graph.facebook.com/v2.8/me?fields=id%2Cemail&access_token=${facebookToken}`)
+      `https://graph.facebook.com/v2.9/me?fields=id%2Cemail&access_token=${facebookToken}`)
       .then(response => response.json())
       .then((parsedResponse) => {
       console.log(parsedResponse)
