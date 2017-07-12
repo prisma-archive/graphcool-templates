@@ -1,10 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
-const fetch = require('isomorphic-fetch');
 const jwksRsa = require('jwks-rsa');
 const jwt = require('express-jwt');
-const GraphcoolClient = require('./services/GraphcoolClient');
+const GraphcoolService = require('./services/GraphcoolService');
 
 const app = express();
 app.use(cors());
@@ -30,25 +29,24 @@ app.use((req, res, next) => {
 
 // endpoint authenticated with JWT
 app.post('/authenticate', (req, res) => {
-  const graphcoolClient = new GraphcoolClient(req);
-  const profileUrl = `https://${process.env.AUTH0_DOMAIN}/userinfo?access_token=${req.body.data.accessToken}`;
+  const graphcoolService = new GraphcoolService(req);
 
-  fetch(profileUrl)
-    .then(response => response.json())
-    .then(auth0User => {
-      return graphcoolClient.getGraphcoolUser(auth0User)
-      .then(graphcoolUser => {
-        if (graphcoolUser === null) {
-          return graphcoolClient.createGraphcoolUser(auth0User);
-        } else {
-          return graphcoolUser.id;
-        }
-      })      
-    })
-    .then(graphcoolUserId => graphcoolClient.generateGraphcoolToken(graphcoolUserId))
+  if (!req.user) {
+    return res.status(400).json("No user data in request");
+  }
+
+  if (!req.body.data.accessToken) {
+    return res.status(400).json("Missing Auth0 access token");
+  }
+
+  const userId = req.user.sub;
+  const auth0AccessToken = req.body.data.accessToken;
+
+  graphcoolService.getOrCreateGraphcoolUser(userId, auth0AccessToken)
+    .then(graphcoolUserId => graphcoolService.generateGraphcoolToken(graphcoolUserId))
     .then(token => res.json({ data: { token: token } }))
     .catch(err => {
-      console.log(err); 
+      console.log(err);
       return res.status(400).json('Error when fetching userinfo')
     });
 });
