@@ -51,16 +51,34 @@ cp env-dev.yml.template env-dev.yml
 yarn install
 sls deploy
 ```
+* Copy function URL from console and continue with setting up a Schema Extension in Graphcool Console
 
+### Variant 2: Setup the Authentication Function with Webtask.io
+
+> Note: Although this variant is much more easier (and probably less powerful) to set up when compared with AWS Lambda, 
+at the time when this example was prepared, `graphcool-lib` npm library has not been available in webtask.io yet.
+
+* Install and initialize [Webtask CLI](https://webtask.io/docs/wt-cli)
+```sh
+npm install wt-cli -g
+
+wt init your@email.com
+```
+* Switch to directory `functions/webtask`
+* Add your webtask secrets to file  `auth0-authentication-secrets` (you will need Auth0 domain and client ID)
+* Deploy prepared webtask script along with secrets file, information will be encrypted on server. 
+```sh
+wt create auth0-authentication.js --secrets-file auth0-authentication.js.secrets
+```
+* Copy webtask URL from console and continue with setting up a Schema Extension in Graphcool Console
+
+## Set up Schema Extension in Graphcool console
 * Create a new Schema Extension Function and paste the schema from `schema-extension.graphql` and paste the function URL to the input on Webhook tab
 
 ![](assets/new-schema-extension.gif)
 
 * Create a new Permanent Access Token (PAT) in project settings. There is no need to copy PAT to function's env file since Graphcool will send it with the webhook request automatically.
 * Remove all Create permissions for the `User` type. The function uses PAT to create users via the API so the permissions are not needed.
-
-### Variant 2: Setup the Authentication Function with Webtask.io
-> TBD
 
 ## Run the example
 
