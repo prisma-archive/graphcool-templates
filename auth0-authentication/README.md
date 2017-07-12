@@ -78,6 +78,8 @@ python -m http.server 8000
 
 Open `http://localhost:8000/login.html` in your browser and use the login button and authenticate with the Auth0 Lock Widget.
 
+![](assets/create-user.gif)
+
 ## Testing the Code
 
 ### Testing mutation in the Graphcool Playground
