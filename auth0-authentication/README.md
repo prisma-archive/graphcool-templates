@@ -53,6 +53,9 @@ sls deploy
 ```
 
 * Create a new Schema Extension Function and paste the schema from `schema-extension.graphql` and paste the function URL to the input on Webhook tab
+
+![](assets/new-schema-extension.gif)
+
 * Create a new Permanent Access Token (PAT) in project settings. There is no need to copy PAT to function's env file since Graphcool will send it with the webhook request automatically.
 * Remove all Create permissions for the `User` type. The function uses PAT to create users via the API so the permissions are not needed.
 
