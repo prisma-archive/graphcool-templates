@@ -24,14 +24,22 @@ graphcool init --schema auth0-authentication.graphql
 
 ## Setup Auth0
 
-* Create a new account in Auth0
+* Create a new Auth0 account or log-in to your existing account
+* Create a new Auth0 client with following settings
+  * Client Type - *Regular Web Application*
+  * Token Endpoint Authentication Method - *Post*
+  * Allowed Callback URLs - `http://localhost:8000/login-callback.html`
+  * In Advanced Settings Section - OAuth tab 
+    * JWT Signature Algorithm - *RS256*
+  * In Advanced Settings Section - Grant Types tab 
+    * JWT Signature Algorithm - *RS256*
 * In order to setup Auth0 Lock Widget replace `__AUTH0_CLIENT_ID__` and `__AUTH0_DOMAIN__` in `login.html`
 
 ## Setup the Authentication Function
 
 ### Variant 1: Setup the Authentication Function with AWS and Serverless
 
-* Install Serverless framework and setup AWS account (if you don't have one). You can follow instructions in Prerequisities section in Serverless [Quick Start Guilde](https://serverless.com/framework/docs/providers/aws/guide/quick-start#pre-requisites)
+* Install Serverless framework and setup AWS account (if you don't have one). You can follow instructions in Prerequisities section in Serverless [Quick Start Guide](https://serverless.com/framework/docs/providers/aws/guide/quick-start#pre-requisites)
 
 * Switch to the directory `functions/aws-lambda`
 
@@ -40,8 +48,9 @@ graphcool init --schema auth0-authentication.graphql
 cp env-dev.yml.template env-dev.yml
 ```
 
-* Deploy the authentication function
+* Build and deploy the authentication function
 ```sh
+yarn install
 sls deploy
 ```
 
@@ -52,12 +61,18 @@ sls deploy
 ### Variant 2: Setup the Authentication Function with Webtask.io
 > TBD
 
-To create a test Auth0 Token, run `login.html`, for example using Python's `SimpleHTTPServer`:
-
 ## Run the example
+
+To create a test Auth0 Token, run `login.html`, for example using Python's `SimpleHTTPServer`:
 
 ```sh
 python -m SimpleHTTPServer
+```
+
+or for Python 3
+
+```sh
+python -m http.server 8000
 ```
 
 Open `http://localhost:8000/login.html` in your browser and use the login button and authenticate with the Auth0 Lock Widget.

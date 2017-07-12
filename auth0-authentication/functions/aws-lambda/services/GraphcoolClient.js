@@ -22,16 +22,22 @@ GraphcoolClient.prototype.getGraphcoolUser = function (user) {
 }
 
 GraphcoolClient.prototype.createGraphcoolUser = function (user) {
+
+  const graphcoolUser = Object.assign({
+    family_name: '',
+    given_name: '',
+  }, user);
+
   return this.api.request(`
   mutation {
     createUser(
-      auth0UserId:"${user.user_id}"
-      name: "${user.name}"
-      familyName: "${user.family_name}"
-      givenName: "${user.given_name}"
-      picture: "${user.picture}"
-      email: "${user.email}"
-      emailVerified: "${user.email_verified}"
+      auth0UserId:"${graphcoolUser.user_id}"
+      name: "${graphcoolUser.name}"
+      familyName: "${graphcoolUser.family_name}"
+      givenName: "${graphcoolUser.given_name}"
+      picture: "${graphcoolUser.picture}"
+      email: "${graphcoolUser.email}"
+      emailVerified: ${graphcoolUser.email_verified}
     ){
       id
     }
