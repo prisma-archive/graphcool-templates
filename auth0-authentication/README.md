@@ -65,7 +65,7 @@ npm install wt-cli -g
 wt init your@email.com
 ```
 * Switch to directory `functions/webtask`
-* Add your webtask secrets to file  `auth0-authentication-secrets` (you will need Auth0 domain and client ID)
+* Add your webtask secrets to file  `auth0-authentication.js.secrets` (you will need Auth0 domain and client ID)
 * Deploy prepared webtask script along with secrets file, information will be encrypted on server. 
 ```sh
 wt create auth0-authentication.js --secrets-file auth0-authentication.js.secrets
