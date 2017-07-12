@@ -7,7 +7,14 @@ type User {
   
   name: String
   
-  nickname: String
+  email: String
+
+  emailVerified: Boolean
+
+  givenName: String
+
+  familyName: String
   
   picture: String
+
 }

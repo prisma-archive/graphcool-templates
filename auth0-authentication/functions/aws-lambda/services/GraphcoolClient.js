@@ -5,10 +5,10 @@ function GraphcoolClient(req) {
   this.api = this.graphcool.api('simple/v1');
 }
 
-GraphcoolClient.prototype.getGraphcoolUser = function(user) {
+GraphcoolClient.prototype.getGraphcoolUser = function (user) {
   return this.api.request(`
   query {
-    User(auth0UserId: "${user.id}"){
+    User(auth0UserId: "${user.user_id}"){
       id
     }
   }`)
@@ -21,24 +21,27 @@ GraphcoolClient.prototype.getGraphcoolUser = function(user) {
     })
 }
 
-GraphcoolClient.prototype.createGraphcoolUser = function(user) {
+GraphcoolClient.prototype.createGraphcoolUser = function (user) {
   return this.api.request(`
   mutation {
     createUser(
       auth0UserId:"${user.user_id}"
       name: "${user.name}"
-      nickname: "${user.nickname}"
+      familyName: "${user.family_name}"
+      givenName: "${user.given_name}"
       picture: "${user.picture}"
+      email: "${user.email}"
+      emailVerified: "${user.email_verified}"
     ){
       id
     }
   }`)
-  .then((userMutationResult) => {
-    return userMutationResult.createUser.id
-  })
+    .then((userMutationResult) => {
+      return userMutationResult.createUser.id
+    })
 }
 
-GraphcoolClient.prototype.generateGraphcoolToken = function(graphcoolUserId) {
+GraphcoolClient.prototype.generateGraphcoolToken = function (graphcoolUserId) {
   return this.graphcool.generateAuthToken(graphcoolUserId, 'User')
 }
 
