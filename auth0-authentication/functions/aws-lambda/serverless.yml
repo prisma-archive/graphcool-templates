@@ -12,9 +12,18 @@ provider:
   name: aws
   runtime: nodejs6.10
   memorySize: 128
+
+  # set AWS region according to your preference
+  region: eu-central-1 
+
+  # deployment stage
   stage: dev
-  profile: serverless
-  environment: ${file(env-${self:custom.stage}.yml)} # environment settings in env-*.yml files
+
+  # AWS credentials profile that will be used for deployment (see http://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html for more info)
+  profile: serverless 
+
+  # environment settings in env-*.yml files
+  environment: ${file(env-${self:custom.stage}.yml)} 
 
 plugins:
   - serverless-offline
