@@ -29,10 +29,8 @@ graphcool init --schema auth0-authentication.graphql
   * Client Type - *Regular Web Application*
   * Token Endpoint Authentication Method - *Post*
   * Allowed Callback URLs - `http://localhost:8000/login-callback.html`
-  * In Advanced Settings Section - OAuth tab 
-    * JWT Signature Algorithm - *RS256*
-  * In Advanced Settings Section - Grant Types tab 
-    * JWT Signature Algorithm - *RS256*
+  * In Advanced Settings Section - OAuth tab set JWT Signature Algorithm to value *RS256*
+  * In Advanced Settings Section - Grant Types tab leave only *Implicit* and *Password* grant types enabled
 * In order to setup Auth0 Lock Widget replace `__AUTH0_CLIENT_ID__` and `__AUTH0_DOMAIN__` in `login.html`
 
 ## Setup the Authentication Function
