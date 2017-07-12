@@ -14,7 +14,12 @@ app.use((req, res, next) => {
   const issuer = `https://${process.env.AUTH0_DOMAIN}/`;
 
   jwt({
-    secret: jwksRsa.expressJwtSecret({ jwksUri: `${issuer}.well-known/jwks.json` }),
+    secret: jwksRsa.expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      jwksUri: `${issuer}.well-known/jwks.json`
+    }),
     audience: process.env.AUTH0_CLIENT_ID,
     issuer: issuer,
     algorithms: ['RS256'],
