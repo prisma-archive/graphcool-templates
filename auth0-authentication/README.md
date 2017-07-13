@@ -1,13 +1,13 @@
 # auth0-authentication
 
-Create users and sign in with Schema Extensions and Graphcool Functions ⚡️. 
+Create Auth0 users and sign in with Schema Extensions and Graphcool Functions ⚡️
 
 > Note: Schema Extensions are currently only available in the Beta Program.
 
 ## Authentication flow in app
 
 1. The user authenticates with Auth0 Lock widget with selected authentication method
-2. The app receives `idToken` and `accessToken` from Auth0
+2. The app receives the `idToken` and `accessToken` from Auth0
 4. Your app calls the Graphcool mutation `authenticateAuth0User($idToken: String!, $accessToken: String!)`
 5. If no user exists yet that corresponds to the passed `idToken` and corresponding user profile, a new `User` node will be created
 6. In any case, the `authenticateAuth0User($idToken: String!, $accessToken: String!)` mutation returns a valid token for the user
@@ -15,23 +15,35 @@ Create users and sign in with Schema Extensions and Graphcool Functions ⚡️.
 
 ## Getting Started
 
-* Initiate a new Graphcool project with prepared schema file
+* Initiate a new Graphcool project with the prepared schema file
 ```sh
 npm -g install graphcool
 graphcool init --schema auth0-authentication.graphql
 ```
-* Replace `__PROJECT_ID__` in `login-callback.html` with ID of this new project
+* Replace `__PROJECT_ID__` in `login-callback.html` with ID of your new project
 
 ## Setup Auth0
 
-* Create a new Auth0 account or log-in to your existing account
-* Create a new Auth0 client with following settings
+* Create a new Auth0 account or log-in to your existing one
+* Create a new Auth0 client with the following settings
+
+  ![](./assets/new-client.png)
+
   * Client Type - *Regular Web Application*
   * Token Endpoint Authentication Method - *Post*
   * Allowed Callback URLs - `http://localhost:8000/login-callback.html`
+
+  ![](./assets/settings.png)
   * In Advanced Settings Section - OAuth tab set JWT Signature Algorithm to value *RS256*
+
+  ![](./assets/advanced-settings-oauth.png)
   * In Advanced Settings Section - Grant Types tab leave only *Implicit* and *Password* grant types enabled
-* In order to setup Auth0 Lock Widget replace `__AUTH0_CLIENT_ID__` and `__AUTH0_DOMAIN__` in `login.html`
+
+    ![](./assets/advanced-settings-grant.png)
+
+* In order to setup Auth0 Lock Widget replace `__DOMAIN__` and `__CLIENT_ID__` in `login.html` with the credentials from your client settings
+
+![](./assets/auth0-credentials.png)
 
 ## Setup the Authentication Function
 
@@ -41,7 +53,7 @@ graphcool init --schema auth0-authentication.graphql
 
 * Switch to the directory `functions/aws-lambda`
 
-* Create settings for `dev` stage by copying prepared template and configure required variables (you will need Auth0 domain and client ID)
+* Create the settings for the `dev` stage by copying prepared template and configuring the required variables (you will need to set the Auth0 domain and client ID from above)
 ```sh
 cp env-dev.yml.template env-dev.yml
 ```
@@ -51,34 +63,36 @@ cp env-dev.yml.template env-dev.yml
 yarn install
 sls deploy
 ```
-* Copy function URL from console and continue with setting up a Schema Extension in Graphcool Console
+* Copy the function URL from your console and continue with setting up a Schema Extension in Graphcool Console
 
 ### Variant 2: Setup the Authentication Function with Webtask.io
 
-> Note: Although this variant is much more easier (and probably less powerful) to set up when compared with AWS Lambda, 
-at the time when this example was prepared, `graphcool-lib` npm library has not been available in webtask.io yet.
+> Note: Although this variant is much easier to set up when compared with AWS Lambda (and probably less powerful),
+as of now, the `graphcool-lib` npm module is not available in webtask.io yet.
 
 * Install and initialize [Webtask CLI](https://webtask.io/docs/wt-cli)
-```sh
-npm install wt-cli -g
 
-wt init your@email.com
-```
+  ```sh
+  npm install wt-cli -g
+
+  wt init your@email.com
+  ```
 * Switch to directory `functions/webtask`
-* Add your webtask secrets to file  `auth0-authentication.js.secrets` (you will need Auth0 domain and client ID)
-* Deploy prepared webtask script along with secrets file, information will be encrypted on server. 
-```sh
-wt create auth0-authentication.js --secrets-file auth0-authentication.js.secrets
-```
+* Add your webtask secrets to file  `auth0-authentication.js.secrets` (you will need to set the Auth0 domain and client ID from above)
+* Deploy prepared webtask script along with secrets file, information will be encrypted on server.
+
+  ```sh
+  wt create auth0-authentication.js --secrets-file auth0-authentication.js.secrets
+  ```
 * Copy webtask URL from console and continue with setting up a Schema Extension in Graphcool Console
 
 ## Set up Schema Extension in Graphcool console
-* Create a new Schema Extension Function and paste the schema from `schema-extension.graphql` and paste the function URL to the input on Webhook tab
+* Create a new Schema Extension Function and paste the schema from `schema-extension.graphql`. Then set the function URL as the Webhook URL.
 
 ![](assets/new-schema-extension.gif)
 
-* Create a new Permanent Access Token (PAT) in project settings. There is no need to copy PAT to function's env file since Graphcool will send it with the webhook request automatically.
-* Remove all Create permissions for the `User` type. The function uses PAT to create users via the API so the permissions are not needed.
+* Create a new Permanent Access Token (PAT) in project settings. *It needs to have the same name as the function to make it available in the execution context of the function.*
+* Remove all Create permissions for the `User` type. The function uses the PAT to create users via the API so the permissions are not needed.
 
 ## Run the example
 
@@ -135,3 +149,6 @@ lt --port 3001
 ```
 * Call the mutation from Graphcool Playground or authenticate from `login.html`
 
+## Contributions
+
+Thanks so much [@petrvlcek](https://github.com/petrvlcek) for contributing this example! 🎉
