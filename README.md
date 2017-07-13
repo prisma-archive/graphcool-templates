@@ -38,6 +38,9 @@ A big thank you to all contributors and supporters of this repository 💚
 <a href="https://github.com/sorenbs/" target="_blank">
   <img src="https://github.com/sorenbs.png?size=64" width="64" height="64" alt="sorenbs">
 </a>
+<a href="https://github.com/petrvlcek/" target="_blank">
+  <img src="https://github.com/petrvlcek.png?size=64" width="64" height="64" alt="petrvlcek">
+</a>
 
 ## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
 
