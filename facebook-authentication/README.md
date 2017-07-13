@@ -1,6 +1,6 @@
 # facebook-authentication
 
-Create users and sign in with Schema Extensions and Graphcool Functions ⚡️
+Create Facebook users and sign in with Schema Extensions and Graphcool Functions ⚡️
 
 > Note: Schema Extensions are currently only available in the Beta Program.
 
@@ -24,7 +24,7 @@ graphcool init --schema facebook-authentication.graphql
 ## Setup the Authentication Function
 
 * Create a new Schema Extension Function and paste the schema from `schema-extension.graphql` and code from `facebook-authentication.js`.
-* add a PAT to the project called `facebook-authentication`. The token can be obtained from the Authentication tab in the project settings.
+* add a PAT to the project *called the same as your function*. The token can be obtained from the Authentication tab in the project settings.
 * Remove all Create permissions for the `User` type. The function uses a Permanent Access Token to create users via the API so the permissions are not needed.
 
 ## Facebook App Setup
