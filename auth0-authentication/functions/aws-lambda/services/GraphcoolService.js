@@ -10,7 +10,7 @@ GraphcoolService.prototype.getOrCreateGraphcoolUser = function (userId, auth0Acc
   return this.getGraphcoolUser(userId)
     .then(graphcoolUser => {
       if (graphcoolUser === null) {
-        return this.createGraphcoolUser(userId, auth0AccessToken);
+        return this.createGraphcoolUser(auth0AccessToken);
       } else {
         return graphcoolUser.id;
       }
@@ -20,7 +20,7 @@ GraphcoolService.prototype.getOrCreateGraphcoolUser = function (userId, auth0Acc
 GraphcoolService.prototype.getGraphcoolUser = function (userId) {
   return this.api.request(`
     query {
-      User(auth0UserId: "${userId}"){
+      User(auth0UserId: "${userId}") {
         id
       }
     }`)
@@ -33,7 +33,7 @@ GraphcoolService.prototype.getGraphcoolUser = function (userId) {
     })
 }
 
-GraphcoolService.prototype.createGraphcoolUser = function (userId, auth0AccessToken) {
+GraphcoolService.prototype.createGraphcoolUser = function (auth0AccessToken) {
 
   this.fetchAuth0UserProfile(auth0AccessToken)
     .then(auth0User => {
@@ -52,7 +52,7 @@ GraphcoolService.prototype.createGraphcoolUser = function (userId, auth0AccessTo
             picture: "${graphcoolUser.picture}"
             email: "${graphcoolUser.email}"
             emailVerified: ${graphcoolUser.email_verified}
-          ){
+          ) {
             id
           }
         }`)

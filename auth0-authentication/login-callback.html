@@ -14,7 +14,7 @@
     }
 
     // provide your own project ID here
-    const __PROJECT_ID__ = 'YOUR PROJECT ID HERE';
+    const PROJECT_ID = '__PROJECT_ID__';
 
     // get idToken and state from URL hash
     const idToken = getHashValue("id_token");
@@ -23,7 +23,7 @@
     console.log("idToken", idToken);
     console.log("accessToken", accessToken);
 
-    window.fetch('https://api.graph.cool/simple/v1/' + __PROJECT_ID__, {
+    window.fetch('https://api.graph.cool/simple/v1/' + PROJECT_ID, {
       method: 'post',
       headers: {
         'content-type': 'application/json'

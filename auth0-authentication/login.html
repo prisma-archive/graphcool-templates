@@ -20,13 +20,13 @@
     var redirectUrl = serverUrl + '/login-callback.html';
     var nonce = getNonce();
 
-    // provide your Auth0 client ID and domain 
-    const __AUTH0_CLIENT_ID__ = ''
-    const __AUTH0_DOMAIN__ = ''
+    // provide your Auth0 domain and client ID
+    const DOMAIN = '__DOMAIN__'
+    const CLIENT_ID = '__CLIENT_ID__'
 
     var lock = new Auth0Lock(
-      __AUTH0_CLIENT_ID__,
-      __AUTH0_DOMAIN__,
+      CLIENT_ID,
+      DOMAIN,
       {
         allowedConnections: ["Username-Password-Authentication", "google-oauth2", "facebook"],
         rememberLastLogin: false,
