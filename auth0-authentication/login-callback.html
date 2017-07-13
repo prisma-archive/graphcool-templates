@@ -1,0 +1,52 @@
+<html>
+
+<head>
+  <title>Graphcool Auth0 example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+
+</head>
+
+<body>
+  <script>
+    function getHashValue(key) {
+      var matches = location.hash.match(new RegExp(key + '=([^&]*)'));
+      return matches ? matches[1] : null;
+    }
+
+    // provide your own project ID here
+    const PROJECT_ID = '__PROJECT_ID__';
+
+    // get idToken and state from URL hash
+    const idToken = getHashValue("id_token");
+    const accessToken = getHashValue("access_token");
+
+    console.log("idToken", idToken);
+    console.log("accessToken", accessToken);
+
+    window.fetch('https://api.graph.cool/simple/v1/' + PROJECT_ID, {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        query: `
+          mutation authenticateAuth0User($idToken: String!, $accessToken: String!) {
+            authenticateAuth0User(idToken: $idToken, accessToken: $accessToken) {
+              token
+            }
+          }
+        `,
+        variables: {
+          idToken,
+          accessToken,
+        }
+      })
+    }).then(function (response) {
+      return response.json()
+    }).then(function (json) {
+      console.log(json);
+    })
+  </script>
+</body>
+
+</html>
