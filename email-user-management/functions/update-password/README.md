@@ -20,8 +20,7 @@ graphcool init --schema email-user-management.graphql
 3. If a user with the passed `email` is not found, an error is returned
 4. If a user is found, the password is tested. If the credentials are invalid, an error is returned.
 5. If a user with the passed `email` exists and the `password` matches, the user's `password` field is updated to the new password.
-6. The mutation returns a valid token for the user
-7. Your app stores the token and uses it in its `Authorization` header for all further requests to Graphcool
+6. The mutation returns the id of the updated user
 
 ## Setup the Password Update Function
 
@@ -43,9 +42,11 @@ Run this mutation to change a user's password:
 mutation {
   # replace __EMAIL__ , __OLD_PASSWORD__ , and __NEW_PASSWORD__!
   updateUserPassword(email: "__EMAIL__", oldPassword: "__OLD_PASSWORD__", newPassword: "__NEW_PASSWORD__") {
-    token
+    id
   }
 }
 ```
 
-If the email/newPassword combo are valid you should see that it updates the user's password field and returns a token. The returned token can be used to authenticate requests to your Graphcool API as that user.
+If the email/newPassword combo are valid you should see that it updates the user's password field and returns the user's id.
+
+

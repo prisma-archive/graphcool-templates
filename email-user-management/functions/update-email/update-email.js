@@ -41,10 +41,6 @@ module.exports = function(event) {
       })
   }
 
-  function generateGraphcoolToken(graphcoolUserId) {
-    return graphcool.generateAuthToken(graphcoolUserId, 'User')
-  }
-
   if (validator.isEmail(newEmail)) {
     return getGraphcoolUser(email)
       .then((graphcoolUser) => {
@@ -61,9 +57,8 @@ module.exports = function(event) {
             })
         }
       })
-      .then(generateGraphcoolToken)
-      .then((token) => {
-        return { data: { token: token } }
+      .then((id) => {
+        return { data: { id: id, email: newEmail } }
       })
       .catch((error) => {
         return { error: error.toString() }

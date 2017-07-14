@@ -1,5 +1,6 @@
 type EmailUpdatePayload {
-  token: String!
+  id: ID!
+  email: String!
 }
 
 extend type Mutation {

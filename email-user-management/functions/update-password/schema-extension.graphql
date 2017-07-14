@@ -1,5 +1,5 @@
 type PasswordUpdatePayload {
-  token: String!
+  id: ID!
 }
 
 extend type Mutation {

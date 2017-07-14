@@ -18,7 +18,7 @@ graphcool init --schema email-user-management.graphql
 1. Your app calls the Graphcool mutation `authenticateEmailUser(email: String!, password: String!)`
 2. If no user exists yet that corresponds to the passed `email`, or the `password` does not match, an error will be returned
 3. If a user with the passed `email` exists and the `password` matches, the mutation returns a valid token for the user
-5. Your app stores the token and uses it in its `Authorization` header for all further requests to Graphcool
+4. Your app stores the token and uses it in its `Authorization` header for all further requests to Graphcool
 
 ## Setup the Authentication Function
 
@@ -46,3 +46,5 @@ mutation {
 ```
 
 If the email/password combo are valid you should see that it returns a token. The returned token can be used to authenticate requests to your Graphcool API as that user.
+
+

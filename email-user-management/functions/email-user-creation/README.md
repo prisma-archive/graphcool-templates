@@ -18,8 +18,7 @@ graphcool init --schema email-user-management.graphql
 1. Your app calls the Graphcool mutation `createEmailUser(email: String!, password: String!)`
 2. If no user exists yet that corresponds to the passed `email`, a new `User` node will be created with the password (after being hashed)
 3. If a user with the passed `email` exists, a `User` node is not created and an error is returned
-4. If a user is created, then the `createEmailUser(email: String!, password: String!)` mutation returns a valid token for the user
-5. Your app stores the token and uses it in its `Authorization` header for all further requests to Graphcool
+4. If a user is created, then the `createEmailUser(email: String!, password: String!)` mutation returns the id for the new user
 
 ## Setup the Create User Function
 
@@ -41,9 +40,11 @@ Run this mutation to create a user:
 mutation {
   # replace __EMAIL__ and __PASSWORD__!
   createEmailUser(email: "__EMAIL__", password: "__PASSWORD__") {
-    token
+    id
   }
 }
 ```
 
-You should see that a new user has been created. The returned token can be used to authenticate requests to your Graphcool API as that user. Note that running the mutation again with the same email will return an error stating that the email is already in use.
+You should see that a new user has been created. The returned id can be used to query your Graphcool API for that user. Note that running the mutation again with the same email will return an error stating that the email is already in use.
+
+
