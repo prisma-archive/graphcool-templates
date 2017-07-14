@@ -1,0 +1,7 @@
+type CreateEmailUserPayload {
+  token: String!
+}
+
+extend type Mutation {
+  createEmailUser(email: String!, password: String!): CreateEmailUserPayload
+}
