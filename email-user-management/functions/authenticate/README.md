@@ -1,17 +1,6 @@
-# email-user-authentication
+# authenticate
 
-Authenticate users in your app using email and password, with Schema Extensions and Graphcool Functions ⚡️
-
-> Note: Schema Extensions are currently only available in the Beta Program.
-
-## Getting Started
-
-If you have not already done so, run the following to initialize the graphcool cli and your schema
-
-```sh
-npm -g install graphcool
-graphcool init --schema email-user-management.graphql
-```
+Authenticate users in your app using email and password and receive a token in return.
 
 ## Authentication flow in app
 
@@ -22,23 +11,22 @@ graphcool init --schema email-user-management.graphql
 
 ## Setup the Authentication Function
 
-* Create a new Schema Extension Function and paste the schema from `schema-extension.graphql` and code from `email-user-authentication.js`.
+* Create a new Schema Extension Function and paste the schema from `schema-extension.graphql` and code from `authenticate.js`.
 * add a PAT to the project *called the same as your function*. The token can be obtained from the Authentication tab in the project settings.
-* Remove Read permissions for the `User` email/password types. The function uses a Permanent Access Token to query users via the API so the permissions are not needed.
 
 ## Test the Code
 
-Go to the Graphcool Playground:
+First, you need to create a new user with the `signup` function. Then, go to the Graphcool Playground:
 
 ```sh
 graphcool playground
 ```
 
-Run this mutation to authenticate a user:
+and run this mutation to authenticate as that user:
 
 ```graphql
 mutation {
-  # replace __EMAIL__ and __PASSWORD__!
+  # replace __EMAIL__ and __PASSWORD__
   authenticateEmailUser(email: "__EMAIL__", password: "__PASSWORD__") {
     token
   }
@@ -46,5 +34,3 @@ mutation {
 ```
 
 If the email/password combo are valid you should see that it returns a token. The returned token can be used to authenticate requests to your Graphcool API as that user.
-
-
