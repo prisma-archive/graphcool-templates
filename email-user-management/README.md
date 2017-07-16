@@ -18,6 +18,12 @@ graphcool init --schema email-user-management.graphql
 3. Your app calls the Graphcool mutation `updateEmail(email: String!, password: String!, newEmail: String!)` to change a User's email
 4. Your app calls the Graphcool mutation `updatePassword(email: String!, password: String!, newPassword: String!)` to change a User's password
 
+## Notes
+
+The function in this example use a Permanent Authentication Token to fetch or create users via the API so the permissions are not needed. Therefore, it's recommended to **remove Create, Update and Read permissions** for the fields `email` and `password` on `User`. Those fields are controlled by the custom mutations that are added in this example.
+
+This also allows you to change the email or password fields using a PAT manually as an administrator. For manually updating password, note that the `password` field is hashed and salted using `bcrypt` and for authenticating or updating the user information, the current password is compared to that hashed and salted version.
+
 ## Test the Code
 
 First, follow the READMEs to setup all the functions in the functions folder. Then go to the Graphcool Playground:
@@ -30,8 +36,7 @@ and follow the instructions in the functions folder to test the code. It makes s
 
 ## Permission setup
 
-* Remove Create, Update and Read permissions for the fields `email` and `password` on `User`.
-* The function in this example use a Permanent Access Token to fetch or create users via the API so the permissions are not needed.
+
 
 ## Contributions
 
