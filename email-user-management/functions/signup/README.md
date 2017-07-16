@@ -28,7 +28,7 @@ Run this mutation to create a user:
 ```graphql
 mutation {
   # replace __EMAIL__ and __PASSWORD__
-  createEmailUser(email: "__EMAIL__", password: "__PASSWORD__") {
+  signupEmailUser(email: "__EMAIL__", password: "__PASSWORD__") {
     id
   }
 }
