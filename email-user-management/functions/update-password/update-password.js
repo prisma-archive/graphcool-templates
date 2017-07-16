@@ -1,11 +1,10 @@
 const fromEvent = require('graphcool-lib').fromEvent
 const bcrypt = require('bcrypt')
-const validator = require('validator')
 
 module.exports = function(event) {
   const email = event.data.email
-  const oldPass = event.data.oldPassword
-  const newPass = event.data.newPassword
+  const password = event.data.password
+  const newPassword = event.data.newPassword
   const graphcool = fromEvent(event)
   const api = graphcool.api('simple/v1')
   const saltRounds = 10
@@ -42,30 +41,26 @@ module.exports = function(event) {
       })
   }
 
-  if (validator.isEmail(email)) {
-    return getGraphcoolUser(email)
-      .then((graphcoolUser) => {
-        if (graphcoolUser === null) {
-          return Promise.reject("User does not exist")
-        } else {
-          return bcrypt.compare(oldPass, graphcoolUser.password)
-            .then((res) => {
-              if (res == true) {
-                return bcrypt.hash(newPass, saltRounds)
-                .then(hash => updateGraphcoolUser(graphcoolUser.id, hash))
-              } else {
-                return Promise.reject("Password does not match")
-              }
-            })
-        }
-      })
-      .then((id) => {
-        return { data: { id: id } }
-      })
-      .catch((error) => {
-        return { error: error.toString() }
-      })
-  } else {
-    return { error: "Not a valid email" }
-  }
+  return getGraphcoolUser(email)
+    .then((graphcoolUser) => {
+      if (graphcoolUser === null) {
+        return Promise.reject("Invalid Credentials")
+      } else {
+        return bcrypt.compare(password, graphcoolUser.password)
+          .then((res) => {
+            if (res == true) {
+              return bcrypt.hash(newPassword, saltRounds)
+              .then(hash => updateGraphcoolUser(graphcoolUser.id, hash))
+            } else {
+              return Promise.reject("Invalid Credentials")
+            }
+          })
+      }
+    })
+    .then((id) => {
+      return { data: { id } }
+    })
+    .catch((error) => {
+      return { error: error.toString() }
+    })
 }

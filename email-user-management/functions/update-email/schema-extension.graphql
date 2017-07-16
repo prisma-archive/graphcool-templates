@@ -1,8 +1,8 @@
-type EmailUpdatePayload {
+type UpdateEmailPayload {
   id: ID!
   email: String!
 }
 
 extend type Mutation {
-  updateUserEmail(email: String!, newEmail: String!, password: String!): EmailUpdatePayload
+  updateEmail(email: String!, password: String!, newEmail: String!): UpdateEmailPayload
 }

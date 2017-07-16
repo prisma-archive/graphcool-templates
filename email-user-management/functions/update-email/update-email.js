@@ -12,7 +12,7 @@ module.exports = function(event) {
   function getGraphcoolUser(email) {
     return api.request(`
     query {
-      User(email: "${email}"){
+      User(email: "${email}") {
         id
         password
       }
@@ -30,9 +30,9 @@ module.exports = function(event) {
     return api.request(`
       mutation {
         updateUser(
-          id:"${id}",
-          email:"${newEmail}"
-        ){
+          id: "${id}",
+          email: "${newEmail}"
+        ) {
           id
         }
       }`)
@@ -45,20 +45,20 @@ module.exports = function(event) {
     return getGraphcoolUser(email)
       .then((graphcoolUser) => {
         if (graphcoolUser === null) {
-          return Promise.reject("User does not exist")
+          return Promise.reject("Invalid Credentials")
         } else {
           return bcrypt.compare(password, graphcoolUser.password)
             .then((res) => {
               if (res == true) {
                 return updateGraphcoolUser(graphcoolUser.id, newEmail)
               } else {
-                return Promise.reject("Password does not match")
+                return Promise.reject("Invalid Credentials")
               }
             })
         }
       })
       .then((id) => {
-        return { data: { id: id, email: newEmail } }
+        return { data: { id, email: newEmail } }
       })
       .catch((error) => {
         return { error: error.toString() }
