@@ -1,0 +1,10 @@
+query ($user_id: ID!, $input_gameId: ID!, $input_position: Int!) {
+  SomeGameExists(filter: {
+    AND: [
+      { gameState: { turn: User, status: InProgress} }
+      { player: { id: $user_id} }
+      { id: $input_gameId }
+      { moves_none: { position: $input_position} }
+    ]
+  })
+}
