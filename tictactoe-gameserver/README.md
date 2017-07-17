@@ -2,7 +2,7 @@
 
 In this example, I have created a gameserver for the popular game Tic Tac Toe, completely in Graphcool. The example does not come with a client, because it will be used in another example, where I will build a Unity3D game frontend for it. However, you can play the game in the Graphcool Playground, because it does not need any client-side logic!
 
-Tags for this example `Permissions`, `RP hook functions`, `graphql-request`.
+Tags for this example `Permissions`, `RP hook functions`, `Server Side Subscriptions`, `graphql-request`.
 
 ## About the game design
 
@@ -62,7 +62,7 @@ Create a Permanent Authentication Token on the 'Authentication' tab of the 'Proj
 Enable 'Anonymous Authentication' on the `User` Type from the Integrations tab in the Console.
 
 ### Permissions
-Next, set up the permissions. Start by deleting all existing Type and Relation permissions. Next, create the following permissions. The Query column points to the source file for the permission query.
+Next, set up the permissions. Start by deleting all existing Type and Relation permissions. Because all server-side API calls use a PAT, we only need to specify the permissions for the action the user can perform. Create the following permissions. The Query column points to the source file for the permission query.
 
 | Type/Relation | Permission | Fields | Auth? | Query |
 |---|---|---|:---:|---|
