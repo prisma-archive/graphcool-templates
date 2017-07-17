@@ -44,6 +44,8 @@ Add `http://localhost:8000` and `http://localhost:8000/login.html` to your valid
 
 ![](facebook-login-settings.png)
 
+### Create a Facebook Token
+
 To create a test Facebook Token, run `login.html`, for example using Python's `SimpleHTTPServer`:
 
 ```sh
