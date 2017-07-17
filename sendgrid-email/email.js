@@ -1,5 +1,5 @@
 module.exports = function (event) {
-  var helper = require('sendgrid@4.7.0').mail
+  var helper = require('sendgrid').mail
   var fromEmail = new helper.Email('me@myemail.com')
   var toEmail = new helper.Email(event.data.node.email)
   var subject = 'Sending with SendGrid is Fun'
