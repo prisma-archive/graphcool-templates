@@ -1,0 +1,67 @@
+type Game implements Node {
+  createdAt: DateTime!
+  gameState: GameState @relation(name: "GameStateOnGame")
+  id: ID! @isUnique
+  moves: [Move!]! @relation(name: "GameMove")
+  player: User! @relation(name: "GameOnUser")
+  updatedAt: DateTime!
+  level: Level!
+}
+
+type GameState implements Node {
+  board: [String!]! @defaultValue(value: "[\"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\"]")
+  createdAt: DateTime!
+  game: Game! @relation(name: "GameStateOnGame")
+  id: ID! @isUnique
+  playerSymbol: Symbol!
+  status: GameStatus! @defaultValue(value: InProgress)
+  turn: Player
+  updatedAt: DateTime!
+  winner: Winner
+}
+
+type Move implements Node {
+  createdAt: DateTime!
+  game: Game! @relation(name: "GameMove")
+  id: ID! @isUnique
+  player: Player! @defaultValue(value: User)
+  position: Int!
+  updatedAt: DateTime!
+}
+
+type User implements Node {
+  createdAt: DateTime!
+  games: [Game!]! @relation(name: "GameOnUser")
+  id: ID! @isUnique
+  #isVerified: Boolean! @defaultValue(value: false)
+  #secret: String @isUnique
+  updatedAt: DateTime!
+}
+
+enum GameStatus {
+  InProgress
+  Finished
+}
+
+enum Symbol {
+  X
+  O
+}
+
+enum Player {
+  User
+  Computer
+}
+
+enum Winner {
+  User
+  Computer
+  Draw
+}
+
+enum Level {
+  Noob
+  Beginner
+  Intermediate
+  Master
+}
