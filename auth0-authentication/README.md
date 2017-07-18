@@ -67,9 +67,6 @@ sls deploy
 
 ### Variant 2: Setup the Authentication Function with Webtask.io
 
-> Note: Although this variant is much easier to set up when compared with AWS Lambda (and probably less powerful),
-as of now, the `graphcool-lib` npm module is not available in webtask.io yet.
-
 * Install and initialize [Webtask CLI](https://webtask.io/docs/wt-cli)
 
   ```sh
@@ -84,7 +81,19 @@ as of now, the `graphcool-lib` npm module is not available in webtask.io yet.
   ```sh
   wt create auth0-authentication.js --secrets-file auth0-authentication.js.secrets
   ```
-* Copy webtask URL from console and continue with setting up a Schema Extension in Graphcool Console
+* Because the `package.json` in this folder specifies `graphcool-lib` as dependency, and this dependency is not available by default on Webtask.io, you will see the following output:
+  ```sh
+  * Hint: A package.json file has been detected adjacent to your webtask. Ensuring that all dependencies from that file are avialable on the platform. This may take a few minutes for new versions of modules so please be patient.
+  * Hint: If you would like to opt-out from this behaviour, pass in the --ignore-package-json flag.
+  Resolving 1 module...
+  Provisioning 1 module...
+  graphcool-lib@0.0.3 is available
+  Webtask created
+
+  You can access your webtask at the following url:
+
+  https://__YOUR_WEBTASK_URL__```
+* Copy the webtask URL from console and continue with setting up a Schema Extension in Graphcool Console
 
 ## Set up Schema Extension in Graphcool console
 * Create a new Schema Extension Function and paste the schema from `schema-extension.graphql`. Then set the function URL as the Webhook URL.
