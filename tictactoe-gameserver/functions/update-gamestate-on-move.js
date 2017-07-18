@@ -1,18 +1,13 @@
 'use latest'
 
-const { request, GraphQLClient }  = require('graphql-request')
+const { fromEvent } = require('graphcool-lib')
 
-// Set up connection to the API endpoint
-const PAT = '__PAT__'
+const pat = '__PAT__'
 const projectId = '__PROJECTID__'
-const endPointUrl = `https://api.graph.cool/simple/v1/${projectId}`
-const client = new GraphQLClient(endPointUrl, {
-  headers: {
-    Authorization: `Bearer ${PAT}`,
-  },
-})
 
 module.exports = (event) => {
+  event.context = { graphcool: { pat, projectId } }
+  const api = fromEvent(event).api('simple/v1');
 
   // Query to get GameState
   const gameStateQuery = `query {
@@ -20,7 +15,7 @@ module.exports = (event) => {
 
   // Return a Promise to wait for the mutation to complete
   return new Promise((resolve,reject) => {
-	client.request(gameStateQuery)
+	api.request(gameStateQuery)
   	  .then(data => {
       	const { id, playerSymbol, board } = data.Game.gameState
 
@@ -48,7 +43,7 @@ module.exports = (event) => {
 				${winner ? `winner: ${winner}` : ''}
 				turn: ${turn}
 			) { id }}`
-        client.request(updateMutation)
+        api.request(updateMutation)
       		.then(data => resolve({ data: event.data }))
       		.catch(err => resolve({ error: err}))
     	})

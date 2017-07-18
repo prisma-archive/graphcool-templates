@@ -44,6 +44,10 @@ The server implementation uses the following logic:
 
 - A Server Side Subscription is used for the computer player. It keeps an eye on all `GameState` nodes that have their `turn` field set to `Computer`. The function determines the position for the next move, and fires a `createMove` mutation.
 
+### Using `graphcool-lib`
+
+The functions use `graphcool-lib` to communicate with the API endpoint. `graphcool-lib` is a convenience wrapper around `graphql-request`. The `fromEvent()` method is used to create the client, because that closely mimics the setup used for schema extensions.
+
 ## Setting up the project
 
 ### Schema
