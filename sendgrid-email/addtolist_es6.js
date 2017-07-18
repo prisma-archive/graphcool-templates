@@ -4,8 +4,8 @@ module.exports = (event) => {
 
   return new Promise((resolve, reject) => {
     var request = sg.emptyRequest()
-    const { email, first_name: nameFirst, last_name: nameLast } = event.data.User.node
-    request.body = [{email, first_name, last_name }];
+    const { email, nameFirst, nameLast } = event.data.User.node
+    request.body = [{email, first_name: nameFirst, last_name: nameLast }];
     request.method = "POST"
     request.path = "/v3/contactdb/recipients"
 
