@@ -1,28 +1,19 @@
 'use latest'
 module.exports = (event) => {
-  var sg = require("sendgrid")(___SENDGRID_API_KEY___)
+  let sg = require("sendgrid")(___SENDGRID_API_KEY___)
 
   return new Promise((resolve, reject) => {
-    var request = sg.emptyRequest()
-    const { email, nameFirst, nameLast } = event.data.User.node
-    request.body = [{email, first_name: nameFirst, last_name: nameLast }];
+    let request = sg.emptyRequest()
+    const { email, firstName, lastName, isPaid } = event.data.User.node
+    request.body = [{ email, first_name: firstName, last_name: lastName, LPA_paid: isPaid, SOURCE: "LPA" }]
     request.method = "POST"
     request.path = "/v3/contactdb/recipients"
 
-    callAPI(request).then(response => {
-      var request = sg.emptyRequest()
+    sg.API(request, (error, response) => {
+      let request = sg.emptyRequest()
       request.method = 'POST'
       request.path = '/v3/contactdb/lists/___SENDGRID_LIST_ID___/recipients/' + response.body.persisted_recipients[0]
-
-      callAPI(request)
-        .then(response => resolve(response))
-        .catch(error => reject(error))
+      sg.API(request, (error, response) => (error ? reject(error) : resolve(response)))
     })
-  })
-}
-
-function callAPI(request) {
-  return new Promise((resolve, reject) => {
-    sg.API(request, (error, response) => (error ? reject(error) : resolve(response)))
   })
 }
