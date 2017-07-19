@@ -93,7 +93,8 @@ sls deploy
   You can access your webtask at the following url:
 
   https://__YOUR_WEBTASK_URL__```
-* Copy the webtask URL from console and continue with setting up a Schema Extension in Graphcool Console
+* Note the webtask URL from the console. The webtask uses an embedded express server, that listens at the `/authenticate` path, so  use `https://__YOUR_WEBTASK_URL__/authenticate` as Webhook URL in the next step.
+* Continue with setting up a Schema Extension in Graphcool Console
 
 ## Set up Schema Extension in Graphcool console
 * Create a new Schema Extension Function and paste the schema from `schema-extension.graphql`. Then set the function URL as the Webhook URL.
