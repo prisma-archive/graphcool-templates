@@ -67,9 +67,6 @@ sls deploy
 
 ### Variant 2: Setup the Authentication Function with Webtask.io
 
-> Note: Although this variant is much easier to set up when compared with AWS Lambda (and probably less powerful),
-as of now, the `graphcool-lib` npm module is not available in webtask.io yet.
-
 * Install and initialize [Webtask CLI](https://webtask.io/docs/wt-cli)
 
   ```sh
@@ -82,7 +79,7 @@ as of now, the `graphcool-lib` npm module is not available in webtask.io yet.
 * Deploy prepared webtask script along with secrets file, information will be encrypted on server.
 
   ```sh
-  wt create auth0-authentication.js --secrets-file auth0-authentication.js.secrets
+  wt create auth0-authentication.js --secrets-file auth0-authentication.js.secrets --dependency graphcool-lib@latest
   ```
 * Copy webtask URL from console and continue with setting up a Schema Extension in Graphcool Console
 
