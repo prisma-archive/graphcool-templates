@@ -81,7 +81,7 @@ sls deploy
   ```sh
   wt create auth0-authentication.js --secrets-file auth0-authentication.js.secrets
   ```
-* Because the `package.json` in this folder specifies `graphcool-lib` as dependency, and this dependency is not available by default on Webtask.io, you will see the following output:
+* The script depends on an external module, `graphcool-lib`. To make this dependency available to the Webtask, `wt-cli` will look for a `package.json` in the folder, and automatically adds all dependencies from it to your Webtask container. For more information, see the Webtask documentation on [modules]( https://webtask.io/docs/modules). You will see the following output:
   ```sh
   * Hint: A package.json file has been detected adjacent to your webtask. Ensuring that all dependencies from that file are avialable on the platform. This may take a few minutes for new versions of modules so please be patient.
   * Hint: If you would like to opt-out from this behaviour, pass in the --ignore-package-json flag.
