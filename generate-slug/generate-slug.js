@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function (event) {
-  let title = event.data.title
-  const slug = title
+  let name = event.data.name
+  const slug = name
     .toString()
     .toLowerCase()
     .trim()
