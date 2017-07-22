@@ -9,24 +9,28 @@ Tags for this example `Permissions`, `RP hook functions`, `Server Side Subscript
 For this game, our server needs the following functionalities:
 
 #### Game server features
+
 - A user can register with a player name
 - A user can create a new game
 
 #### Gameplay features
+
 - Determine who will start the game
-- Determine who's turn it is
+- Determine whose turn it is
 - Determine the winning state
 - A user can make a move
 - The computer can make a move
 
 #### Game rules
-- A user can only make a move in his/her own game
+
+- A user can only make a move in her own game
 - A user can only make a move if the game is still in progress
-- A user can only make a move if it's his/her turn
+- A user can only make a move if it's her turn
 - A user can only make a move if the position on the board is free
 
 #### Game AI
-- Computer needs to determine it's next move. Because the AI part is really not important in this example, it is not implemented, and the computer plays random moves. For anyone interested, google `tictactoe minimax` to see how it can be improved
+
+- Computer needs to determine its next move. Because the AI part is really not important in this example, it is not implemented, and the computer plays random moves. For anyone interested, google `tictactoe minimax` to see how it can be improved
 
 ## Implementation overview
 
@@ -35,7 +39,7 @@ A user can perform three actions:
 
 - **Create game**. Creating a game requires two parameters: the `userId` and the `level` of the game. The level is not implemented, but could be used to set the difficulty level of the AI.
 
-- **Make a move**. To make a move, we need: the `gameId` and the `position` on the board for the new move. The game rules are implemented using a permission query on the `Move` Type.
+- **Make a move**. To make a move, we need the `gameId` and the `position` on the board for the new move. The game rules are implemented using a permission query on the `Move` Type.
 
 The server implementation uses the following logic:
 - Whenever a game is created, a `GameState` node is created for that game to keep track of the progress. This is done in a Request Pipeline function.
@@ -46,11 +50,12 @@ The server implementation uses the following logic:
 
 ### Using `graphcool-lib`
 
-The functions use `graphcool-lib` to communicate with the API endpoint. `graphcool-lib` is a convenience wrapper around `graphql-request`. The `fromEvent()` method is used to create the client, because that closely mimics the setup used for schema extensions.
+The functions use [`graphcool-lib`](https://github.com/graphcool/graphcool-lib) to communicate with the API endpoint. `graphcool-lib` is a convenience wrapper around [`graphql-request`](https://github.com/graphcool/graphql-request). The `fromEvent()` method is used to create the client, similar to how it works in schema extensions.
 
 ## Setting up the project
 
 ### Schema
+
 Use the `graphcool-cli` to create a new Graphcool project, based on the schema, and open the Console:
 ```bash
 graphcool init --schema ./schema.graphql
@@ -66,6 +71,7 @@ Create a Permanent Authentication Token on the 'Authentication' tab of the 'Proj
 Enable 'Anonymous Authentication' on the `User` Type from the Integrations tab in the Console.
 
 ### Permissions
+
 Next, set up the permissions. Start by deleting all existing Type and Relation permissions. Because all server-side API calls use a PAT, we only need to specify the permissions for the action the user can perform. Create the following permissions. The Query column points to the source file for the permission query.
 
 | Type/Relation | Permission | Fields | Auth? | Query |
@@ -78,7 +84,7 @@ Next, set up the permissions. Start by deleting all existing Type and Relation p
 | GameOnUser |`CONNECT` | -|Yes |- |
 
 ### Functions
-Create the following Request Pipeline functions. Replace the `__PAT__` and `__PROJECTID__` placeholders in the functions.   
+Create the following Request Pipeline functions. Replace the `__PAT__` and `__PROJECTID__` placeholders in the functions.
 
 | Type | Action | Hook | Function
 |---|---|---|---|
@@ -162,3 +168,7 @@ mutation {
 Moving over to the subscription tab again, you'll notice two more updates to the `GameState`, one from your own move, and one from the computer.
 
 Keep making moves until the game is finished. The response from `createMove` will show you the winner!
+
+## Contributions
+
+Thanks so much [@kbrandwijk](https://github.com/kbrandwijk) for contributing this example! :tada:
