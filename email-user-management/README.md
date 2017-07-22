@@ -34,9 +34,6 @@ graphcool playground
 
 and follow the instructions in the functions folder to test the code. It makes sense to setup the functions in the above order.
 
-## Permission setup
-
-
 
 ## Contributions
 
