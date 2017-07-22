@@ -1,0 +1,25 @@
+service: graphcool-auth
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: dev
+  region: eu-west-1
+  environment: ${file(env.${self:provider.stage}.yml)} 
+  memorySize: 512
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  webpackIncludeModules: true
+
+functions:
+  authenticate:
+    handler: auth0.authenticate
+    events:
+      - http:
+          path: auth
+          method: post
+          cors: true
