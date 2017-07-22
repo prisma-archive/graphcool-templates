@@ -13,7 +13,7 @@ module.exports = function (event) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json'
+        'Accept': 'application/json'
       },
       body: JSON.stringify({
         client_id,
@@ -47,7 +47,7 @@ module.exports = function (event) {
       .request(
         `
     query {
-      User(githubUserId: "${githubUser.id}"){
+      User(githubUserId: "${githubUser.id}") {
         id
       }
     }`
@@ -68,7 +68,7 @@ module.exports = function (event) {
       mutation {
         createUser(
           githubUserId:"${githubUser.id}"
-        ){
+        ) {
           id
         }
       }`

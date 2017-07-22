@@ -25,9 +25,8 @@ graphcool init --schema github-authentication.graphql
 
 * Open file `github-authentication.js` and replace `__CLIENT_ID__` and `__CLIENT_SECRET__` with your Github's credentials. (See below for `Github App Setup`)
 * Create a new Schema Extension Function and paste the schema from `schema-extension.graphql` and code from `github-authentication.js`.
-* Create a new Permanent Access Token (PAT) in project settings. *It needs to have the same name as the function to make it available in the execution context of the function.*
+* Create a new Permanent Access Token (PAT) in the project settings. *It needs to have the same name as the function to make it available in the execution context of the function.*
 * Remove all Create permissions for the `User` type. The function uses a Permanent Access Token to create users via the API so the permissions are not needed.
-
 
 ## Github App Setup
 
@@ -50,7 +49,11 @@ To create a test Github code, run `login.html`, for example using Python's `Simp
 python -m SimpleHTTPServer
 ```
 
-Open `http://localhost:8000/login.html` in your browser and use the login button to create a new Github code.
+Open `http://localhost:8000/login.html` in your browser and use the login button to authorize the app:
+
+![](authorize.png)
+
+The Github code will be logged to the console.
 
 ## Test the Code
 
@@ -74,3 +77,7 @@ mutation {
 ```
 
 You should see that a new user has been created. The returned token can be used to authenticate requests to your Graphcool API as that user. Note that running the mutation again with the same Github code will not add a new user.
+
+## Contributions
+
+Thanks so much [@katopz](https://github.com/katopz) for contributing this example :tada:

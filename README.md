@@ -42,7 +42,10 @@ A big thank you to all contributors and supporters of this repository 💚
   <img src="https://github.com/petrvlcek.png?size=64" width="64" height="64" alt="petrvlcek">
 </a>
 <a href="https://github.com/mwickett/" target="_blank">
-  <img src="https://github.com/mwickett.png?size=64" width="64" height="64" alt="petrvlcek">
+  <img src="https://github.com/mwickett.png?size=64" width="64" height="64" alt="mwickett">
+</a>
+<a href="https://github.com/katopz/" target="_blank">
+  <img src="https://github.com/katopz.png?size=64" width="64" height="64" alt="katopz">
 </a>
 
 ## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
