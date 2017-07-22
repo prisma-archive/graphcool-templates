@@ -3,5 +3,5 @@ type AuthenticateGithubUserPayload {
 }
 
 extend type Mutation {
-  authenticateGithubUser(githubToken: String!): AuthenticateGithubUserPayload
+  authenticateGithubUser(githubCode: String!): AuthenticateGithubUserPayload
 }
