@@ -6,6 +6,11 @@ const pat = '__PAT__'
 const projectId = '__PROJECTID__'
 
 module.exports = (event) => {
+  // First, validate position
+  if (Array.from(Array(9).keys()).indexOf(event.data.position - 1) == -1) {
+    return { error: "Position needs to be 1-9" }
+  }
+
   event.context = { graphcool: { pat, projectId } }
   const api = fromEvent(event).api('simple/v1');
 
