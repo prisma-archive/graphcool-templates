@@ -2,7 +2,7 @@
 
 This is an example of Time-based One-Time Password (TOTP) authentication, compatible with Google Authenticator. It is a form of two factor authentication (2FA). Although the example uses basic email-password authentication, the example can easily be applied to other authentication providers too.
 
-![Example QR Code](https://files.graph.cool/cj5g2p41dqlam01276n61qwsv/cj5ha4o0e02gy01159440m6mh)
+![two-factor-authentication-with-laravel-and-google-authenticator-3-638](https://user-images.githubusercontent.com/852069/28504159-1602e500-7012-11e7-8fb1-6951e0c84c71.jpg)
 
 ## Registration and Authentication
 
