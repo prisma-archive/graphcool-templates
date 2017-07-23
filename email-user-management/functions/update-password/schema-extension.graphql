@@ -1,0 +1,7 @@
+type UpdatePasswordPayload {
+  id: ID!
+}
+
+extend type Mutation {
+  updatePassword(email: String!, password: String!, newPassword: String!): UpdatePasswordPayload
+}

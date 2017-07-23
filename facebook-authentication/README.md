@@ -24,7 +24,7 @@ graphcool init --schema facebook-authentication.graphql
 ## Setup the Authentication Function
 
 * Create a new Schema Extension Function and paste the schema from `schema-extension.graphql` and code from `facebook-authentication.js`.
-* add a PAT to the project *called the same as your function*. The token can be obtained from the Authentication tab in the project settings.
+* Create a new Permanent Access Token (PAT) in project settings. *It needs to have the same name as the function to make it available in the execution context of the function.*
 * Remove all Create permissions for the `User` type. The function uses a Permanent Access Token to create users via the API so the permissions are not needed.
 
 ## Facebook App Setup
