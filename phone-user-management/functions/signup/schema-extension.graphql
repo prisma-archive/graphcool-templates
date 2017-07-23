@@ -1,0 +1,7 @@
+type SignupPhoneUserPayload {
+  id: ID!
+}
+
+extend type Mutation {
+  signupPhoneUser(phoneNumber: String!, deviceId: String!): SignupPhoneUserPayload
+}

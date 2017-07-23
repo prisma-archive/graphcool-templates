@@ -1,0 +1,7 @@
+type UpdateDevicePayload {
+  id: ID!
+}
+
+extend type Mutation {
+  updateDevice(phoneNumber: String!, deviceId: String!, newDeviceId: String!): UpdateDevicePayload
+}

@@ -1,0 +1,10 @@
+# This schema is used for all included functions
+
+type User {
+  id: ID!
+
+  # Phone number must be unique
+  # Both should be required if device authorization is the primary auth for your app
+  phoneNumber: String @isUnique
+  deviceId: String
+}
