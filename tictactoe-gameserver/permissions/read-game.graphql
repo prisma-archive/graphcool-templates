@@ -1,0 +1,10 @@
+query ($node_id: ID!, $user_id: ID!) {
+  SomeGameExists(
+    filter: {
+      AND: [
+        {id: $node_id},
+        { player: { id: $user_id } }
+      ]
+    }
+  )
+}

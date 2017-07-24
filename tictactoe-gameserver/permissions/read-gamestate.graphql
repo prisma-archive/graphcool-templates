@@ -1,0 +1,8 @@
+query ($node_id: ID!, $user_id: ID!) {
+  SomeGameStateExists(
+    filter: {
+      id: $node_id
+      game: { player: { id: $user_id } }
+    }
+  )
+}

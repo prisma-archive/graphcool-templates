@@ -1,0 +1,14 @@
+subscription {
+  GameState(filter: {
+    mutation_in: [CREATED, UPDATED],
+    node: { turn: Computer}
+  }) {
+    node {
+      game {
+        id
+        level
+      }
+      board
+    }
+  }
+}
