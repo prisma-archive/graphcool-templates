@@ -7,7 +7,7 @@ Signup new users in your app using email and password and receive a token in ret
 1. Your app calls the Graphcool mutation `signupEmailUser(email: String!, password: String!)`
 2. If no user exists yet that corresponds to the passed `email`, a new `User` node will be created with the password (after being hashed and salted)
 3. If a user with the passed `email` exists, a `User` node is not created and an error is returned
-4. If a user is created, then the `singupEmailUser(email: String!, password: String!)` mutation returns the id for the new user
+4. If a user is created, then the `signupEmailUser(email: String!, password: String!)` mutation returns the id for the new user
 
 ## Setup the Create User Function
 
