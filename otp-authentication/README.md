@@ -40,7 +40,10 @@ The PAT needs to be named 'authenticateUser'. This PAT will be used by the schem
 
 ### Webtask
 
-The functionality for this example is implemented in an external webtask. This is due to a number of external NPM modules, not available for inline functions.
+The functionality for this example is implemented in an external webtask. The are two reasons for doing this:
+- The webtask contains some helper functions that would need to be duplicated when using inline schema extension functions.
+
+- Creating the schema extensions is actually optional. All functionality can also be used by directly accessing the webtask routes. The only change necessary would be hardcoding your projectId and PAT in the `authenticateUser` route.
 
 Deploy the webtask using `wt-cli`:
 ```sh
