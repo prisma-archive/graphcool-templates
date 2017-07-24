@@ -36,4 +36,4 @@ and follow the instructions in the functions folder to test the code. It makes s
 
 ## Contributions
 
-A straightforward adaptation of [@stevewpatterson](https://github.com/stevewpatterson)'s email auth example
+A straightforward adaptation of [@stevewpatterson](https://github.com/stevewpatterson)'s email auth example by [allpwrfulroot](https://github.com/allpwrfulroot) :tada:

@@ -44,6 +44,9 @@ A big thank you to all contributors and supporters of this repository 💚
 <a href="https://github.com/mwickett/" target="_blank">
   <img src="https://github.com/mwickett.png?size=64" width="64" height="64" alt="petrvlcek">
 </a>
+<a href="https://github.com/allpwrfulroot/" target="_blank">
+  <img src="https://github.com/allpwrfulroot.png?size=64" width="64" height="64" alt="allpwrfulroot">
+</a>
 
 ## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
 

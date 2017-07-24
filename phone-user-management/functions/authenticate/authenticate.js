@@ -10,7 +10,7 @@ module.exports = function(event) {
   function getGraphcoolUser(phoneNumber) {
     return api.request(`
     query {
-      User(phoneNumber: "${phoneNumber}"){
+      User(phoneNumber: "${phoneNumber}") {
         id
         deviceId
       }
