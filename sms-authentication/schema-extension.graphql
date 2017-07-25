@@ -1,7 +1,0 @@
-type AuthenticateSmsUserPayload {
-  token: String!
-}
-
-extend type Mutation {
-  authenticateSmsUser(smsToken: String!): AuthenticateSmsUserPayload
-}

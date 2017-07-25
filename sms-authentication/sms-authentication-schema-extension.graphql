@@ -1,0 +1,7 @@
+type AuthenticateSmsUserPayload {
+  id: ID!
+}
+
+extend type Mutation {
+  authenticateSmsUser(phone: String!): AuthenticateSmsUserPayload
+}
