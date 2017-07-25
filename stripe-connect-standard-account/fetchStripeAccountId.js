@@ -7,6 +7,13 @@ const clientSecret = '__CLIENT_SECRET__'
 module.exports = function (event) {
   // This is the user ID to update
   const userId = event.data.userId
+  // Here is where you can check for permissions
+  // In this case the only thing being verified is
+  // whether the user calling the mutation is the same user this mutation updates
+  // Of course you can also make other GraphQL queries to make a more complex verification
+  if (userId !== event.context.auth.nodeId) {
+    return {error: 'Unauthorized request'}
+  }
   // This is the authorization code previously returned by Stripe @see https://stripe.com/docs/connect/standard-accounts#redirected
   const authCode = event.data.authCode
 
