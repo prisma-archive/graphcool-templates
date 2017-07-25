@@ -34,7 +34,6 @@ module.exports = function (event) {
       body: formData
     })
       .then(data => data.json())
-      .then(json => json.stripe_user_id)
   }
 
   function updateGraphcoolUser(userId, stripeId) {
@@ -52,9 +51,12 @@ module.exports = function (event) {
   }
 
   return getStripeUserCredentials()
-    .then(stripeUserId => {
-    	return updateGraphcoolUser(userId, stripeUserId)
-  	})
+    .then(result => {
+      if (result.error) {
+        throw new Error(result.error + ': ' + result.error_description)
+      }
+      return updateGraphcoolUser(userId, result.stripe_user_id)
+    })
     .then(updatedUserId => {
     	return {data: {id: updatedUserId}}
   	})
