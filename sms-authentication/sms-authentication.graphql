@@ -4,4 +4,5 @@ type User {
   # Must be unique
   # Make this required if SMS is the only way to authorize
   smsToken: String @isUnique
+  phone: String @isUnique
 }
