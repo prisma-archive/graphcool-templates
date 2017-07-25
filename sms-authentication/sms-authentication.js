@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const JWT_SECRET_KEY = 'abc123'
 const TWILIO_SID = ''
 const TWILIO_AUTH_TOKEN = ''
+const TWILIO_PHONE = ''
 
 function generateJwtSmsDigitsAndToken(userId) {
   const smsCode = Math.floor(Math.random() * 90000) + 10000
@@ -36,7 +37,7 @@ function sendTextAsync (to, smsToken, body) {
 	return TwilioClient.messages.create({
       body: body || getDefaultText(smsToken),
       to,
-      from: '3125613775'
+      from: TWILIO_PHONE
     })
 }
 
