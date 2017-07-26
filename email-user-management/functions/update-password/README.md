@@ -5,9 +5,9 @@ Update the password for users in your app who login using email and password.
 ## Update password flow in app
 
 1. Your app calls the Graphcool mutation `updatePassword(email: String!, password: String!, newPassword: String!)`
-3. If a user with the email and password combination is not found, an error is returned
-4. If a user with the passed `email` exists and `password` matches, the user's `password` field is updated to the new password.
-5. The mutation returns the id of the updated user
+2. If a user with the email and password combination is not found, an error is returned
+3. If a user with the passed `email` exists and `password` matches, the user's `password` field is updated to the new password.
+4. The mutation returns the id of the updated user
 
 ## Setup the Password Update Function
 
