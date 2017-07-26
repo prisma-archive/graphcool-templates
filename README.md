@@ -42,11 +42,14 @@ A big thank you to all contributors and supporters of this repository 💚
   <img src="https://github.com/petrvlcek.png?size=64" width="64" height="64" alt="petrvlcek">
 </a>
 <a href="https://github.com/mwickett/" target="_blank">
-  <img src="https://github.com/mwickett.png?size=64" width="64" height="64" alt="petrvlcek">
+  <img src="https://github.com/mwickett.png?size=64" width="64" height="64" alt="mwickett">
+</a>
+<a href="https://github.com/katopz/" target="_blank">
+  <img src="https://github.com/katopz.png?size=64" width="64" height="64" alt="katopz">
 </a>
 
 ## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
 
-Join our [Slack community](http://slack.graph.cool/) if you run into issues or have questions. We love talking to you!
+Say hello in our [Slack](http://slack.graph.cool/) or visit the [Graphcool Forum](https://www.graph.cool/forum) if you run into issues or have questions. We love talking to you!
 
 ![](http://i.imgur.com/5RHR6Ku.png)
