@@ -24,7 +24,7 @@ module.exports = function (event) {
 
 const sendNotification = function(data) {
   const headers = {
-    'Content-Type': 'application/json charset=utf-8',
+    'Content-Type': 'application/json',
     'Authorization': APP_KEY
   }
 
