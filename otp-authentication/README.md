@@ -2,7 +2,7 @@
 
 This is an example of Time-based One-Time Password (TOTP) authentication, compatible with Google Authenticator. It is a form of two factor authentication (2FA). Although the example uses basic email-password authentication, the example can easily be applied to other authentication providers too.
 
-![two-factor-authentication-with-laravel-and-google-authenticator-3-638](https://user-images.githubusercontent.com/852069/28504159-1602e500-7012-11e7-8fb1-6951e0c84c71.jpg)
+![two-factor-authentication-with-laravel-and-google-authenticator-3-638](./doc/howitworks.jpg)
 
 ## Registration and Authentication
 
@@ -89,7 +89,7 @@ mutation {
 This mutation will generate an OTP secret for the user, and it will generate and upload a QR Code image that the user can scan using the Google Authenticator app. If you open the qrUrl in your browser, you'll see the QR code. This can also be easily embedded into your client app. The secret is also presented in a human readable form. It is adviced to show this secret to the user for manual entry into the Authenticator app.
 Optionally, if you want to use a hardware token, you can also pass the OTP secret for the device to the mutation.
 
-![qr-code](https://user-images.githubusercontent.com/852069/28718018-6c239bc4-73a4-11e7-8869-725d8b291f86.png)
+![qr-code](./doc/qr-sample.png)
 
 After a user registers for OTP, a one time token from the Authenticator app is required to verify the installation, and activate OTP for the user.
 ```graphql
