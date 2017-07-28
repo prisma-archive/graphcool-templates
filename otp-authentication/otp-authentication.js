@@ -110,7 +110,7 @@ app.post('/registerOtp', (req, res) => {
       // Upload QR Code image to File API, using chunked encoding,
       // because the QR Code is streamed from the qrCodeRequest
       request.post({
-        url: 'https://api.graph.cool/file/v1/cj5g2p41dqlam01276n61qwsv',
+        url: `https://api.graph.cool/file/v1/${req.body.context.graphcool.projectId}`,
         headers: { 'Accept': 'application/json', 'transfer-encoding': 'chunked' },
         formData: { 'data': { value: qr.image(uri, { type: 'png', size: 400 }), options: { filename: `${secret}.png`, contentType: 'image/png'} } }
       }, (err, httpResponse, body) => {
