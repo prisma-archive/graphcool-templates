@@ -1,4 +1,4 @@
-# stripe-create-customer
+# stripe-create-customer-charge
 
 Creates a new Stripe customer and Stripe charge with Graphcool Functions ⚡️
 
