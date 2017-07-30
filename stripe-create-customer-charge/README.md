@@ -29,7 +29,7 @@ Go to the Graphcool Playground and run this mutation to create a new user:
 
 ```graphql
 mutation {
-  createUser(email: "test@example.com", nameFirst: "Jane", nameLast: "Doe") {
+  createUser(email: "test@example.com", firstName: "Jane", lastName: "Doe") {
     id
   }
 }
