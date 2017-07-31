@@ -1,8 +1,0 @@
-type AddressPayload {
-  street: String
-  city: String
-}
-
-extend type Query {
-  getAddress(postcode: String! number: String!): AddressPayload
-}

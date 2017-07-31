@@ -13,11 +13,12 @@ module.exports = function getAddress(event) {
     .then(data => {
       const result = JSON.parse(data)
       if (result._embedded.addresses.length) {
-        const { city: { label: city }, street } = result._embedded.addresses[0]
-        resolve({ data: { street, city } })
+        const { city: { label: city }, street, id } = result._embedded.addresses[0]
+        resolve({ data: { street, city, id } })
+      } else {
+        resolve({error: `No result for postcode '${postcode}' and number '${number}'`})
       }
-      else resolve({})
     })
-    .catch(err => resolve({ error: err }))
+    .catch(err => resolve({ error: "An unexpected error occured" }))
   })
 }
