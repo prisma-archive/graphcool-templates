@@ -1,0 +1,6 @@
+type User {
+  id: ID!
+
+  # Representative of a Stripe Account ID
+  stripeId: String @isUnique
+}

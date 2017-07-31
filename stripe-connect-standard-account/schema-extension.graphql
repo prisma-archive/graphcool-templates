@@ -1,0 +1,7 @@
+type FetchStripeAccountIdPayload {
+  id: ID!
+}
+
+extend type Mutation {
+  fetchStripeAccountId(userId: ID!, authCode: String!): FetchStripeAccountIdPayload
+}
