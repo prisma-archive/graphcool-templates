@@ -19,6 +19,6 @@ module.exports = function getAddress(event) {
         resolve({error: `No result for postcode '${postcode}' and number '${number}'`})
       }
     })
-    .catch(err => resolve({ error: "An unexpected error occured" }))
+    .catch(err => resolve({ }))
   })
 }

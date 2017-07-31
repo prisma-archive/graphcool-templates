@@ -19,6 +19,6 @@ module.exports = function getAddress(event) {
         resolve({error: `No result for id '${id}'}`)
       }
     })
-    .catch(err => resolve({ error: "An unexpected error occured" }))
+    .catch(err => resolve({ }))
   })
 }
