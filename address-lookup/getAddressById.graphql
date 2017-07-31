@@ -1,0 +1,9 @@
+type AddressIdPayload {
+  id: String
+  street: String
+  city: String
+}
+
+extend type Query {
+  getAddressById(id: String!): AddressIdPayload
+}

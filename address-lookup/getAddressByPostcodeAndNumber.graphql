@@ -1,0 +1,9 @@
+type AddressByPostCodeAndNumberPayload {
+  id: String
+  street: String
+  city: String
+}
+
+extend type Query {
+  getAddressByPostCodeAndNumber(postcode: String! number: String!): AddressByPostCodeAndNumber
+}
