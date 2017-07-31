@@ -97,6 +97,6 @@ You should receive an email like this:
 
 ## Contributions
 
-Thanks so much [@kbrandwijk](https://github.com/kbrandwijk) and [@heymartinadams](https://github.com/heymartinadams) for contributing this example!
+Thanks so much [@kbrandwijk](https://github.com/kbrandwijk) and [@heymartinadams](https://github.com/heymartinadams) for contributing this example! :tada:
 
 ![](http://i.imgur.com/5RHR6Ku.png)
