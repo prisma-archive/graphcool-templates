@@ -1,0 +1,18 @@
+subscription {
+  User(filter: {
+    mutation_in: [UPDATED]
+    updatedFields_contains: "stripeToken"
+    node: {
+      stripeToken_not: "null"
+    }
+  }) {
+    updatedFields
+    node {
+      id
+      email
+      firstName
+      lastName
+      stripeToken
+    }
+  }
+}
