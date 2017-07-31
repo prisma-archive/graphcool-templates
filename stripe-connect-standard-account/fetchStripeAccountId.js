@@ -14,6 +14,7 @@ module.exports = function (event) {
   if (userId !== event.context.auth.nodeId) {
     return {error: 'Unauthorized request'}
   }
+  
   // This is the authorization code previously returned by Stripe @see https://stripe.com/docs/connect/standard-accounts#redirected
   const authCode = event.data.authCode
 
