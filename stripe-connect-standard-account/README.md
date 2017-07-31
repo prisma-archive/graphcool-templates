@@ -14,3 +14,7 @@ This is the workflow:
 * We update the `User` node stored in the Graphcool project with the relevant user credentials obtained from Stripe
 
 For more information refer to the [official Stripe documentation](https://stripe.com/docs/connect/standard-accounts).
+
+## Contributions
+
+Thanks so much [@picosam](https://github.com/picosam) for contributing this example :tada:

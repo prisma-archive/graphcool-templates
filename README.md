@@ -50,6 +50,9 @@ A big thank you to all contributors and supporters of this repository 💚
 <a href="https://github.com/randomer/" target="_blank">
   <img src="https://github.com/randomer.png?size=64" width="64" height="64" alt="randomer">
 </a>
+<a href="https://github.com/picosam/" target="_blank">
+  <img src="https://github.com/picosam.png?size=64" width="64" height="64" alt="picosam">
+</a>
 
 ## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
 
