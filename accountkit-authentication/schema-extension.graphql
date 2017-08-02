@@ -1,0 +1,7 @@
+type AuthenticateAccountKitUserPayload {
+  token: String!
+}
+
+extend type Mutation {
+  authenticateAccountKitUser(accountKitToken: String!): AuthenticateAccountKitUserPayload
+}
