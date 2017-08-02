@@ -39,7 +39,7 @@ To use Account Kit you need to create a Facebook app and add the `Account Kit` p
 
 For this example, you need to go to `Account Kit > Web Login Settings > Server Domains` and add the domain you will be running login.html from, such as `http://localhost:8000/`
 
-![](web-.png)
+![](web-settings.png)
 
 Once you created a new app and added Account Kit, you should have an App ID and an Account Kit App Secret. Replace `{{FACEBOOK_APP_ID}}` in `login.html` and `<facebook_app_id>` in `login_success.php` with your App ID. Replace `<account_kit_app_secret>` in `login_success.php` with your Account Kit App Secret.
 
