@@ -8,7 +8,7 @@ This is a very simple Schema Extension function that uses the API from [https://
 
 - Create a new Schema Extension to obtain an address by postcode and number, using the supplied SDL (`getAddressByPostcodeAndNumber.graphql`) and function (`getAddressByPostCodeAndNumber.js`). Replace `__API_KEY__` in the function with you own API key.
 
-- - Create a new Schema Extension to obtain an address by id, using the supplied SDL (`getAddressById.graphql`) and function (`getAddressById.js`). Replace `__API_KEY__` in the function with you own API key.
+- Create a new Schema Extension to obtain an address by id, using the supplied SDL (`getAddressById.graphql`) and function (`getAddressById.js`). Replace `__API_KEY__` in the function with you own API key.
 
 ## Usage
 
