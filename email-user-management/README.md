@@ -34,6 +34,13 @@ graphcool playground
 
 and follow the instructions in the functions folder to test the code. It makes sense to setup the functions in the above order.
 
+## Common Error Messages
+
+* Receiving
+
+  > Error: Unknown argument 'email' on field 'User' of type 'Query'.
+  
+  indicates that the `email` field on `User` doesn't have the `@isUnique` modifier. Either mark the `email` field unique to enabled the `User(email: String)` query, or use `allUsers(filters: { email: "..." })` instead.
 
 ## Contributions
 
