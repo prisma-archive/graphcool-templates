@@ -1,4 +1,4 @@
-const cloudinary = require('cloudinary@1.2.1')
+const cloudinary = require('cloudinary')
 
 module.exports = function (event) {
   cloudinary.config({
@@ -22,7 +22,7 @@ module.exports = function (event) {
     })
   })
   .then(function (response) {
-    const request = require('request@2.81.0')
+    const request = require('request')
     const mutation = `mutation {
       updateUserAvatar(id: "${userAvatar.id}", cloudinaryUrl: "${response.secure_url}") {
         id
