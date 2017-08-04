@@ -1,7 +1,7 @@
 module.exports = function (event) {
   var helper = require('sendgrid').mail
   var fromEmail = new helper.Email('me@myemail.com')
-  var toEmail = new helper.Email(event.data.node.customerEmail)
+  var toEmail = new helper.Email(event.data.node.User.email)
   var subject = 'Sending with SendGrid is Fun'
   var content = new helper.Content('text/plain', 'and easy to do anywhere, even with Node.js')
   var mail = new helper.Mail(fromEmail, subject, toEmail, content)
