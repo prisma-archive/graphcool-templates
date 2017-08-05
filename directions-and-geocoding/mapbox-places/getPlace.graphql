@@ -1,0 +1,7 @@
+type PlacePayload {
+  place: String!
+}
+
+extend type Query {
+  getPlace(lng: Float!, lat: Float!): PlacePayload
+}

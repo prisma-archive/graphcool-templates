@@ -1,0 +1,13 @@
+type StepsPayload {
+  steps: Json!
+}
+
+extend type Query {
+  getSteps(
+    startLng: Float!
+    startLat: Float!
+
+    endLng: Float!
+    endLat: Float!
+  ): StepsPayload
+}
