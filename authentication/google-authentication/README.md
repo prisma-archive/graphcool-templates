@@ -18,7 +18,7 @@ graphcool init --schema google-authentication.graphql
 3. Your app receives a Google Access Token
 4. Your app calls the Graphcool mutation `authenticateGoogleUser(googleToken: String!)`
 5. If no user exists yet that corresponds to the passed `googleToken`, a new `User` node will be created
-6. In any case, the `authenticateFacebookUser(facebookToken: String!)` mutation returns a valid token for the user
+6. In any case, the `authenticateGoogleUser(googleToken: String!)` mutation returns a valid token for the user
 7. Your app stores the token and uses it in its `Authorization` header for all further requests to Graphcool
 
 ## Setup the Authentication Function
@@ -79,4 +79,4 @@ mutation {
 }
 ```
 
-You should see that a new user has been created. The returned token can be used to authenticate requests to your Graphcool API as that user. Note that running the mutation again with the same Facebook token will not add a new user.
+You should see that a new user has been created. The returned token can be used to authenticate requests to your Graphcool API as that user. Note that running the mutation again with the same Google token will not add a new user.
