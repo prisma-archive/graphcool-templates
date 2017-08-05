@@ -24,6 +24,8 @@ The function in this example use a Permanent Authentication Token to fetch or cr
 
 This also allows you to change the email or password fields using a PAT manually as an administrator. For manually updating password, note that the `password` field is hashed and salted using `bcrypt` and for authenticating or updating the user information, the current password is compared to that hashed and salted version.
 
+Please also note that the [Email-Password Auth](https://www.graph.cool/docs/reference/integrations/email-password-auth-fiayee5voh/) integration must be disabled for this example to work. If you previously had this enabled, you will need need to add the `email` and `password` fields to the `User` schema again.
+
 ## Test the Code
 
 First, follow the READMEs to setup all the functions in the functions folder. Then go to the Graphcool Playground:
