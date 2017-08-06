@@ -1,0 +1,7 @@
+type GetWeatherByCityIdPayload {
+  weather: Json!
+}
+
+extend type Query {
+  getWeatherByCityId(cityId: Int!): GetWeatherByCityIdPayload
+}

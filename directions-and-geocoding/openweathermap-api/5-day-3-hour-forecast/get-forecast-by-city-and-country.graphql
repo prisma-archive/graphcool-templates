@@ -1,0 +1,7 @@
+type GetForecastByCityAndCountryPayload {
+  forecast: Json!
+}
+
+extend type Query {
+  getForecastByCityAndCountry(city: String!, country: String!): GetForecastByCityAndCountryPayload
+}

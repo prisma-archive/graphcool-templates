@@ -1,0 +1,7 @@
+type GetDailyForecastByZipcodePayload {
+  forecast: Json!
+}
+
+extend type Query {
+  getDailyForecastByZipcode(zipcode: String!): GetDailyForecastByZipcodePayload
+}

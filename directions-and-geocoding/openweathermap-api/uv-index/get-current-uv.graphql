@@ -1,0 +1,7 @@
+type GetCurrentUVPayload {
+  uvdata: Json!
+}
+
+extend type Query {
+  getCurrentUV(lat: Float!, lon: Float!): GetCurrentUVPayload
+}

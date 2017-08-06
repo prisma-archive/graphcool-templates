@@ -1,0 +1,7 @@
+type GetForecastByCityIdPayload {
+  forecast: Json!
+}
+
+extend type Query {
+  getForecastByCityId(cityId: Int!): GetForecastByCityIdPayload
+}

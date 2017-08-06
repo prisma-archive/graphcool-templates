@@ -1,0 +1,7 @@
+type GetWeatherByCirclePayload {
+  weather: Json!
+}
+
+extend type Query {
+  getWeatherByCircle(lat: Float!, lon: Float!, count: Int!, cluster: Boolean!): GetWeatherByCirclePayload
+}

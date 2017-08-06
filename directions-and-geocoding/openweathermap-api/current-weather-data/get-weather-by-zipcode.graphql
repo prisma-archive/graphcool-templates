@@ -1,0 +1,7 @@
+type GetWeatherByZipcodePayload {
+  weather: Json!
+}
+
+extend type Query {
+  getWeatherByZipcode(zipcode: String!): GetWeatherByZipcodePayload
+}

@@ -1,0 +1,7 @@
+type GetWeatherByCityAndCountryPayload {
+  weather: Json!
+}
+
+extend type Query {
+  getWeatherByCityAndCountry(city: String!, country: String!): GetWeatherByCityAndCountryPayload
+}

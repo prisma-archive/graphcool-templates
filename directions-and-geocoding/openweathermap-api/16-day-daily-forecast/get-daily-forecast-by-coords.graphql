@@ -1,0 +1,7 @@
+type GetDailyForecastByCoordinatesPayload {
+  forecast: Json!
+}
+
+extend type Query {
+  getDailyForecastByCoordinates(lat: Float!, lon: Float!): GetDailyForecastByCoordinatesPayload
+}
