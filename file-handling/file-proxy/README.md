@@ -11,6 +11,8 @@ Be aware that most of the examples are not production-ready with regards to thin
 [encrypted-file-proxy](#encrypted-file-proxy)  
 [auth-file-proxy](#auth-file-proxy)
 
+NEW: [everypixel-file-proxy](#everypixel-file-proxy)
+
 ## Getting started
 
 ### Setup Graphcool project
@@ -74,6 +76,57 @@ This uploads the local file `small-logo.png` with the new name `small.png`. The 
 
 Notice that the `url` field in the response is replaced by a new field, `newUrl`, that points to your own endpoint for downloading the file.
 You can open the url from the `newUrl` field in your browser to download the file you have just uploaded.
+
+### everypixel-file-proxy
+
+This example adds quality and keywords to image uploads using the (Everypixel API)[https://api.everypixel.com/]. In order to use this example, you need to register an account with Everypixel. You will need the `client id` and `client secret` from your Everypixel account.
+
+First, initialize a new Graphcool project with the required schema, by running:
+
+```sh
+graphcool init --schema ./schemas/everypixel-file-proxy.graphql
+```
+
+Note the ID that this command returns. We will need this project ID later on.
+
+You can deploy the webtask for this example to webtask.io by running the following command:
+
+```sh
+wt create ./everypixel-file-proxy.js --name everypixel --secret EVERYPIXEL_CLIENT_ID=<client id> --secret EVERYPIXEL_CLIENT_SECRET=<client secret>
+```
+
+Your webtask is now deployed! You can upload a file using any tool that support `multipart/form-data`, like Postman, or the command-line tool `curl`:
+
+```sh
+curl -X POST '<webtask endpoint url>/__GRAPHCOOL_PROJECT_ID__' -F 'data=@everypixel-sample.jpg;filename=everypixel.jpg'
+```
+
+The response should look something like this:
+
+```json
+{
+  "name": "everypixel.jpg",
+  "size": 248330,
+  "url": "https://files.graph.cool/__GRAPHCOOL_PROJECT_ID__/__SECRET__",
+  "id": "<omitted>",
+  "contentType": "image/jpg",
+  "keywords": [
+    {
+      "keyword": "Mountain",
+      "score": 0.9450902938842773
+    },
+    {
+      "keyword": "Nature",
+      "score": 0.8989832997322083
+    },
+    {
+      "keyword": "Snow",
+      "score": 0.8550852537155151
+    }
+  ],
+  "quality": 0.9994551552712058
+}
+```
 
 ### multiple-file-proxy
 
