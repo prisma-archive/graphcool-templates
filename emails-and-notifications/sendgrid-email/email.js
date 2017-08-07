@@ -1,27 +1,31 @@
-module.exports = function (event) {
-  var helper = require('sendgrid').mail
-  var fromEmail = new helper.Email('me@myemail.com')
-  var toEmail = new helper.Email(event.data.node.User.email)
-  var subject = 'Sending with SendGrid is Fun'
-  var content = new helper.Content('text/plain', 'and easy to do anywhere, even with Node.js')
-  var mail = new helper.Mail(fromEmail, subject, toEmail, content)
-  var sg = require('sendgrid')(__SENDGRID_SECRET_KEY__)
-  var request = sg.emptyRequest({
-    method: 'POST',
-    path: '/v3/mail/send',
-    body: mail.toJSON()
-  })
-  
-  return new Promise(function(resolve, reject) {
-    sg.API(request, function (error, response) {
-      if (error) {
-        console.log('Error response received')
-        reject(error)
-      }
-      console.log(response.statusCode)
-      console.log(response.body)
-      console.log(response.headers)
-      resolve(response)
-    })
-  })
-}
+const mailHelper = require('sendgrid').mail
+const sendgrid = require('sendgrid')('__SENDGRID_SECRET_KEY__')
+const fromEmail = new mailHelper.Email('from@email.com')
+const model = 'User' // Or any model name you link this function to
+
+const title = data => `Email subject with data ${data.id}`
+const content = data => `Content with data ${data.id}`
+
+const generateMail = data => new mailHelper.Mail(
+  fromEmail,
+  title(data),
+  new mailHelper.Email(data.email),
+  new mailHelper.Content('text/plain', content(data))
+)
+
+const generateRequest = mail => sendgrid.emptyRequest({
+  method: 'POST',
+  path: '/v3/mail/send',
+  body: mail.toJSON()
+})
+
+module.exports = event => new Promise((resolve, reject) => sendgrid.API(
+  generateRequest(generateMail(data)(event.data[model].node)), 
+  (error, response) => {
+    if (error) {
+      console.log(error)
+      return reject(error)
+    }
+    resolve(response)
+  }
+))
