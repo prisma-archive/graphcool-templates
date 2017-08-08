@@ -1,0 +1,7 @@
+type GetWeatherByBoundingBoxPayload {
+  weather: Json!
+}
+
+extend type Query {
+  getWeatherByBoundingBox(lonLeft: Float!, latBottom: Float!, lonRight: Float!, latTop: Float!, zoom: Int!, cluster: Boolean!): GetWeatherByBoundingBoxPayload
+}

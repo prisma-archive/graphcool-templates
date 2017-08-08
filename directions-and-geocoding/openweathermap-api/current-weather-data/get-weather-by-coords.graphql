@@ -1,0 +1,7 @@
+type GetWeatherByCoordinatesPayload {
+  weather: Json!
+}
+
+extend type Query {
+  getWeatherByCoordinates(lat: Float!, lon: Float!): GetWeatherByCoordinatesPayload
+}
