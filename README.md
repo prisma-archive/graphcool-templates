@@ -53,6 +53,9 @@ A big thank you to all contributors and supporters of this repository 💚
 <a href="https://github.com/picosam/" target="_blank">
   <img src="https://github.com/picosam.png?size=64" width="64" height="64" alt="picosam">
 </a>
+<a href="https://github.com/antho1404/" target="_blank">
+  <img src="https://github.com/antho1404.png?size=64" width="64" height="64" alt="antho1404">
+</a>
 
 ## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
 
