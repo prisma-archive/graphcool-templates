@@ -1,0 +1,7 @@
+type GetUVHistoryPeriodPayload {
+  history: [Json!]
+}
+
+extend type Query {
+  getUVHistoryPeriod(lat: Float!, lon: Float!, start: Int!, end: Int!): GetUVHistoryPeriodPayload
+}

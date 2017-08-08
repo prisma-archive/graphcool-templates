@@ -14,9 +14,13 @@ module.exports = (event) => {
 
   return fetch(endpoint)
     .then(response => response.json())
-  	.then(data =>
-      (data.cod == 200)
-        ? {data: {weather: data}}
-        : {error: data}
-    )
+    .then(data => {
+      if (data.cod == 200) {
+        data.owid = data.id;
+        return {data: data}
+      }
+      else {
+        return {error: data}
+      }
+    })
 }

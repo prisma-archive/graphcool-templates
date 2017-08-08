@@ -1,5 +1,18 @@
 type GetWeatherByCityPayload {
-  weather: Json!
+  name: String
+  dt: Float
+  main: Json
+  sys: Json
+  wind: Json
+  base: String
+  owid: Int
+  coord: Json
+  clouds: Json
+  rain: Json
+  snow: Json
+  weather: [Json]
+  visibility: Int
+  cod: Int
 }
 
 extend type Query {
