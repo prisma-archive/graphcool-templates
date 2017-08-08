@@ -1,0 +1,9 @@
+type RegisterOtpPayload {
+  secret: String!
+  uri: String!
+  qrUrl: String!
+}
+
+extend type Mutation {
+  registerOTP(userId: ID! secret: String): RegisterOtpPayload
+}
