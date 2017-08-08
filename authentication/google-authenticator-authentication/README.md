@@ -1,4 +1,4 @@
-# OTP Authentication
+# Google Authenticator Authentication
 
 This is an example of Time-based One-Time Password (TOTP) authentication, compatible with Google Authenticator. It is a form of two factor authentication (2FA). Although the example uses basic email-password authentication, the example can easily be applied to other authentication providers too.
 
@@ -76,10 +76,10 @@ mutation {
 ```
 
 ### Activating OTP
-To register a user for OTP, use the following mutations:
+To register a user for OTP, select the user you just registered in the Playground and use the following mutation:
 ```graphql
 mutation {
-  registerOTP(userId: "__USERID__")
+  registerOTP
   {
     secret
     qrUrl
@@ -91,10 +91,10 @@ Optionally, if you want to use a hardware token, you can also pass the OTP secre
 
 ![qr-code](./doc/qr-sample.png)
 
-After a user registers for OTP, a one time token from the Authenticator app is required to verify the installation, and activate OTP for the user.
+After a user registers for OTP, a one time token from the Authenticator app is required to verify the installation, and activate OTP for the user. Again, select the registered user in the Playground first.
 ```graphql
 mutation {
-  initializeOTP(userId: "__USERID__", code: "__TOKEN__")
+  initializeOTP(code: "__TOKEN__")
   {
     success
   }

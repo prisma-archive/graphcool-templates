@@ -88,12 +88,12 @@ app.post('/authenticateUser', (req,res) => {
 });
 
 app.post('/registerOtp', (req, res) => {
-  // { data: { userId: "...", secret: "..." } }
-  // { data: { userId: "..." } }
+  // { data: { secret: "..." } }
+  // { data: { } }
   req.gc.api('simple/v1')
     .request(
       `query ($userId: ID!) { User(id: $userId) { id email isOtpEnabled } }`,
-      { userId: req.body.data.userId })
+      { userId: req.body.context.auth.nodeId })
     .then(data => {
       // Validate user
       validateUserForRegistration(data.User, res)
@@ -136,11 +136,11 @@ app.post('/registerOtp', (req, res) => {
 });
 
 app.post('/initializeOtp', function (req, res) {
-  // { data: { userId: "...", code: "..." } }
+  // { data: { code: "..." } }
   req.gc.api('simple/v1')
     .request(
       `query ($userId: ID!) { User(id: $userId) { id otpSecret isOtpEnabled } }`,
-      { userId: req.body.data.userId })
+      { userId: req.body.context.auth.nodeId })
     .then(data => {
       // Validate user
       validateUserForInitialization(data.User, res)

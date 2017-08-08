@@ -4,5 +4,5 @@ type InitializeOtpPayload
 }
 
 extend type Mutation {
-  initializeOTP(userId: ID! code: String!): InitializeOtpPayload
+  initializeOTP(code: String!): InitializeOtpPayload
 }

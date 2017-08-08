@@ -5,5 +5,5 @@ type RegisterOtpPayload {
 }
 
 extend type Mutation {
-  registerOTP(userId: ID! secret: String): RegisterOtpPayload
+  registerOTP(secret: String): RegisterOtpPayload
 }
