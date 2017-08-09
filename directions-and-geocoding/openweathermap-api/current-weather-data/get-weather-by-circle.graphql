@@ -1,5 +1,8 @@
 type GetWeatherByCirclePayload {
-  weather: Json!
+  message: String
+  cod: String
+  cnt: Int
+  list: [Json!]
 }
 
 extend type Query {

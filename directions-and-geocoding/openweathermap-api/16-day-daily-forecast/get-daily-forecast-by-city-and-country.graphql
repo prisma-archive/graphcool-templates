@@ -1,5 +1,9 @@
 type GetDailyForecastByCityAndCountryPayload {
-  forecast: Json!
+  cod: String
+  message: Float
+  cnt: Int
+  city: Json
+  list: [Json!]
 }
 
 extend type Query {

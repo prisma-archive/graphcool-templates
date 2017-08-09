@@ -1,0 +1,7 @@
+type GetUVForecastPayload {
+  forecast: [Json!]
+}
+
+extend type Query {
+  getUVForecast(lat: Float!, lon: Float!, count: Int!): GetUVForecastPayload
+}

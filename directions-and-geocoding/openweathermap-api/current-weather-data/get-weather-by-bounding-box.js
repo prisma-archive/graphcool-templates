@@ -16,7 +16,7 @@ module.exports = (event) => {
     .then(response => response.json())
   	.then(data =>
       (data.cod == 200)
-        ? {data: {weather: data}}
+        ? {data: data}
         : {error: data}
     )
 }

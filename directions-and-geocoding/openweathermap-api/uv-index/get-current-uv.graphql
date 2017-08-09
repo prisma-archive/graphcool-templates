@@ -1,5 +1,9 @@
 type GetCurrentUVPayload {
-  uvdata: Json!
+  lat: Float
+  lon: Float
+  date_iso: String
+  date: Int
+  value: Float
 }
 
 extend type Query {

@@ -68,3 +68,9 @@ A set of schema extension queries that exposes the [OpenWeatherMap API](https://
 ### UV index
 
 `getCurrentUV(lat: Float!, lon: Float!)` - [Documentation](https://openweathermap.org/api/uvi#geo)
+
+`getUVForecast(lat: Float!, lon: Float!, count: Int!)` - [Documentation](https://openweathermap.org/api/uvi#fgeo)
+
+`getUVHistory(lat: Float!, lon: Float!, count: Int!)` - [Documentation](https://openweathermap.org/api/uvi#hgeo)
+
+`getUVHistoryPeriod(lat: Float!, lon: Float!, start: Int!, end: Int!)` - [Documentation](https://openweathermap.org/api/uvi#hgeo)
