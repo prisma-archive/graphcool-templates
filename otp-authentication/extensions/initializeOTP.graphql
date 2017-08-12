@@ -1,8 +1,0 @@
-type InitializeOtpPayload
-{
-  success: Boolean!
-}
-
-extend type Mutation {
-  initializeOTP(userId: ID! code: String!): InitializeOtpPayload
-}

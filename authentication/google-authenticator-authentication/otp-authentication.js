@@ -62,7 +62,7 @@ app.post('/authenticateUser', (req,res) => {
                 res.json({data: { preAuthenticated: true }})
             }
             else {
-              const verified = verifyToken(data.User.otpSecret, req.body.data.code.split(/[\\(\\)]/g)[1])
+              const verified = verifyToken(data.User.otpSecret, req.body.data.code)
               if (verified) {
                 req.gc.generateAuthToken(data.User.id, "User").then(token => {
                   res.json({data: { token: token }})
