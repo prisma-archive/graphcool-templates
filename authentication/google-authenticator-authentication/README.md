@@ -1,6 +1,6 @@
 # Google Authenticator Authentication
 
-This is an example of Time-based One-Time Password (TOTP) authentication, compatible with Google Authenticator. It is a form of two factor authentication (2FA). Although the example uses basic email-password authentication, the example can easily be applied to other authentication providers too.
+This is an example of Time-based One-Time Password (TOTP) authentication, compatible with Google Authenticator and other Authenticator apps (like Microsoft Authenticator), and hardware authenticator tokens. It is a form of two factor authentication (2FA). Although the example uses basic email-password authentication, the example can easily be applied to other authentication providers too.
 
 ![two-factor-authentication-with-laravel-and-google-authenticator-3-638](./doc/howitworks.jpg)
 
