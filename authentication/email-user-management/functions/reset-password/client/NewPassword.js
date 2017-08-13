@@ -30,7 +30,7 @@ class NewPassword extends React.Component {
 
   triggerResetPassword = () => {
     const { email } = this.state
-    this.props.triggerReset({ variables: { email } })
+    this.props.triggerPasswordReset({ variables: { email } })
     .then(id => {
       console.log(`Check your email address for a password reset link for user with id ${id}`)
       this.setState({ status: 'success' })
