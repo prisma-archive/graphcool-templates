@@ -23,8 +23,8 @@ class NewPassword extends React.Component {
     }
   }
 
-  handleInput = (name, value) => {
-    this.setState({ [name]: value })
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
 
@@ -69,14 +69,14 @@ class NewPassword extends React.Component {
               autoFocus={true}
               placeholder='Password'
               name='password'
-              onChange={(name, value) => this.handleInput(name, value)}
+              onChange={this.onChange}
               type='password'
               value={password}
             />
             <input
               placeholder='Password (verify)'
               name='passwordAgain'
-              onChange={(name, value) => this.handleInput(name, value)}
+              onChange={this.onChange}
               type='password'
               value={passwordAgain}
             />
@@ -102,7 +102,7 @@ class NewPassword extends React.Component {
             autoFocus={true}
             placeholder='Email'
             name='email'
-            onChange={(name, value) => this.handleInput(name, value)}
+            onChange={this.onChange}
             type='email'
             value={email}
           />
