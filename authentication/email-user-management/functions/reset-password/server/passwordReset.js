@@ -46,7 +46,7 @@ module.exports = function (event) {
     .then(graphcoolUser => {
       console.log(graphcoolUser)
       const userId = graphcoolUser.id
-      const resetExpores = graphcoolUser.resetExpires
+      const resetExpires = graphcoolUser.resetExpires
       if (new Date() > new Date(resetExpires)) {
         return Promise.reject('Token expired.')
       } else {
