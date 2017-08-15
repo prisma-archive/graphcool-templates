@@ -58,13 +58,13 @@ Enter in your phone number. Wait for a text message. Check your `User` data for 
 graphcool playground
 ```
 
-Run this mutation to generate and send a 5-digit token to your user's phone:
+Run this mutation to generate and send a 5-digit token to your user's phone and return a `userId`.
 
 ```graphql
 mutation {
   # replace __PHONE_NUMBER__!
   authenticateSmsUser(phone: "__PHONE_NUMBER__") {
-    token
+    id
   }
 }
 ```
