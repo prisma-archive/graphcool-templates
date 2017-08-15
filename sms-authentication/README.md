@@ -19,33 +19,64 @@ graphcool init --schema sms-authentication.graphql
 5. The app will generate an SMS code and a JWT token that will be saved under `User`
 6. Twilio sends that sms code to the phone number provided
 7. Your `User` model is updated with the JWT-encrypted sms code
-8. Your user will receive a text message. Your app will take that sms code, unencrypt it and check to make sure its correct
+8. Your user will receive a text message and enter in the 5 digit code.
+9. You will pass `userId` and`confirmCode` to the `confirmUserSmsToken` function which will:
+  - Decrypt your JWT token
+  - Check expiration date / token
+  - Resolve the promise if details are correct
+  - Throw an error if details are incorrect
+10. If the details are correct, GraphCool will generate an auth token and return an object with `data.token` that you should store as an auth header.
+11. If details are incorrect, it will return an error object.
 
 ## Setup the Authentication Function
 
-* Create a new Schema Extension Function and paste the schema from `schema-extension.graphql` and code from `sms-authentication.js`.
+* Create a new Schema Extension Function called `authenticateSmsUser` and paste the schema from `sms-authentication-schema-extension.graphql` and code from `confirm-code.js`.
+* Create a new Schema Extension Function called `confirmUserSmsToken` and paste the schema from `confirm-code-schema-extension.graphql` and code from `sms-authentication.js`.
 * Create a new Permanent Access Token (PAT) in project settings. *It needs to have the same name as the function to make it available in the execution context of the function.*
 * Remove all Create permissions from the `User` type. The function uses a Permanent Access Token to create users via the API so the permissions are not needed.
 
 ## Twilio App Setup
 
-Copy the `TWILIO_SID` and `TWILIO_AUTH_TOKEN` over to your new inline function.
+Required Variables from Twilio:
+- `TWILIO_SID`
+- `TWILIO_TOKEN`
+- `TWILIO_NUMBER`
+
+Copy these variables over to your new inline function.
+
+- Sign up at https://www.twilio.com
+- Under the console dashboard, you will see:
+  - `Account SID`. This will be your `TWILIO_SID`
+  - `AUTH TOKEN`. This is hidden by default. Click it. This will be your `TWILIO_TOKEN`
+  - Under "Recently Used Products" or "All Twilio Products" click "Phone Numbers" and/or "Buy a number". Once you have it, this will be your `TWILIO_NUMBER`.
 
 ## Test the Code
 
-Enter in your phone number. Wait for a text message. Check your `User` data for a token~
+Enter in your phone number. Wait for a text message. Check your `User` data for a token.
 
 ```sh
 graphcool playground
 ```
 
-Run this mutation to authenticate a user:
+Run this mutation to generate and send a 5-digit token to your user's phone:
 
 ```graphql
 mutation {
   # replace __PHONE_NUMBER__!
   authenticateSmsUser(phone: "__PHONE_NUMBER__") {
     token
+  }
+}
+```
+
+Run this mutation to confirm a token and send an auth token to your app:
+
+```graphql
+mutation {
+  # replace __CONFIRM_CODE__ !
+  # replace __USER_ID__ !
+  confirmUserSmsToken(userId: "__USER_ID__", confirmCode: "__CONFIRM_CODE__") {
+     token
   }
 }
 ```
