@@ -13,15 +13,16 @@ module.exports = function (event) {
       query {
         User(resetToken: "${resetToken}") {
           id
+          resetExpires
         }
       }`)
       .then(userQueryResult => {
         if (userQueryResult.error) {
           return Promise.reject(userQueryResult.error)
-        } else if (!userQueryResult.User) {
+        } else if (!userQueryResult.User || !userQueryResult.User.id || !userQueryResult.User.resetExpires) {
           return Promise.reject('Not a valid token')
         } else {
-          return userQueryResult.User.id
+          return userQueryResult.User
         }
       })
   }
@@ -44,10 +45,9 @@ module.exports = function (event) {
   return getUserWithToken(resetToken)
     .then(graphcoolUser => {
       console.log(graphcoolUser)
-      const userId = graphcoolUser
-      if (graphcoolUser === null) {
-        return Promise.reject('Invalid credentials.')
-      } else if (new Date() > new Date(graphcoolUser.resetExpires)) {
+      const userId = graphcoolUser.id
+      const resetExpores = graphcoolUser.resetExpires
+      if (new Date() > new Date(resetExpires)) {
         return Promise.reject('Token expired.')
       } else {
         return bcrypt.hash(newPassword, saltRounds)
