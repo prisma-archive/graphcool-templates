@@ -48,7 +48,7 @@ Copy these variables over to your new inline function.
 - Under the console dashboard, you will see:
   - `Account SID`. This will be your `TWILIO_SID`
   - `AUTH TOKEN`. This is hidden by default. Click it. This will be your `TWILIO_TOKEN`
-  - Under "Recently Used Products" or "All Twilio Products" click "Phone Numbers" and/or "Buy a number". Once you have it, this will be your `TWILIO_NUMBER`.
+  - Under "Recently Used Products" or "All Twilio Products" click "Phone Numbers" and/or "Buy a number". Once you have it, this will be your `TWILIO_NUMBER`. **Phone numbers have a monthly cost associated to them**
 
 ## Test the Code
 
