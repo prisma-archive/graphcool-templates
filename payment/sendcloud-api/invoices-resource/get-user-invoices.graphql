@@ -1,0 +1,7 @@
+type GetUserInvoicesPayload {
+  invoices: [Json!]!
+}
+
+extend type Query {
+  getUserInvoices: GetUserInvoicesPayload
+}

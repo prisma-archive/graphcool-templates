@@ -1,0 +1,14 @@
+type GetShippingMethodPayload {
+  shippingMethodId: Int
+  name: String
+  carrier: String
+  price: Float
+  min_weight: String
+  max_weight: String
+  countries: [Json!]
+  service_point_input: String
+}
+
+extend type Query {
+  getShippingMethod(shippingMethodId: Int!): GetShippingMethodPayload
+}

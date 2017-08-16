@@ -1,0 +1,7 @@
+type GetParcelsPayload {
+  parcels: [Json!]!
+}
+
+extend type Query {
+  getParcels(limit: Int, offset: Int): GetParcelsPayload
+}

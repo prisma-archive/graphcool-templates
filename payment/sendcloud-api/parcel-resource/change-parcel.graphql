@@ -1,0 +1,8 @@
+type ChangeParcelPayload {
+  # More specific return format?
+  result: Json
+}
+
+extend type Mutation {
+  changeParcel(parcel: Json!): ChangeParcelPayload
+}

@@ -1,0 +1,7 @@
+type GetParcelStatusesPayload {
+  statuses: [Json!]!
+}
+
+extend type Query {
+  getParcelStatuses: GetParcelStatusesPayload
+}

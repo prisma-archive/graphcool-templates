@@ -1,0 +1,8 @@
+type GetLabelPayload {
+  normal_printer: [String!]
+  label_printer: String
+}
+
+extend type Query {
+  getLabel(parcelId: Int!): GetLabelPayload
+}

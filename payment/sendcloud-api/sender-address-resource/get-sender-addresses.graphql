@@ -1,0 +1,7 @@
+type GetSenderAddressesPayload {
+  sender_addresses: [Json!]!
+}
+
+extend type Query {
+  getSenderAddresses: GetSenderAddressesPayload
+}

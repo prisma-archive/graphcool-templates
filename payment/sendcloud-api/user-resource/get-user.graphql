@@ -1,0 +1,18 @@
+type GetUserPayload {
+  user_name: String
+  company_name: String
+  telephone: String
+  address: String
+  postal_code: String
+  city: String
+  email: String
+  company_logo: String
+  registered: Date
+  data: [Json!]
+  modules: [Json!]
+  invoices: [Json!]
+}
+
+extend type Query {
+  getUser: GetUserPayload
+}

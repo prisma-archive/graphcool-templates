@@ -1,0 +1,8 @@
+type CreateParcelPayload {
+  # More specific return format?
+  result: Json
+}
+
+extend type Mutation {
+  createParcel(parcel: Json!): CreateParcelPayload
+}
