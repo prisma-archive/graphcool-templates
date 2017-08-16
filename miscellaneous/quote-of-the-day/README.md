@@ -2,6 +2,8 @@
 
 A fun set of schema extension queries that exposes the public [TheySaidSo Famous Quotes API](https://theysaidso.com/api/) through your Graphcool endpoint.
 
+> Please follow the TheySaidSo API [attribution guidelines](https://theysaidso.com/api/) when using this API.
+
 ## Getting Started
 
 - Create Schema Extensions using the `.graphql` and `.js` files provided in this project
