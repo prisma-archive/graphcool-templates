@@ -1,0 +1,8 @@
+type GetQuoteCategoriesPayload {
+  success: Json
+  contents: Json
+}
+
+extend type Query {
+  getQuoteCategories: GetQuoteCategoriesPayload
+}
