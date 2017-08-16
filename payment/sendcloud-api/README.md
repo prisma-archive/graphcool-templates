@@ -1,4 +1,4 @@
-# Schema Extensions for OpenWeatherMap API
+# Schema Extensions for SendCloud API
 
 A set of schema extension queries and mutations that exposes the full [SendCloud API](https://docs.sendcloud.sc/api/v2/index.html) through your Graphcool endpoint. With SendCloud, you can create shipment labels for many carriers. SendCloud also supports tracking mails, service point deliveries, and more.
 
