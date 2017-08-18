@@ -20,7 +20,7 @@ const generateRequest = mail => sendgrid.emptyRequest({
 })
 
 module.exports = event => new Promise((resolve, reject) => sendgrid.API(
-  generateRequest(generateMail(data)(event.data[model].node)), 
+  generateRequest(generateMail(event.data[model].node)), 
   (error, response) => {
     if (error) {
       console.log(error)
