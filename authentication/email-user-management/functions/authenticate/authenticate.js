@@ -31,14 +31,14 @@ module.exports = function(event) {
   return getGraphcoolUser(email)
     .then((graphcoolUser) => {
       if (graphcoolUser === null) {
-        return Promise.reject("Invalid Credentials") //returning same generic error so user can't find out what emails are registered.
+        return Promise.reject("Invalid Email") //returning same generic error so user can't find out what emails are registered.
       } else {
         return bcrypt.compare(password, graphcoolUser.password)
           .then((res) => {
             if (res === true) {
               return graphcoolUser.id
             } else {
-              return Promise.reject("Invalid Credentials")
+              return Promise.reject("Invalid Password")
             }
           })
       }
