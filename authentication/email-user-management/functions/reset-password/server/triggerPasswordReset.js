@@ -60,6 +60,9 @@ module.exports = function (event) {
       return { data: { id } }
     })
     .catch((error) => {
-      return { error: error.toString() }
+      console.log(error)
+
+      // don't expose error message to client!
+      return { error: 'An unexpected error occured.' }
     })
 }
