@@ -68,6 +68,9 @@ module.exports = function(event) {
       return { data: { token: token } }
     })
     .catch((error) => {
-      return { error: error.toString() }
+      console.log(error)
+
+      // don't expose error message to client!
+      return { error: 'An unexpected error occured.' }
     })
 }
