@@ -59,27 +59,23 @@ app.post('/authenticateUser', (req,res) => {
         if (valid) {
           if (data.User.isOtpEnabled) {
             if (!req.body.data.code) {
-                res.json({data: { preAuthenticated: true }})
-            }
-            else {
+              res.json({data: { preAuthenticated: true }})
+            } else {
               const verified = verifyToken(data.User.otpSecret, req.body.data.code)
               if (verified) {
                 req.gc.generateAuthToken(data.User.id, "User").then(token => {
                   res.json({data: { token: token }})
                 })
-              }
-              else {
+              } else {
                 res.json({error: "OTP Authentication failed"})
               }
             }
-          }
-          else {
+          } else {
             req.gc.generateAuthToken(data.User.id, "User").then(token => {
               res.json({data: { token: token }})
             })
           }
-        }
-        else {
+        } else {
           res.json({error: "Authentication failed"})
         }
       });
@@ -148,8 +144,7 @@ app.post('/initializeOtp', function (req, res) {
       // Verify OTP code
       const verified = verifyToken(data.User.otpSecret, req.body.data.code)
 
-      if (verified)
-      {
+      if (verified) {
         // Enable OTP for user
         req.gc.api('simple/v1')
           .request(
@@ -159,8 +154,7 @@ app.post('/initializeOtp', function (req, res) {
             res.json({data: { success: true }})
           )
           .catch(err => res.json({ error: err }))
-      }
-      else {
+      } else {
         res.json({ error: "Code verification failed"})
       }
     })
@@ -171,12 +165,18 @@ module.exports = Webtask.fromExpress(app);
 
 function validateUserForInitialization(user, res) {
   validateUserForRegistration(user, res)
-  if (!user.otpSecret) res.json({ error: `User '${user.id}' not registered for OTP`})
+  if (!user.otpSecret) {
+    res.json({ error: `User '${user.id}' not registered for OTP`})
+  }
 }
 
 function validateUserForRegistration(user, res) {
-  if (user == null) res.json({ error: `User '${user.id}' not found` })
-  if (user.isOtpEnabled) res.json({ error: `OTP already enabled for user '${user.id}'`})
+  if (user == null){
+    res.json({ error: `User '${user.id}' not found` })
+  }
+  if (user.isOtpEnabled) {
+    res.json({ error: `OTP already enabled for user '${user.id}'`})
+  }
 }
 
 function verifyToken(secret, code) {

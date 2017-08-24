@@ -65,59 +65,68 @@ Create the following Schema Extensions:
 ## Running the example
 
 ### User Registration
+
 To register a new user, use the following mutation:
+
 ```graphql
 mutation {
-  registerUser(email: "__EMAIL__", password: "__PASSWORD__")
-  {
+  registerUser(email: "__EMAIL__", password: "__PASSWORD__") {
     id
   }
 }
 ```
 
 ### Activating OTP
+
 To register a user for OTP, select the user you just registered in the Playground and use the following mutation:
+
 ```graphql
 mutation {
-  registerOTP
-  {
+  registerOTP {
     secret
     qrUrl
   }
 }
 ```
+
 This mutation will generate an OTP secret for the user, and it will generate and upload a QR Code image that the user can scan using the Google Authenticator app. If you open the qrUrl in your browser, you'll see the QR code. This can also be easily embedded into your client app. The secret is also presented in a human readable form. It is adviced to show this secret to the user for manual entry into the Authenticator app.
 Optionally, if you want to use a hardware token, you can also pass the OTP secret for the device to the mutation.
 
 ![qr-code](./doc/qr-sample.png)
 
 After a user registers for OTP, a one time token from the Authenticator app is required to verify the installation, and activate OTP for the user. Again, select the registered user in the Playground first.
+
 ```graphql
 mutation {
-  initializeOTP(code: "__TOKEN__")
-  {
+  initializeOTP(code: "__TOKEN__") {
     success
   }
 }
 ```
+
 If the verification of the token is successful, OTP is activated.
 
 ### Authentication
+
 The `authenticateUser` mutation is used to authenticate the user. It offers a two-step authentication, based on your desired client flow.
 
 #### Pre-authentication
+
 If not of all of your users have OTP activated, you might want to login first using username and password, and ask for a token if OTP is activated for the user. To use this flow, first call the following mutation:
+
 ```graphql
 mutation {
-  authenticateUser(email: "__EMAIL__", password: "__PASSWORD__"){
+  authenticateUser(email: "__EMAIL__", password: "__PASSWORD__") {
     preAuthenticated
     token
   }
 }
 ```
+
 The system will verify the user credentials. If OTP is not activated, a token is returned right away. If OTP is activated for the user, the above mutation will not return a token, and will return `preAuthenticated: true` to indicate that OTP is required to authenticate.
 
 To provide this token, call the following mutation:
+
 ```graphql
 mutation {
   authenticateUser(email: "__EMAIL__", password: "__PASSWORD__", code: "__TOKEN__") {
@@ -125,4 +134,5 @@ mutation {
   }
 }
 ```
+
 The system will verify the OTP token, and return the authentication token.
