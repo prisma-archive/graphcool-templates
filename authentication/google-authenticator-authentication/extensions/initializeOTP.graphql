@@ -1,0 +1,7 @@
+type InitializeOtpPayload {
+  success: Boolean!
+}
+
+extend type Mutation {
+  initializeOTP(code: String!): InitializeOtpPayload
+}
