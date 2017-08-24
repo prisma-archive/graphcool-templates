@@ -136,3 +136,7 @@ mutation {
 ```
 
 The system will verify the OTP token, and return the authentication token.
+
+## Contributions
+
+Thanks so much [@kbrandwijk](https://github.com/kbrandwijk) for contributing this example! :tada:
