@@ -13,13 +13,13 @@ function generateJwtSmsDigitsAndToken(userId) {
     id: userId,
     smsCode: smsCode
   }
-  
+
   const options = {
     expiresIn: '6h'
   }
-  
+
   const jwtSmsToken = jwt.sign(jwtPayload, JWT_SECRET_KEY, options);
-  
+
   return {
     smsCode: smsCode,
     smsToken: jwtSmsToken
@@ -77,7 +77,7 @@ module.exports = function (event) {
       return userMutationResult.createUser.id
     })
   }
-  
+
   function updateGraphcoolUser (userId, smsToken) {
     return api.request(`
 		mutation {
@@ -94,11 +94,11 @@ module.exports = function (event) {
   function generateGraphcoolToken (graphcoolUserId) {
     return graphcool.generateAuthToken(graphcoolUserId, 'User');
   }
-  
+
   function generateAndSaveSmsToken (userId, phoneNumber) {
     const smsPayload = generateJwtSmsDigitsAndToken(userId)
     sendTextAsync(phoneNumber, smsPayload.smsCode);
-  
+
     return updateGraphcoolUser(userId, smsPayload.smsToken);
   }
 
@@ -118,10 +118,11 @@ module.exports = function (event) {
       }
     }
   })
-  .catch(error => {
-    return {
-      error: error.toString()
-    }
+  .catch((error) => {
+    console.log(error)
+
+    // don't expose error message to client!
+    return { error: 'An unexpected error occured.' }
   })
 
 }
