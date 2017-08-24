@@ -114,7 +114,7 @@ module.exports = function (event) {
   .then(userId => {
     return {
       data: {
-        id: userId
+        userId: userId
       }
     }
   })

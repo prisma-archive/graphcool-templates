@@ -64,7 +64,7 @@ Run this mutation to generate and send a 5-digit token to your user's phone and 
 mutation {
   # replace __PHONE_NUMBER__!
   authenticateSmsUser(phone: "__PHONE_NUMBER__") {
-    id
+    userId
   }
 }
 ```
