@@ -35,7 +35,7 @@ app.post('/registerUser', (req,res) => {
         `mutation ($email: String!, $password: String!) { createUser(email: $email, password: $password) { id } }`,
         { email: req.body.data.email, password: concatPassword })
       .then(data => {
-        res.json({data: { id: data.createUser.id }})
+        res.json({data: { userId: data.createUser.id }})
       })
       .catch(err => res.json({error: err}))
     });
