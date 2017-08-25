@@ -1,0 +1,7 @@
+type AuthenticateSmsUserPayload {
+  token: String!
+}
+
+extend type Mutation {
+  confirmUserSmsToken(userId: ID!, confirmCode: String!):AuthenticateSmsUserPayload
+}
