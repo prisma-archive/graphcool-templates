@@ -15,3 +15,7 @@ All public TheySaidSo Quotes API endpoints are implemented.
 `getQuote(category: String)` - [Documentation](https://theysaidso.com/api/#qod) and [Documentation](https://theysaidso.com/api/#qodcatopt)
 
 `getQuoteCategories` - [Documentation](https://theysaidso.com/api/#qodcat)
+
+## Contributions
+
+Thanks so much [@kbrandwijk](https://github.com/kbrandwijk) for contributing this example! :tada:
