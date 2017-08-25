@@ -12,6 +12,6 @@ module.exports = (event) => {
     }
 
   return request(options)
-  	.then(data =>  { return { data: data } })
+    .then(data =>  { return { data: data } })
     .catch(error => { return { error: error } })
 }

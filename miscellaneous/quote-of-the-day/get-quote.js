@@ -15,6 +15,6 @@ module.exports = (event) => {
   if (category) options.qs = { category: category }
 
   return request(options)
-  	.then(data =>  { return { data: data } })
+    .then(data =>  { return { data: data } })
     .catch(error => { return { error: error } })
 }
