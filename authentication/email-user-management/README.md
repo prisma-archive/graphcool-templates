@@ -39,9 +39,11 @@ and follow the instructions in the functions folder to test the code. It makes s
 * Receiving
 
   > Error: Unknown argument 'email' on field 'User' of type 'Query'.
-  
+
   indicates that the `email` field on `User` doesn't have the `@isUnique` modifier. Either mark the `email` field unique to enabled the `User(email: String)` query, or use `allUsers(filters: { email: "..." })` instead.
 
 ## Contributions
 
-Thanks so much [@stevewpatterson](https://github.com/stevewpatterson) for contributing this example :tada:
+Thanks so much [@stevewpatterson](https://github.com/stevewpatterson), [@mwickett](https://github.com/mwickett) and [@heymartinadams](https://github.com/heymartinadams) for contributing this example :tada:
+
+![](http://i.imgur.com/5RHR6Ku.png)
