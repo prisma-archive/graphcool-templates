@@ -59,6 +59,9 @@ A big thank you to all contributors and supporters of this repository 💚
 <a href="https://github.com/BoraKilicoglu/" target="_blank">
   <img src="https://github.com/BoraKilicoglu.png?size=64" width="64" height="64" alt="BoraKilicoglu">
 </a>
+<a href="https://github.com/peterpme/" target="_blank">
+  <img src="https://github.com/peterpme.png?size=64" width="64" height="64" alt="peterpme">
+</a>
 
 ## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
 
