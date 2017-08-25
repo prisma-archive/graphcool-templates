@@ -12,7 +12,7 @@ function decryptSmsToken (payload) {
     }
   } catch (error) {
     console.log('decryption error', error)
-	return Promise.reject(error)
+    return Promise.reject(error)
   }
 }
 
@@ -21,11 +21,11 @@ module.exports = function sum(event) {
   const confirmCode = event.data.confirmCode;
   const graphcool = fromEvent(event)
   const api = graphcool.api('simple/v1')
-  
+
   function generateGraphcoolToken (graphcoolUserId) {
     return graphcool.generateAuthToken(graphcoolUserId, 'User');
   }
-  
+
   function getGraphcoolUser (userId) {
     return api.request(`
       query {
@@ -44,15 +44,15 @@ module.exports = function sum(event) {
       }
     })
   }
-  
+
   function updateGraphcoolUser (userId) {
     return api.request(`
-		mutation {
-		   updateUser(id: "${userId}", smsToken: null, hasVerifiedPhone: true) {
-				id
-			}
-		}
-	`)
+      mutation {
+        updateUser(id: "${userId}", smsToken: null, hasVerifiedPhone: true) {
+          id
+        }
+      }
+    `)
     .then(userMutationResult => {
       return userMutationResult.updateUser.id
     })
@@ -63,34 +63,34 @@ module.exports = function sum(event) {
       error: 'Missing userId'
     }
   }
-  
+
   if (!confirmCode) {
     return {
       error: 'Missing confirmCode'
     }
   }
-  
+
   return getGraphcoolUser(userId)
     .then(graphcoolUser => {
-    	return {
-          smsToken: graphcoolUser.smsToken,
-          confirmCode: confirmCode
-        }
-  	})
-  	.then(decryptSmsToken)
-  	.then(updateGraphcoolUser)
-  	.then(generateGraphcoolToken)
-  	.then(token => {
-    	return {
+      return {
+        smsToken: graphcoolUser.smsToken,
+        confirmCode: confirmCode
+      }
+    })
+    .then(decryptSmsToken)
+    .then(updateGraphcoolUser)
+    .then(generateGraphcoolToken)
+    .then(token => {
+      return {
           data: {
             token: token
           }
         }
-  	})
-    .catch(error => {
-      return {
-        error: error.toString()
-      }
     })
-  
+    .catch((error) => {
+      console.log(error)
+
+      // don't expose error message to client!
+      return { error: 'An unexpected error occured.' }
+    })
 }

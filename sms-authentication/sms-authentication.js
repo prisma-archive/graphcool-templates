@@ -7,6 +7,9 @@ const TWILIO_SID = ''
 const TWILIO_AUTH_TOKEN = ''
 const TWILIO_NUMBER = ''
 
+
+const TwilioClient = setupTwilio();
+
 function generateJwtSmsDigitsAndToken(userId) {
   const smsCode = Math.floor(Math.random() * 90000) + 10000
   const jwtPayload = {
@@ -31,14 +34,14 @@ function setupTwilio () {
   return client;
 }
 
-const TwilioClient = setupTwilio();
 function sendTextAsync (to, smsToken, body) {
-    const getDefaultText = token => `Your confirmation code is: ${token}`
-	return TwilioClient.messages.create({
-      body: body || getDefaultText(smsToken),
-      to,
-      from: TWILIO_NUMBER
-    })
+  const getDefaultText = token => `Your confirmation code is: ${token}`
+
+  return TwilioClient.messages.create({
+    body: body || getDefaultText(smsToken),
+    to,
+    from: TWILIO_NUMBER
+  })
 }
 
 module.exports = function (event) {
@@ -80,12 +83,12 @@ module.exports = function (event) {
 
   function updateGraphcoolUser (userId, smsToken) {
     return api.request(`
-		mutation {
-		   updateUser(id: "${userId}", smsToken: "${smsToken}") {
-				id
-			}
-		}
-	`)
+      mutation {
+         updateUser(id: "${userId}", smsToken: "${smsToken}") {
+          id
+        }
+      }
+    `)
     .then(userMutationResult => {
       return userMutationResult.updateUser.id
     })
