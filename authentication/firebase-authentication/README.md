@@ -1,4 +1,4 @@
-# firebase-graphcool-authentication
+# firebase-authentication
 
 Create Firebase users and sign in with Schema Extensions and Graphcool Functions
 
@@ -146,3 +146,9 @@ Note that running the mutation again for the same Firebase user will simply retu
 The Firebase web sdk keeps a user signed in indefinitely by default.  But only signed in to Firebase.  Firebase will provide a valid Id Token any time an app calls `auth().currentUser.getIdToken()`.
 
 The Graphcool token must be managed by a production application, especially regarding expiration.  At the time this was written, Graphcool Id Tokens are valid for one month.
+
+## Contributions
+
+Thanks so much [@Gregor1971](https://github.com/Gregor1971) and [@jhalborg](https://github.com/jhalborg) for contributing this example :tada:
+
+![](http://i.imgur.com/5RHR6Ku.png)
