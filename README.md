@@ -62,6 +62,12 @@ A big thank you to all contributors and supporters of this repository 💚
 <a href="https://github.com/peterpme/" target="_blank">
   <img src="https://github.com/peterpme.png?size=64" width="64" height="64" alt="peterpme">
 </a>
+<a href="https://github.com/Gregor1971/" target="_blank">
+  <img src="https://github.com/Gregor1971.png?size=64" width="64" height="64" alt="Gregor1971">
+</a>
+<a href="https://github.com/jhalborg/" target="_blank">
+  <img src="https://github.com/jhalborg.png?size=64" width="64" height="64" alt="jhalborg">
+</a>
 
 ## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
 
