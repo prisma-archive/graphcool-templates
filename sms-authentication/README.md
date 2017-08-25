@@ -35,6 +35,9 @@ graphcool init --schema sms-authentication.graphql
 * Create a new Permanent Access Token (PAT) in project settings. *It needs to have the same name as the function to make it available in the execution context of the function.*
 * Remove all Create permissions from the `User` type. The function uses a Permanent Access Token to create users via the API so the permissions are not needed.
 
+## JWT App Setup
+- Set `JWT_SECRET_KEY` to a strong, secret password. **You will use this for BOTH `authenticateSmsUser`and `confirmUserSmsToken` so make sure to copy it over!. Here's an example of a strong password I generated in 1Password: `stripe-blame-parlour-denounce-tibet-cracker-dirty`
+
 ## Twilio App Setup
 
 Required Variables from Twilio:
