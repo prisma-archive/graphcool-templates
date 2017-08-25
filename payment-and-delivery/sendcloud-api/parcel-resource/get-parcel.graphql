@@ -1,0 +1,23 @@
+type GetParcelPayload {
+  parcelId: Int
+  name: String
+  company_name: String
+  address: String
+  address_divided: Json
+  city: String
+  postal_code: String
+  telephone: String
+  email: String
+  date_created: String
+  tracking_number: String
+  weight: String
+  label: Json
+  status: Json
+  data: [Json!]
+  country: Json
+  shipment: Json
+}
+
+extend type Query {
+  getParcel(parcelId: Int!): GetParcelPayload
+}

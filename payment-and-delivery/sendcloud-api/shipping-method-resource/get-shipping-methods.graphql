@@ -1,0 +1,7 @@
+type GetShippingMethodsPayload {
+  shipping_methods: [Json!]!
+}
+
+extend type Query {
+  getShippingMethods(senderAddressId: Int, getAll: Boolean): GetShippingMethodsPayload
+}
