@@ -1,0 +1,37 @@
+service: firebase-graphcool-authentication
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+
+  environment: ${file(env-${self:custom.stage}.yml)} 
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  stage: "${opt:stage, self:provider.stage}"
+  webpackIncludeModules: true 
+
+package:
+  exclude:
+    - .babelrc
+    - .eslintrc
+    - .flowconfig
+    - .vscode/**
+    - yarn.lock
+    - yarn-error.log
+    - env-*.yml
+    - webpack.config.js
+    - schema-extension.sdl
+  
+functions:
+  firebaseAuthentication:
+    handler: src/handler.firebaseAuthentication
+    memorySize: 128
+    events:
+      - http:
+          path: authenticate
+          method: post
+          cors: true

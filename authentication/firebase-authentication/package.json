@@ -1,0 +1,40 @@
+{
+  "name": "firebase-graphcool-authentication",
+  "version": "0.1.0",
+  "main": "handler.js",
+  "license": "Unlicense",
+  "scripts": {
+    "build": "./node_modules/.bin/webpack -p",
+    "debug": "set SLS_DEBUG=* && serverless offline -s dev",
+    "package": "cross-env NODE_ENV=production serverless package --stage prod --region us-east-1",
+    "deploy-dev": "serverless deploy --funtion firebase-graphcool-authentication --stage dev --region us-east-1"  **** change for your region; copy to add another stage
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "firebase-admin": "^5.1.0",
+    "graphcool-lib": "^0.0.3",
+    "jsonwebtoken": "^7.4.2",
+    "lambda-proxy-response": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-regenerator": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-flow": "^6.23.0",
+    "cross-env": "^5.0.5",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "flow-bin": "^0.52.0",
+    "json-loader": "^0.5.7",
+    "prettier-eslint": "^6.4.2",
+    "serverless": "^1.19.0",
+    "serverless-offline": "^3.15.3",
+    "serverless-webpack": "^2.2.0",
+    "webpack": "^3.4.1",
+    "webpack-node-externals": "^1.6.0"
+  }
+}
