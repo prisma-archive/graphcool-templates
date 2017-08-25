@@ -61,9 +61,3 @@ mutation {
   }
 }
 ```
-
-## Contributions
-
-Thanks so much [@mwickett](https://github.com/mwickett) and [@heymartinadams](https://github.com/heymartinadams) for contributing this example! :tada:
-
-![](http://i.imgur.com/5RHR6Ku.png)

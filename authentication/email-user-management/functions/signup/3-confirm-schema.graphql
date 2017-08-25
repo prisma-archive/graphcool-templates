@@ -1,0 +1,7 @@
+type ConfirmEmailPayload {
+  id: ID!
+}
+
+extend type Mutation {
+  confirmEmail(confirmToken: String!): ConfirmEmailPayload
+}

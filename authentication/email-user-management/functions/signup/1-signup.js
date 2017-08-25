@@ -25,12 +25,23 @@ module.exports = function(event) {
       })
   }
 
+  function generateToken() {
+    return crypto.randomBytes(20).toString("hex")
+  }
+
+  function generateExpiration() {
+    const now = new Date()
+    return new Date(now.getTime() + 3600000).toISOString()
+  }
+
   function createGraphcoolUser(email, passwordHash) {
     return api.request(`
       mutation {
         createUser(
           email: "${email}",
-          password: "${passwordHash}"
+          password: "${passwordHash}",
+          confirmToken: "${generateToken()}",
+          confirmExpires: "${generateExpiration()}"
         ) {
           id
         }

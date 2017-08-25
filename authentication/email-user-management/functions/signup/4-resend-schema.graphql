@@ -1,0 +1,7 @@
+type ResendConfirmationPayload {
+  id: ID!
+}
+
+extend type Mutation {
+  resendConfirmation(email: String!): ResendConfirmationPayload
+}

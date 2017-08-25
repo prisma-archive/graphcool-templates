@@ -1,0 +1,17 @@
+subscription {
+  User(filter: {
+    mutation_in: [UPDATED]
+    updatedFields_contains: "confirmToken"
+    node: {
+      confirmToken_not: "null"
+    }
+  }) {
+    updatedFields
+    node {
+      email
+      confirmToken
+      firstName
+      lastName
+    }
+  }
+}
