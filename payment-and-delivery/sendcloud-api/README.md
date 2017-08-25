@@ -59,3 +59,7 @@ All SendCloud API endpoints are implemented.
 ### SenderAddress Resource (https://docs.sendcloud.sc/api/v2/index.html#sender_address)
 
 `getSenderAddresses` - [Documentation](https://docs.sendcloud.sc/api/v2/index.html#sender_addresses)
+
+## Contributions
+
+Thanks so much [@kbrandwijk](https://github.com/kbrandwijk) for contributing this example! :tada:

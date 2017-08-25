@@ -9,8 +9,8 @@ module.exports = (event) => {
   const options =
     {
       auth: {
-      	user: SENDCLOUD_PUBLIC_KEY,
-      	pass: SENDCLOUD_SECRET_KEY
+        user: SENDCLOUD_PUBLIC_KEY,
+        pass: SENDCLOUD_SECRET_KEY
       },
       baseUrl: 'https://panel.sendcloud.sc/api/v2',
       uri: `/user`,
@@ -19,6 +19,6 @@ module.exports = (event) => {
     }
 
   return request(options)
-  	.then(data =>  { return { data: data.user } })
+    .then(data =>  { return { data: data.user } })
     .catch(error => { return error })
 }

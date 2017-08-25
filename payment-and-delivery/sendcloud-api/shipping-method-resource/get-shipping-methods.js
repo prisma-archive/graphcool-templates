@@ -11,8 +11,8 @@ module.exports = (event) => {
   const options =
     {
       auth: {
-      	user: SENDCLOUD_PUBLIC_KEY,
-      	pass: SENDCLOUD_SECRET_KEY
+        user: SENDCLOUD_PUBLIC_KEY,
+        pass: SENDCLOUD_SECRET_KEY
       },
       baseUrl: 'https://panel.sendcloud.sc/api/v2',
       uri: `/shipping_methods`,
@@ -25,6 +25,6 @@ module.exports = (event) => {
   else if (getAll) options.qs = { sender_address: 'all' }
 
   return request(options)
-  	.then(data =>  { return { data: data } })
+    .then(data =>  { return { data: data } })
     .catch(error => { return error })
 }

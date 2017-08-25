@@ -11,8 +11,8 @@ module.exports = (event) => {
   const options =
     {
       auth: {
-      	user: SENDCLOUD_PUBLIC_KEY,
-      	pass: SENDCLOUD_SECRET_KEY
+        user: SENDCLOUD_PUBLIC_KEY,
+        pass: SENDCLOUD_SECRET_KEY
       },
       baseUrl: 'https://panel.sendcloud.sc/api/v2',
       uri: `/shipping_methods/${shippingMethodId}`,
@@ -21,7 +21,7 @@ module.exports = (event) => {
     }
 
   return request(options)
-  	.then(data =>  {
+    .then(data =>  {
       // Workaround for api-bug #224
       data.shipping_method.shippingMethodId = data.shipping_method.id;
       return { data: data.shipping_method }
