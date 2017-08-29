@@ -1,0 +1,7 @@
+type User {
+  id: ID!
+
+  # Must be unique
+  # Make it required if LinkedIn is the only authorization method in your app
+  linkedInUserId: String @isUnique
+}
