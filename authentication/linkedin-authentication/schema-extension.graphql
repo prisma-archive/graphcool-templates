@@ -1,0 +1,7 @@
+type AuthenticateLinkedInUserPayload {
+  token: String!
+}
+
+extend type Mutation {
+  authenticateLinkedInUser(linkedInToken: String!): AuthenticateLinkedInUserPayload
+}
