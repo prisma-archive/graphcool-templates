@@ -50,7 +50,7 @@ graphcool init --schema auth0-rule-authentication.graphql
 
 ![](./assets/auth0-credentials.png)
 
-* In the Auth0 dashboard under 'Rules', create a new Rule. Use the code from `auth0-rule.js`
+* In the Auth0 dashboard under 'Rules', create a new Rule. Use the code from `auth0-rule.js`. Ignore all code warnings when saving. These are due to the limited editor support on Auth0 Rules.
 
 ## Run the example
 
