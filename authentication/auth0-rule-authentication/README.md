@@ -2,6 +2,7 @@
 
 This authentication examples uses Auth0, and retrieves the Graphcool token as part of the Auth0 authentication process using Auth0 Rules. The Graphcool token is added as claim to the payload of the id_token received from Auth0.
 This example does not require any Schema Extensions on the Graphcool side! Also, no Auth0 token exchange is needed between Auth0 and Graphcool.
+This examples supports the default Auth0 client settings (RS256 and OIDC conformant)
 
 ## Authentication flow in app
 
