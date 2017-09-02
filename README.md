@@ -68,6 +68,9 @@ A big thank you to all contributors and supporters of this repository 💚
 <a href="https://github.com/jhalborg/" target="_blank">
   <img src="https://github.com/jhalborg.png?size=64" width="64" height="64" alt="jhalborg">
 </a>
+<a href="https://github.com/felipesabino/" target="_blank">
+  <img src="https://github.com/felipesabino.png?size=64" width="64" height="64" alt="jhalborg">
+</a>
 
 ## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
 
