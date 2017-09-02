@@ -1,0 +1,9 @@
+type SignedUrlType {
+  fileName: String!
+  signedUrl: String!
+  getUrl: String!
+}
+
+extend type Query {
+  SignedUrl(filePath: String!): SignedUrlType!
+}
