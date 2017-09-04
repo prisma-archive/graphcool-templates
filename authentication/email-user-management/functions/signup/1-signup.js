@@ -1,6 +1,7 @@
 const fromEvent = require('graphcool-lib').fromEvent
 const bcrypt = require('bcrypt')
 const validator = require('validator')
+const crypto = require('crypto')
 
 module.exports = function(event) {
   const email = event.data.email
