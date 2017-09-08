@@ -1,18 +1,18 @@
-'use strict';
-module.exports = function (event) {
-  let name = event.data.name
-  const slug = name
-    .toString()
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, "-")     // Replace all spaces with -
-    .replace(/&/g, '-and-')   // Replace & with 'and'
-    .replace(/[^\w\-]+/g, "") // Remove all non-word characters
-    .replace(/\-\-+/g, "-")   // Replace multiple - with single -
+const slugify = require('slugify')
 
-  const response = Object.assign({}, event.data, {slug})
+module.exports = function (event) {
+  const name = event.data.name
+  const suffix = Math.random().toString(36).substring(8)
+  
+  const slugifiedName = slugify(name, {
+    lower: true
+  })
+  
+  const slug = `${slugifiedName}-${suffix}`
+  
+  event.data.slug = slug
 
   return {
-    data: response
+    data: event.data
   }
 }
