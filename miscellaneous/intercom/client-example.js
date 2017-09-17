@@ -78,6 +78,15 @@ class App extends React.Component {
     return (
       <div>
         Hello world.
+        {/* Custom Intercom launcher */}
+        {process.env.REACT_APP_TYPE === 'cordova' &&
+          <div onTouchTap={() => intercom.displayMessenger()}>
+            click here for support
+          </div>}
+        {process.env.REACT_APP_TYPE !== 'cordova' &&
+          <div id='intercom-support'>
+            click here for support
+          </div>}
       </div>
     )
   }
