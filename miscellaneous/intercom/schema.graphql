@@ -1,0 +1,7 @@
+type LoadIntercomPayload {
+	hash: String!
+}
+
+extend type Mutation {
+	loadIntercom(email: String!, platform: String!): LoadIntercomPayload
+}
