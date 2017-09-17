@@ -1,7 +1,7 @@
 type LoadIntercomPayload {
-	hash: String!
+  hash: String!
 }
 
 extend type Mutation {
-	loadIntercom(email: String!, platform: String!): LoadIntercomPayload
+  loadIntercom(email: String!, platform: String!): LoadIntercomPayload
 }
