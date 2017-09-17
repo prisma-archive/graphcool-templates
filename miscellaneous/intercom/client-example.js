@@ -14,6 +14,7 @@ class App extends React.Component {
   componentWillMount() {
     if (this.props) {
       const { user } = this.props
+      // Pass through two variables: user email and platform (web app, iOS, or Android)
       this.props.loadIntercom({ variables: { email: user.email, platform: process.env.REACT_APP_ENV } })
         .then(({ data }) => {
           const { hash } = data.loadIntercom
