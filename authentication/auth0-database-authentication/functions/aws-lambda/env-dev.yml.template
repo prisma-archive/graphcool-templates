@@ -1,0 +1,5 @@
+# insert your settings and rename this file to env-dev.yml
+# env variables for DEV stage environment
+
+AUTH0_DOMAIN: 
+AUTH0_CLIENT_ID: 

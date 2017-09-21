@@ -1,0 +1,16 @@
+type User {
+  id: ID!
+
+  # Must be unique
+  # Make it required if Auth0 is the only authorization method in your app
+  auth0UserId: String @isUnique
+
+  # These are some example properties that we read from Auth0
+  # They are optional because Auth0 might not have the information
+  name: String
+  email: String
+  emailVerified: Boolean
+  givenName: String
+  familyName: String
+  picture: String
+}
