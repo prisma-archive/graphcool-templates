@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Graphcool Auth0 No Redirect Example</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.30.0/codemirror.min.css" integrity="sha256-wluO/w4cnorJpS0JmcdTSYzwdb5E6u045qa4Ervfb1k=" crossorigin="anonymous" />
+</head>
+<body style="font-size: 14px;">
+  <div class="container login-container">
+    <div class="row">
+      <div class="col">
+
+        <div class="card" style="width: 20rem; margin: 2rem auto">
+          <div class="card-header">
+            Login w/o Redirect
+          </div>
+          <div class="card-body">
+
+            <form id="login-form">
+              <div class="form-group">
+                <label for="auth-email">Email address</label>
+                <input type="email" class="form-control" id="auth-email" placeholder="Enter email" required/>
+              </div>
+              <div class="form-group">
+                <label for="auth-password">Password</label>
+                <input type="password" class="form-control" id="auth-password" placeholder="Password" required/>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block" id="login-btn">Sign In</button>
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col" id="code-mirror">
+
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.auth0.com/js/auth0/8.9/auth0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.30.0/codemirror.min.js" integrity="sha256-AqnMwc9Kk6sJShDo5QGwu2Ea9MzSR+iSWy4nJV+gRRU=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.30.0/mode/javascript/javascript.min.js" integrity="sha256-Mcheli6bfyTBE5+7CK1V3pBt0fpF1iMBurEqtIvWUcY=" crossorigin="anonymous"></script>
+  <script>
+    // Provide your Auth0 domain, client ID, and realm (database name)
+    const DOMAIN = '__DOMAIN__'
+    const CLIENT_ID = '__CLIENT_ID__'
+    const REALM = '__REALM__'
+
+    // Provide your GraphCool project ID or alias
+    const PROJECT_ID = '__PROJECT_ID__'
+
+    // Setup response view
+    const result = CodeMirror(document.getElementById('code-mirror'), {
+      lineNumbers: true,
+      value: '// The response data will be shown here',
+      mode:  'javascript',
+      readOnly: true
+    })
+    const loginBtn = document.getElementById('login-btn')
+
+    // Setup loading state for authentication
+    function toggleBtn(loading) {
+      if (loading) {
+        loginBtn.innerHTML = 'Authenticating...'
+        loginBtn.setAttribute('disabled', 'disabled')
+      } else {
+        loginBtn.innerHTML = 'Sign In'
+        loginBtn.removeAttribute('disabled')
+      }
+    }
+
+    // Configure base settings for Auth0.js
+    const webAuth = new auth0.WebAuth({
+      domain: DOMAIN,
+      clientID: CLIENT_ID,
+      redirectUri: `${DOMAIN}/mobile`,
+      audience: `https://${DOMAIN}/userinfo`,
+      responseType: 'token id_token',
+      scope: 'openid'
+    })
+
+    // What we call AFTER we've authenticated with Auth0
+    function authWithGraphCool (accessToken, idToken) {
+      // Call our custom schema extension with the appropriate tokens to auth with GraphCool
+      window.fetch(`https://api.graph.cool/simple/v1/${PROJECT_ID}`, {
+        method: 'post',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          query: `
+          mutation authenticateAuth0User($idToken: String!, $accessToken: String!) {
+            authenticateAuth0User(idToken: $idToken, accessToken: $accessToken) {
+              token
+            }
+          }
+        `,
+          variables: {
+            idToken,
+            accessToken,
+          }
+        })
+      }).then(function (response) {
+        toggleBtn(false)
+        response.json().then((userData) => {
+          // If we were successful we'll have a token in our standard GraphCool response
+          result.setValue(JSON.stringify(userData, null, 2))
+        })
+      }).catch(function (err) {
+        toggleBtn(false)
+        result.setValue(JSON.stringify(err, null, 2))
+      })
+    }
+
+    // First step in obtaining the appropriate tokens for GraphCool
+    function authWithAuth0 (email, password) {
+      // Auth0.js provides us a client.login() function to hit the token endpoint for our client
+      webAuth.client.login({
+        realm: REALM,
+        username: email,
+        password: password,
+        scope: 'openid profile'
+      }, function(err, userInfo) {
+        if (err) {
+          toggleBtn(false)
+          return result.setValue(JSON.stringify({
+            statusCode: err.statusCode,
+            code: err.code,
+            description: err.description
+          }, null, 2))
+        }
+
+        /*
+          A valid login (at the time of writing this) has the following response object:
+
+          {
+            "accessToken": __ACCESS TOKEN__,
+            "idToken": __JWT TOKEN__,
+            "expiresIn": 86400,
+            "tokenType": "Bearer"
+          }
+
+          This contains both pieces we need to run our schema extension for GraphCool
+        */
+
+        /*
+          Call GraphCool to either create a new user (or authenticate an existing one)
+          based off of Auth0 tokens and return us a GraphCool token.
+        */
+
+        authWithGraphCool(userInfo.accessToken, userInfo.idToken)
+      })
+    }
+
+    // Listen for form submission to authenticate with user/pass
+    const form = document.getElementById('login-form')
+    const iEmail = document.getElementById('auth-email')
+    const iPassword = document.getElementById('auth-password')
+    form.addEventListener('submit', function(evt) {
+      result.setValue('// The response data will be shown here')
+
+      evt.preventDefault()
+      toggleBtn(true)
+
+      // Call Auth0 for the official authorization tokens
+      authWithAuth0(iEmail.value, iPassword.value)
+    })
+  </script>
+</body>
+</html>
