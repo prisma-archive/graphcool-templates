@@ -4,13 +4,15 @@ Create Auth0 users and sign in with Schema Extensions and Graphcool Functions âš
 
 > Note: Schema Extensions are currently only available in the Beta Program.
 
+This is an extension of the base auth0-authentication function to work with applications utilizing custom user databases or the newer Auth0.js client implementations without Lock.
+
 ## Authentication flow in app
 
-1. The user authenticates with Auth0 Lock widget with selected authentication method
+1. The user authenticates by email/username and password through Auth0.js
 2. The app receives the `idToken` and `accessToken` from Auth0
 4. Your app calls the Graphcool mutation `authenticateAuth0User($idToken: String!, $accessToken: String!)`
 5. If no user exists yet that corresponds to the passed `idToken` and corresponding user profile, a new `User` node will be created
-6. In any case, the `authenticateAuth0User($idToken: String!, $accessToken: String!)` mutation returns a valid token for the user
+6. In any case, the `authenticateAuth0User($idToken: String!, $accessToken: String!)` mutation returns a valid GraphCool token for the user
 7. Your app stores the token and uses it in its `Authorization` header for all further requests to Graphcool
 
 ## Getting Started
@@ -41,7 +43,7 @@ graphcool init --schema auth0-authentication.graphql
 
     ![](./assets/advanced-settings-grant.png)
 
-* In order to setup Auth0 Lock Widget replace `__DOMAIN__` and `__CLIENT_ID__` in `login.html` with the credentials from your client settings
+* In order to setup Auth0 and GraphCool correctly replace `__DOMAIN__`, `__CLIENT_ID__`, `__PROJECT_ID__`, and `__REALM__` in `index.html` with the credentials from your client settings in Auth0 and GraphCool's respective consoles.
 
 ![](./assets/auth0-credentials.png)
 
@@ -106,7 +108,7 @@ sls deploy
 
 ## Run the example
 
-To create a test Auth0 Token, run `login.html`, for example using Python's `SimpleHTTPServer`:
+To create a test Auth0 Token, run `index.html`, for example using Python's `SimpleHTTPServer`:
 
 ```sh
 python -m SimpleHTTPServer
@@ -118,14 +120,14 @@ or for Python 3
 python -m http.server 8000
 ```
 
-Open `http://localhost:8000/login.html` in your browser and use the login button and authenticate with the Auth0 Lock Widget.
+Open `http://localhost:8000` in your browser and fill in the email/password inputs.
 
 ![](assets/create-user.gif)
 
 ## Testing the Code
 
 ### Testing mutation in the Graphcool Playground
-First, obtain a valid `idToken` and `accessToken` token with the small app in `login.html` as mentioned above. Both tokens are logged in JS console.
+First, obtain a valid `idToken` and `accessToken` token with the small app in `index.html` as mentioned above.
 
 Go to the Graphcool Playground:
 

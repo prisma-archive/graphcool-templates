@@ -49,7 +49,7 @@
     // Provide your Auth0 domain, client ID, and realm (database name)
     const DOMAIN = '__DOMAIN__'
     const CLIENT_ID = '__CLIENT_ID__'
-    const REALM = '__REALM__'
+    const REALM = '__REALM__' // Realm is the name of your database connection in Auth0. Connections -> Database
 
     // Provide your GraphCool project ID or alias
     const PROJECT_ID = '__PROJECT_ID__'
@@ -108,7 +108,7 @@
       }).then(function (response) {
         toggleBtn(false)
         response.json().then((userData) => {
-          // If we were successful we'll have a token in our standard GraphCool response
+          // If we were successful we'll have a token in our standard GraphCool response format
           result.setValue(JSON.stringify(userData, null, 2))
         })
       }).catch(function (err) {
@@ -117,7 +117,7 @@
       })
     }
 
-    // First step in obtaining the appropriate tokens for GraphCool
+    // First step in obtaining the appropriate tokens for GraphCool from Auth0
     function authWithAuth0 (email, password) {
       // Auth0.js provides us a client.login() function to hit the token endpoint for our client
       webAuth.client.login({
@@ -152,7 +152,6 @@
           Call GraphCool to either create a new user (or authenticate an existing one)
           based off of Auth0 tokens and return us a GraphCool token.
         */
-
         authWithGraphCool(userInfo.accessToken, userInfo.idToken)
       })
     }

@@ -4,7 +4,7 @@ type AuthenticateAuth0UserPayload {
 
 extend type Mutation {
   # This mutation can be extended to also accept optional create parameters
-  # when creating a user in GraphCool for the first time - when
-  # the situation calls for it.
+  # when creating a user in GraphCool for the first time - when the
+  # situation calls for it.
   authenticateAuth0User(idToken: String!, accessToken: String!): AuthenticateAuth0UserPayload
 }

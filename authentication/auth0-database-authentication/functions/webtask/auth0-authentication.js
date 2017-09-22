@@ -46,21 +46,34 @@ GraphcoolService.prototype.createGraphcoolUser = function (req, auth0AccessToken
 
   this.fetchAuth0UserProfile(req, auth0AccessToken)
     .then(auth0User => {
-      const graphcoolUser = Object.assign({
-        family_name: '',
-        given_name: '',
-      }, auth0User);
+      /*
+       The Auth0 response for profiles using a token from the oAuth endpoint
+       can look different than those from the lock mechanism. This has to do
+       with the main source of connection using to authenticate.
+
+       In our example we're assuming you're authenticating against either
+       the default or custom database option which will yield a payload
+       like:
+
+       {
+       "sub": "auth0|id",
+       "name": string,
+       "nickname": string,
+       "picture": string,
+       "updated_at": DateString
+       }
+
+       Your implementation might contain different fields to use in the
+       mutation below. However the important part is storing the unique
+       auth0| id within our GraphCool instance.
+       */
 
       return this.api.request(`
         mutation {
           createUser(
-            auth0UserId:"${graphcoolUser.user_id}"
-            name: "${graphcoolUser.name}"
-            familyName: "${graphcoolUser.family_name}"
-            givenName: "${graphcoolUser.given_name}"
-            picture: "${graphcoolUser.picture}"
-            email: "${graphcoolUser.email}"
-            emailVerified: ${graphcoolUser.email_verified}
+            auth0UserId: "${auth0User.sub}"
+            email: "${auth0User.name}"
+            picture: "${auth0User.picture}"
           ){
             id
           }
