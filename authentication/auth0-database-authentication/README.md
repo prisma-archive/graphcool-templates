@@ -22,7 +22,6 @@ This is an extension of the base auth0-authentication function to work with appl
 npm -g install graphcool
 graphcool init --schema auth0-authentication.graphql
 ```
-* Replace `__PROJECT_ID__` in `login-callback.html` with ID of your new project
 
 ## Setup Auth0
 
