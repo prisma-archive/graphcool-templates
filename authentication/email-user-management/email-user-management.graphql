@@ -9,6 +9,6 @@ type User {
   password: String
   
   # only needed for advanced signup workflow:
-  confirmToken: String!
+  confirmToken: String! @isUnique
   confirmExpires: DateTime!
 }
