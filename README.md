@@ -1,6 +1,6 @@
-# functions
+# templates
 
-Collection of Graphcool Functions ⚡️
+Collection of Graphcool configurations ⚡️
 
 ## Getting Started
 
