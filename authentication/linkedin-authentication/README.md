@@ -50,7 +50,7 @@ Open `http://localhost:8000/login.html` in your browser and use the login button
 
 ## Test the Code
 
-First, obtain a valid Facebook token with the small app in `login.html` as mentioned above.
+First, obtain a valid LinkedIn token with the small app in `login.html` as mentioned above.
 
 Go to the Graphcool Playground:
 
@@ -69,4 +69,4 @@ mutation {
 }
 ```
 
-You should see that a new user has been created. The returned token can be used to authenticate requests to your Graphcool API as that user. Note that running the mutation again with the same Facebook token will not add a new user.
+You should see that a new user has been created. The returned token can be used to authenticate requests to your Graphcool API as that user. Note that running the mutation again with the same LinkedIn token will not add a new user.
