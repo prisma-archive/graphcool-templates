@@ -7,8 +7,9 @@ type User {
   # Make it required if email is the only authorization method in your app
   email: String @isUnique
   password: String
-  
+
   # only needed for advanced signup workflow:
-  confirmToken: String! @isUnique
-  confirmExpires: DateTime!
+  confirmToken: String
+  confirmExpires: DateTime
+  confirmed: Boolean! @defaultValue(value: false)
 }
