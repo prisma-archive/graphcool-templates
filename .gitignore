@@ -54,3 +54,6 @@ fastlane/screenshots
 
 jest_*
 dist
+
+.envrc
+.graphcoolrc

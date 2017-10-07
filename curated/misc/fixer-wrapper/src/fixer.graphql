@@ -1,0 +1,42 @@
+type FixerPayload {
+  base: String!
+  date: DateTime!
+
+  # base will be null
+  aud: Float
+  bgn: Float
+  brl: Float
+  cad: Float
+  chf: Float
+  cny: Float
+  czk: Float
+  dkk: Float
+  eur: Float
+  gbp: Float
+  hkd: Float
+  hrk: Float
+  huf: Float
+  idr: Float
+  ils: Float
+  inr: Float
+  jpy: Float
+  krw: Float
+  mxn: Float
+  myr: Float
+  nok: Float
+  nzd: Float
+  php: Float
+  pln: Float
+  ron: Float
+  rub: Float
+  sek: Float
+  sgd: Float
+  thb: Float
+  try: Float
+  usd: Float
+  zar: Float
+}
+
+extend type Query {
+  fixer(base: String, date: DateTime): FixerPayload
+}

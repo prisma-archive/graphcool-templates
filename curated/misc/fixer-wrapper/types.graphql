@@ -1,0 +1,37 @@
+# no model types needed
+
+# enums are not yet supported, see https://github.com/graphcool/graphcool/issues/742
+enum Currency {
+  AUD
+  BGN
+  BRL
+  CAD
+  CHF
+  CNY
+  CZK
+  DKK
+  EUR
+  GBP
+  HKD
+  HRK
+  HUF
+  IDR
+  ILS
+  INR
+  JPY
+  KRW
+  MXN
+  MYR
+  NOK
+  NZD
+  PHP
+  PLN
+  RON
+  RUB
+  SEK
+  SGD
+  THB
+  TRY
+  USD
+  ZAR
+}

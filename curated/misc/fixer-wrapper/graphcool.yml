@@ -1,0 +1,9 @@
+types: ./types.graphql
+
+functions:
+  fixer-wrapper:
+    type: resolver
+    schema: ./src/fixer.graphql
+    handler:
+      code:
+        src: ./src/fixer.js
