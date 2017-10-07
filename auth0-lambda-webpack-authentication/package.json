@@ -1,0 +1,42 @@
+{
+  "name": "auth0-lambda-webpack-authentication",
+  "version": "1.0.0",
+  "description": "Authentication for Graphcool with Auth0.",
+  "main": "auth0.js",
+  "author": "Christopher G. Paton",
+  "license": "MIT",
+  "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "graphcool-lib": "^0.0.3",
+    "isomorphic-fetch": "^2.2.1",
+    "jsonwebtoken": "^7.4.1"
+  },
+  "scripts": {
+    "start": "sls webpack -o dist; sls offline start --location .webpack",
+    "build": "sls deploy"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-regenerator": "^6.24.1",
+    "babel-preset-babili": "^0.1.4",
+    "babel-preset-env": "^1.6.0",
+    "babili-webpack-plugin": "^0.1.2",
+    "copy-webpack-plugin": "^4.0.1",
+    "eslint": "^4.2.0",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.0",
+    "eslint-plugin-prettier": "^2.1.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "prettier": "^1.5.3",
+    "serverless": "^1.17.0",
+    "serverless-offline": "^3.15.1",
+    "serverless-webpack": "^2.0.0",
+    "webpack": "^3.3.0",
+    "webpack-node-externals": "^1.6.0"
+  }
+}

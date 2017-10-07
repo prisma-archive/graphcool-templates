@@ -54,3 +54,5 @@ fastlane/screenshots
 
 jest_*
 dist
+
+auth0-lambda-webpack-authentication/\.serverless/
