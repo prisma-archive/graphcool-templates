@@ -15,9 +15,9 @@ graphcool add-template graphcool/templates/auth/facebook
 1. The user clicks the `Authenticate with Facebook` button
 2. The Facebook UI is loaded and the user accepts
 3. The app receives a Facebook Access Token
-4. Your app calls the Graphcool mutation `authenticateFacebookUser(facebookToken: String!)`
-5. If no user exists yet that corresponds to the passed `facebookToken`, a new `FacebookUser` node will be created
-6. In any case, the `authenticateFacebookUser(facebookToken: String!)` mutation returns a valid token for the user
+4. Your app calls the Graphcool mutation `authenticateUser(facebookToken: String!)`
+5. If no user exists yet that corresponds to the passed `facebookToken`, a new `User` node will be created
+6. In any case, the `authenticateUser(facebookToken: String!)` mutation returns a valid token for the user
 7. Your app stores the token and uses it in its `Authorization` header for all further requests to Graphcool
 
 ## Setup
@@ -65,7 +65,7 @@ Run this mutation to authenticate a user:
 ```graphql
 mutation {
   # replace __FACEBOOK_TOKEN__!
-  authenticateFacebookUser(facebookToken: "__FACEBOOK_TOKEN__") {
+  authenticateUser(facebookToken: "__FACEBOOK_TOKEN__") {
     token
   }
 }

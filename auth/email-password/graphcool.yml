@@ -21,9 +21,3 @@ functions:
     schema: src/loggedInUser.graphql
     handler:
       code: src/loggedInUser.js
-
-# Permanent Auth Token / Root Tokens
-rootTokens:
-  - signup
-  - authenticate
-  - loggedInUser

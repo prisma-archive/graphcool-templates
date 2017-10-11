@@ -13,7 +13,3 @@ functions:
         src: ./src/loggedInUser.js
     type: resolver
     schema: ./src/loggedInUser.graphql
-
-rootTokens:
-- firebaseAuthentication
-- loggedInUser

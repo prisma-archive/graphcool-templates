@@ -56,7 +56,7 @@ Run this mutation to authenticate a user:
 ```graphql
 mutation {
   # replace __GITHUB_CODE__ with the code from `login.html` from above!
-  authenticateGithubUser(githubCode: "__GITHUB_CODE__") {
+  authenticateUser(githubCode: "__GITHUB_CODE__") {
     token
   }
 }
