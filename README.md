@@ -1,10 +1,6 @@
 # Graphcool Service Templates 🎁
 
-**Use Graphcool templates to quickly pull in predefined functionality into your own Graphcool service!**
-
-> Read more about templates in our [documentation](https://docs-next.graph.cool/reference/service-definition/templates-zeiv8phail).
-
-This repository contains a number of templates that implement a certain, reusable piece of functionality.
+**Use Graphcool [templates](https://docs-next.graph.cool/reference/service-definition/templates-zeiv8phail) to quickly pull in predefined functionality into your own Graphcool service.**
 
 ## Overview
 
