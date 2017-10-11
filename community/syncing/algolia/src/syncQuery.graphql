@@ -1,0 +1,15 @@
+subscription {
+  SyncModel(filter: {
+    mutation_in: [CREATED, UPDATED, DELETED]
+  }) {
+    mutation
+    previousValues {
+      objectID: id
+    }
+    node {
+      objectID: id
+      name
+      points
+    }
+  }
+}

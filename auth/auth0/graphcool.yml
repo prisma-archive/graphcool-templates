@@ -1,0 +1,13 @@
+# GraphQL types
+types: ./types.graphql
+
+functions:
+  authenticate:
+    handler:
+      code:
+        src: ./src/authenticate.js
+    type: resolver
+    schema: ./src/authenticate.graphql
+
+rootTokens:
+  - authenticate

@@ -1,0 +1,11 @@
+type SyncModel {
+  # required system field:
+  id: ID! @isUnique
+
+  # optional system fields. uncomment if you need them:
+  # createdAt: DateTime!
+  # updatedAt: DateTime!
+
+  name: String!
+  points: Int
+}

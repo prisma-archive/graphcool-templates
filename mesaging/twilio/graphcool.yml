@@ -1,0 +1,13 @@
+# GraphQL types
+types: ./types.graphql
+
+functions:
+  sendTwilioSms:
+    handler:
+      code:
+        src: ./src/sendTwilioSms.js
+        environment:
+          TWILIO_ACCOUNT_SID: ${env:TWILIO_ACCOUNT_SID}
+          TWILIO_AUTH_TOKEN: ${env:TWILIO_AUTH_TOKEN}
+    type: resolver
+    schema: ./src/sendTwilioSms.graphql

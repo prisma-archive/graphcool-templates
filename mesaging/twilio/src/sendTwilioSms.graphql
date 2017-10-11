@@ -1,0 +1,12 @@
+type TwilioSmsPayload {
+  sid: String!
+}
+
+extend type Mutation {
+  sendTwilioSms(
+    to: String!
+    from: String!
+    body: String!
+    mediaUrl: String
+  ): TwilioSmsPayload
+}

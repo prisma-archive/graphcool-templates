@@ -1,0 +1,13 @@
+# GraphQL types
+types: ./types.graphql
+
+# functions
+functions:
+  sendEmail:
+    handler:
+      code:
+        src: ./src/sendEmail.js
+        environment:
+          SENDGRID_API_KEY: ${env:SENDGRID_API_KEY}
+    type: subscription
+    query: ./src/sendEmail.graphql

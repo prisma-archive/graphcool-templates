@@ -1,0 +1,11 @@
+type PusherEventPayload {
+  success: Boolean!
+}
+
+extend type Mutation {
+  triggerPusherEvent(
+    channels: [String!]!
+    event: String!
+    message: String!
+  ): PusherEventPayload
+}

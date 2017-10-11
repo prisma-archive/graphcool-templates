@@ -1,0 +1,19 @@
+types: ./types.graphql
+
+functions:
+  syncModel:
+    handler:
+      code:
+        src: ./src/sync.js
+        environment:
+          ALGOLIA_APP_ID: ${env:ALGOLIA_APP_ID}
+          ALGOLIA_API_KEY: ${env:ALGOLIA_API_KEY}
+          ALGOLIA_INDEX_NAME: ${env:ALGOLIA_INDEX_NAME}
+    type: subscription
+    query: ./src/syncQuery.graphql
+
+permissions:
+- operation: SyncModel.read
+- operation: SyncModel.create
+- operation: SyncModel.update
+- operation: SyncModel.delete
