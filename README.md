@@ -4,16 +4,16 @@
 
 ##  Officially supported templates
 
-At Graphcool, we maintain a number of officially supported templates:
+We maintain a number of **officially supported templates**:
 
 - [auth](./auth): Templates for different authentication mechanisms, such as [email-password](./auth/email-password), [auth0](./auth/auth0) or [facebook](./auth/facebook).
 - [messaging](./messaging): Templates to quickly integrate with different messaging services, such as [mailgun](./messaging/mailgun) (emails), [pusher](./messaging/pusher) (push notifications) or [twilio](./messaging/twilio) (SMS).
 
 ## Community templates
 
-Notice that the [community](./community) templates are **not officially supported**! Right now, most of the templates inside the [community](./community) directory are not working when used with the [`graphcool add-template`](https://docs-next.graph.cool/reference/graphcool-cli/commands-aiteerae6l#add-template) command! 
+Notice that the [community](./community) templates are **not officially supported**. Right now, most of the templates inside the [community](./community) directory are not working when used with the [`graphcool add-template`](https://docs-next.graph.cool/reference/graphcool-cli/commands-aiteerae6l#add-template) command! 
 
-They do however already contain the code that's necessary to get the provided functionality into your project, however you might need to do a bit more manual work to actually get them up-and-running.
+They do however already contain the code that's necessary to get the provided functionality into your project. You might need to do a bit more manual work to actually get them up-and-running.
 
 
 ## Contributors
