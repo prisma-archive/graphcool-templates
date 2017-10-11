@@ -1,10 +1,10 @@
-type GoogleUser implements Node {
-  # required system field:
-  id: ID! @isUnique
+type User @model {
+  # Required system field:
+  id: ID! @isUnique # read-only (managed by Graphcool)
 
-  # optional system fields. uncomment if you need them:
-  # createdAt: DateTime!
-  # updatedAt: DateTime!
+  # Optional system fields (remove if not needed):
+  createdAt: DateTime! # read-only (managed by Graphcool)
+  updatedAt: DateTime! # read-only (managed by Graphcool)
 
   googleUserId: String @isUnique
 }

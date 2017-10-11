@@ -7,7 +7,7 @@ Add Google Authentication to your Graphcool project 🎁
 ```sh
 npm -g install graphcool
 graphcool init
-graphcool modules add graphcool/modules/authentication/google
+graphcool add-template graphcool/templates/auth/google
 ```
 
 ## Flow
@@ -15,9 +15,9 @@ graphcool modules add graphcool/modules/authentication/google
 1. The user clicks `Authenticate with Google` button
 2. The Google UI is loaded and the user accepts to authenticate
 3. Your app receives a Google Access Token
-4. Your app calls the Graphcool mutation `authenticateGoogleUser(googleToken: String!)`
+4. Your app calls the Graphcool mutation `authenticateUser(googleToken: String!)`
 5. If no user exists yet that corresponds to the passed `googleToken`, a new `GoogleUser` node will be created
-6. In any case, the `authenticateGoogleUser(googleToken: String!)` mutation returns a valid token for the user
+6. In any case, the `authenticateUser(googleToken: String!)` mutation returns a valid token for the user
 7. Your app stores the token and uses it in its `Authorization` header for all further requests to Graphcool
 
 ## Setup
@@ -64,7 +64,7 @@ Run this mutation to authenticate a user:
 ```graphql
 mutation {
   # replace __GOOGLE_TOKEN__!
-  authenticateGoogleUser(googleToken: "__GOOGLE_TOKEN__") {
+  authenticateUser(googleToken: "__GOOGLE_TOKEN__") {
     token
   }
 }
