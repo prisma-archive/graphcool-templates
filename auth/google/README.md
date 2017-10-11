@@ -42,6 +42,7 @@ Finally, you need to apply all the changes you just made by deploying the servic
 ```sh
 graphcool deploy
 ```
+
 ## Flow
 
 1. The user clicks `Authenticate with Google` button
