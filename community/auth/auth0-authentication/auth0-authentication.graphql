@@ -1,5 +1,5 @@
 type User {
-  id: ID!
+  id: ID! @isUnique
 
   # Must be unique
   # Make it required if Auth0 is the only authorization method in your app
