@@ -24,7 +24,7 @@ In order for the changes to take effect, you need to manually uncomment all the 
 
 The function in [`facebookAuthentication.js`](./src/facebookAuthentication.js) needs access to a [root token](https://docs-next.graph.cool/reference/auth/authentication/authentication-tokens-eip7ahqu5o#root-tokens). 
 
-After you added the template to your service, you need to have (at least) one root token configured.
+After you added the template to your service, you need to have (at least) one root token configured in your service.
 
 If the list of `rootTokens` in your `graphcool.yml` is currently empty, add the following root token to it:
 
