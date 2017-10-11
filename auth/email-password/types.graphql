@@ -1,13 +1,13 @@
-type EmailUser implements Node {
+type User implements Node {
   # required system field:
-  id: ID! @isUnique
+  id: ID! @isUnique # read-only (managed by Graphcool)
 
   # optional system fields. uncomment if you need them:
-  # createdAt: DateTime!
-  # updatedAt: DateTime!
+  # createdAt: DateTime! # read-only (managed by Graphcool)
+  # updatedAt: DateTime! # read-only (managed by Graphcool)
 
   # Must be unique
-  # Make it required if email is the only authorization method in your app
+  # Make it required if email is the only authentication method in your app
   email: String @isUnique
   password: String
 }

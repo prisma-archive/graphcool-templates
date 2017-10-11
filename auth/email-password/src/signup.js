@@ -5,7 +5,7 @@ const validator = require('validator')
 function getGraphcoolUser(api, email) {
   return api.request(`
     query {
-      EmailUser(email: "${email}") {
+      User(email: "${email}") {
         id
       }
     }`)
@@ -13,7 +13,7 @@ function getGraphcoolUser(api, email) {
       if (userQueryResult.error) {
         return Promise.reject(userQueryResult.error)
       } else {
-        return userQueryResult.EmailUser
+        return userQueryResult.User
       }
     })
 }
@@ -21,7 +21,7 @@ function getGraphcoolUser(api, email) {
 function createGraphcoolUser(api, email, passwordHash) {
   return api.request(`
     mutation {
-      createEmailUser(
+      createUser(
         email: "${email}",
         password: "${passwordHash}"
       ) {
@@ -29,7 +29,7 @@ function createGraphcoolUser(api, email, passwordHash) {
       }
     }`)
     .then((userMutationResult) => {
-      return userMutationResult.createEmailUser.id
+      return userMutationResult.createUser.id
     })
 }
 
@@ -56,7 +56,7 @@ module.exports = function(event) {
         }
       })
       .then(graphcoolUserId => {
-        return graphcool.generateAuthToken(graphcoolUserId, 'EmailUser')
+        return graphcool.generateAuthToken(graphcoolUserId, 'User')
           .then(token => {
             return { data: {id: graphcoolUserId, token}}
         })
