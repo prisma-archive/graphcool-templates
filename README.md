@@ -15,7 +15,7 @@ We maintain a number of officially supported templates:
 
 Notice that the [community](./community) templates are _not_ officially supported. Right now, most of the templates inside the [community](./community) directory are not working when used with the [`graphcool add-template`](https://docs-next.graph.cool/reference/graphcool-cli/commands-aiteerae6l#add-template) command! 
 
-They do however already contain the code that's necessary to get the provided functionality into your service. You might need to do a bit more manual work to actually get them up-and-running.
+They do however already contain the code that's necessary to use the provided functionality into your service. You might need to do a bit more manual work to actually get them up-and-running.
 
 ## Adding templates to your service
 
