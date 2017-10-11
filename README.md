@@ -51,7 +51,7 @@ When merging the template's `graphcool.yml` and `types.graphql` files with the o
 
 The process for using the CLI to add a template thus looks as follows:
 
-1. Use the `add-template <path>` CLI command and specify the `<path>` which points to the template's directory in the [Graphcool GitHub organization](https://github.com/graphcool).
+1. Use the `add-template <path>` CLI command and specify the `<path>` which points to the template's directory in this repository.
 2. Uncomment the lines in `graphcool.yml` and `types.graphql`.
 3. Deploy your changes with `graphcool deploy`.
 
