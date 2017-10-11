@@ -1,0 +1,13 @@
+type PlacesPayload {
+  id: ID!,
+  name: String,
+  geoloc: Json,
+  distance: Float
+}
+
+extend type Query {
+  placesByDistance(
+    lat: Float!,
+    lng: Float!
+  ): [PlacesPayload!]!
+}

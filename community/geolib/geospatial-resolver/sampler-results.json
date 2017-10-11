@@ -1,0 +1,69 @@
+{
+  "data": {
+    "placesByDistance": [
+      {
+        "id": "cj8jflyzz7urg0145q19s00my",
+        "name": "Statue of Zeus at Olympia",
+        "geoloc": {
+          "lat": 37.8688845,
+          "lng": 21.3264079
+        },
+        "distance": 1866364
+      },
+      {
+        "id": "cj8jfn0zs6tr10166i4wztbrp",
+        "name": "Temple of Artemis at Ephesus",
+        "geoloc": {
+          "lat": 37.9493601,
+          "lng": 27.3616675
+        },
+        "distance": 2168173
+      },
+      {
+        "id": "cj8jfd7ce7krk01870nas7sbn",
+        "name": "Mausoleum at Halicarnassus",
+        "geoloc": {
+          "lat": 37.038132,
+          "lng": 27.4221962
+        },
+        "distance": 2250352
+      },
+      {
+        "id": "cj8jf6i5164nr0166c0etpqmz",
+        "name": "Colossus of Rhodes",
+        "geoloc": {
+          "lat": 36.4510656,
+          "lng": 28.2258333
+        },
+        "distance": 2345877
+      },
+      {
+        "id": "cj8jfbjlv6c2v0166eby4xvwh",
+        "name": "Lighthouse of Alexandria",
+        "geoloc": {
+          "lat": 31.205753,
+          "lng": 29.924526
+        },
+        "distance": 2911863
+      },
+      {
+        "id": "cj8jf7pilcyok0130p9fjcmv0",
+        "name": "Great Pyramid of Giza",
+        "geoloc": {
+          "lat": 29.9792345,
+          "lng": 31.1320132
+        },
+        "distance": 3088821
+      },
+      {
+        "id": "cj8jf9gard7bo0159xgyuy9s3",
+        "name": "Hanging Gardens of Babylon",
+        "geoloc": {
+          "lat": 32.542354,
+          "lng": 44.421147
+        },
+        "distance": 3656326
+      }
+    ]
+  }
+}

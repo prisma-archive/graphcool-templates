@@ -1,0 +1,15 @@
+# GraphQL types
+types: ./types.graphql
+
+# functions
+functions:
+
+  placesByDistance:
+    type: resolver
+    schema: src/placesByDistance.graphql
+    handler:
+      code: src/placesByDistance.js
+
+# Permanent Auth Token / Root Tokens
+rootTokens:
+  - placesByDistance
