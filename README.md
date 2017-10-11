@@ -8,7 +8,7 @@
 
 We maintain a number of officially supported templates:
 
-- [auth](./auth): Templates for different authentication mechanisms, such as [email-password](./auth/email-password), [auth0](./auth/auth0) or [facebook](./auth/facebook).
+- [auth](./auth): Templates for different authentication mechanisms, such as [email-password](./auth/email-password), [firebase](./auth/firebase) or [facebook](./auth/facebook).
 - [messaging](./messaging): Templates to quickly integrate with different messaging services, such as [mailgun](./messaging/mailgun) (emails), [pusher](./messaging/pusher) (push notifications) or [twilio](./messaging/twilio) (SMS).
 
 ### Community templates
