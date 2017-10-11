@@ -4,27 +4,27 @@
 
 ## Overview
 
-###  Officially supported templates
+####  Officially supported templates
 
-We maintain a number of **officially supported templates**:
+We maintain a number of officially supported templates:
 
 - [auth](./auth): Templates for different authentication mechanisms, such as [email-password](./auth/email-password), [auth0](./auth/auth0) or [facebook](./auth/facebook).
 - [messaging](./messaging): Templates to quickly integrate with different messaging services, such as [mailgun](./messaging/mailgun) (emails), [pusher](./messaging/pusher) (push notifications) or [twilio](./messaging/twilio) (SMS).
 
-### Community templates
+#### Community templates
 
-Notice that the [community](./community) templates are **not officially supported**. Right now, most of the templates inside the [community](./community) directory are not working when used with the [`graphcool add-template`](https://docs-next.graph.cool/reference/graphcool-cli/commands-aiteerae6l#add-template) command! 
+Notice that the [community](./community) templates are _not_ officially supported. Right now, most of the templates inside the [community](./community) directory are not working when used with the [`graphcool add-template`](https://docs-next.graph.cool/reference/graphcool-cli/commands-aiteerae6l#add-template) command! 
 
 They do however already contain the code that's necessary to get the provided functionality into your service. You might need to do a bit more manual work to actually get them up-and-running.
 
-## Template workflow
+## Adding templates to your service
 
 There are two ways how you can use a template in your service:
 
 1. Manually download and copy the code from a template directory in this repository. 
 2. Use the [`add-template`](https://docs-next.graph.cool/reference/graphcool-cli/commands-aiteerae6l#add-template) command from the [CLI](!alias-zboghez5go).
 
-### Manually adding templates
+### Option 1: Manually adding templates
 
 The process of adding a template to a Graphcool service involves several steps. You're basically _merging_ your local service definition with the service definition of the template you want to use. In the end, you end up with only _one_ `graphcool.yml` as well as only _one_ `types.graphql`.
 
@@ -37,7 +37,7 @@ Adding a template manually:
 5. Deploy your changes with `graphcool deploy`.
 
 
-### Adding templates with the CLI
+### Option 2: Adding templates with the CLI
 
 The `add-template` command in the Graphcool CLI basically automates the process of [manually adding templates](#manually-adding-templates). 
 
