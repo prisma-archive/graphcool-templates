@@ -39,7 +39,7 @@ Adding a template manually:
 
 ### Option 2: Adding templates with the CLI
 
-The `add-template` command in the Graphcool CLI basically automates the process of [manually adding templates](#manually-adding-templates). 
+The `add-template` command in the Graphcool CLI basically automates the process of [manually adding templates](#option-1-manually-adding-templates). 
 
 The only option that can be provided to this command is the path to the template on GitHub, e.g. for the [`email-password`](https://github.com/graphcool/modules)-template:
 
