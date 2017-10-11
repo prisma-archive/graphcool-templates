@@ -18,7 +18,7 @@ const serviceAccount = {
 const getGraphcoolUser = (firebaseUserId, api) => {
   return api.request(`
       query {
-        FirebaseUser(firebaseUserId: "${firebaseUserId}"){
+        User(firebaseUserId: "${firebaseUserId}"){
           id
         }
       }`
@@ -26,7 +26,7 @@ const getGraphcoolUser = (firebaseUserId, api) => {
       if (userQueryResult.error) {
         return Promise.reject(userQueryResult.error)
       } else {
-        return userQueryResult.FirebaseUser
+        return userQueryResult.User
       }
     }
   )
@@ -35,7 +35,7 @@ const getGraphcoolUser = (firebaseUserId, api) => {
 const createGraphcoolUser = (firebaseUserId, api) => {
   return api.request(`
         mutation {
-          createFirebaseUser(
+          createUser(
             firebaseUserId:"${firebaseUserId}"
           ){
             id
@@ -43,7 +43,7 @@ const createGraphcoolUser = (firebaseUserId, api) => {
         }`)
     .then(userMutationResult => {
       console.log(`Mutation result: ${JSON.stringify(userMutationResult)}`)
-      return userMutationResult.createFirebaseUser.id
+      return userMutationResult.createUser.id
     })
 }
 
@@ -80,7 +80,7 @@ module.exports = event => {
       return getOrCreateGraphcoolUser(firebaseUserId, api)
         .then(graphcoolUserId => {
           console.log(`Graphcool user: ${graphcoolUserId}`)
-          return graphcool.generateAuthToken(graphcoolUserId, 'FirebaseUser')
+          return graphcool.generateAuthToken(graphcoolUserId, 'User')
         })
         .then(token => {
           console.log(`Return token: ${token}`)

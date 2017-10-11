@@ -4,9 +4,9 @@ functions:
   facebookAuthentication:
     handler:
       code:
-        src: ./src/facebook-authentication.js
+        src: ./src/facebookAuthentication.js
     type: resolver
-    schema: ./src/facebook-authentication.graphql
+    schema: ./src/facebookAuthentication.graphql
   loggedInUser:
     handler:
       code:
@@ -15,5 +15,5 @@ functions:
     schema: ./src/loggedInUser.graphql
 
 rootTokens:
-- facebook-authentication
+- facebookAuthentication
 - loggedInUser

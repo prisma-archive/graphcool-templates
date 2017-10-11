@@ -1,6 +1,6 @@
 const fromEvent = require('graphcool-lib').fromEvent
 
-module.exports = function(event) {
+module.exports = event => {
   if (!event.context.graphcool.pat) {
     console.log('Please provide a valid root token!')
     return { error: 'Facebook Authentication not configured correctly.'}
@@ -27,7 +27,7 @@ module.exports = function(event) {
   function getGraphcoolUser(facebookUser) {
     return api.request(`
     query {
-      FacebookUser(facebookUserId: "${facebookUser.id}") {
+      User(facebookUserId: "${facebookUser.id}") {
         id
       }
     }`)
@@ -43,7 +43,7 @@ module.exports = function(event) {
   function createGraphcoolUser(facebookUser) {
     return api.request(`
       mutation {
-        createFacebookUser(
+        createUser(
           facebookUserId: "${facebookUser.id}"
           facebookEmail: "${facebookUser.email}"
         ) {
@@ -51,12 +51,12 @@ module.exports = function(event) {
         }
       }`)
       .then((userMutationResult) => {
-        return userMutationResult.createFacebookUser.id
+        return userMutationResult.createUser.id
       })
   }
 
   function generateGraphcoolToken(graphcoolUserId) {
-    return graphcool.generateAuthToken(graphcoolUserId, 'FacebookUser')
+    return graphcool.generateAuthToken(graphcoolUserId, 'User')
   }
 
   return getFacebookAccountData(facebookToken)

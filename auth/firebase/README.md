@@ -7,7 +7,7 @@ Add Firebase Authentication to your Graphcool project 🎁
 ```sh
 npm -g install graphcool
 graphcool init
-graphcool modules add graphcool/modules/authentication/firebase
+graphcool add-template graphcool/templates/auth/firebase
 ```
 
 ## Flow

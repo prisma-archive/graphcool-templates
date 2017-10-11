@@ -1,13 +1,11 @@
-type User implements Node {
-  # required system field:
+type User @model {
+  # Required system field:
   id: ID! @isUnique # read-only (managed by Graphcool)
 
-  # optional system fields. uncomment if you need them:
-  # createdAt: DateTime! # read-only (managed by Graphcool)
-  # updatedAt: DateTime! # read-only (managed by Graphcool)
+  # Optional system fields (remove if not needed):
+  createdAt: DateTime! # read-only (managed by Graphcool)
+  updatedAt: DateTime! # read-only (managed by Graphcool)
 
-  # Must be unique
-  # Make it required if email is the only authentication method in your app
   email: String @isUnique
   password: String
 }

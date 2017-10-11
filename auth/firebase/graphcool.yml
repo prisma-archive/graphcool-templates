@@ -1,12 +1,12 @@
 types: ./types.graphql
 
 functions:
-  authenticateFirebaseUser:
+  firebaseAuthentication:
     handler:
       code:
-        src: ./src/authenticateFirebaseUser.js
+        src: ./src/firebaseAuthentication.js
     type: resolver
-    schema: ./src/authenticateFirebaseUser.graphql
+    schema: ./src/firebaseAuthentication.graphql
   loggedInUser:
     handler:
       code:
@@ -15,5 +15,5 @@ functions:
     schema: ./src/loggedInUser.graphql
 
 rootTokens:
-- firebase-authentication
+- firebaseAuthentication
 - loggedInUser
