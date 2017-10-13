@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@types/bcrypt": "^1.0.0",
+    "@types/validator": "^6.3.0",
+    "bcrypt": "^1.0.3",
+    "graphcool-lib": "^0.0.4-beta3",
+    "validator": "^9.0.0"
+  }
+}
