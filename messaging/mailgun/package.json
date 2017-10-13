@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "form-data": "^2.3.1",
+    "isomorphic-fetch": "^2.2.1"
+  }
+}
