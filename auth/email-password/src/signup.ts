@@ -1,4 +1,4 @@
-import { fromEvent, FunctionEvent } from 'graphcool-lib'
+import { fromEvent } from 'graphcool-lib'
 import { GraphQLClient } from 'graphql-request'
 import * as bcrypt from 'bcrypt'
 import * as validator from 'validator'
