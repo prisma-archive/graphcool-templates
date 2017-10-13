@@ -22,7 +22,7 @@ In order for the changes to take effect, you need to manually uncomment all the 
 
 ### 3. Configure root token
 
-The functions in [`authenticate.js`](./src/authenticate.js) and [`signup.js`](./src/signup.js) need access to a [root token](https://docs-next.graph.cool/reference/auth/authentication/authentication-tokens-eip7ahqu5o#root-tokens). 
+The functions in [`authenticate.js`](./src/authenticate.js) and [`signup.ts`](./src/signup.ts) need access to a [root token](https://docs-next.graph.cool/reference/auth/authentication/authentication-tokens-eip7ahqu5o#root-tokens). 
 
 After you added the template to your service, you need to have (at least) one root token configured in your service.
 
