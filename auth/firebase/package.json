@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "firebase": "^4.5.1",
+    "firebase-admin": "^5.4.2",
+    "graphcool-lib": "^0.0.3"
+  }
+}

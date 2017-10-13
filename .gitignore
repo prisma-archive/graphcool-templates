@@ -57,3 +57,5 @@ dist
 
 .envrc
 .graphcoolrc
+
+yarn.lock
