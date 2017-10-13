@@ -29,7 +29,7 @@ After you added the template to your service, you need to have (at least) one ro
 If the list of `rootTokens` in your `graphcool.yml` is currently empty, add the following root token to it:
 
 ```yml
-rootTokens
+rootTokens:
   - authentication
 ```
 
