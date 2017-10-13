@@ -7,14 +7,38 @@ interface User {
   id: string
 }
 
-interface EventData {
+function getGraphcoolUser(api: GraphQLClient, email: string): Promise<User> {
+  const query = `
+  query {
+    User(email: "${email}") {
+      id
+    }
+  }`
+  return api.request<{ User }>(query).then(r => r.User)
+}
+
+async function createGraphcoolUser(api: GraphQLClient, email: string, passwordHash: string): Promise<string> {
+  const query = `
+  mutation {
+    createUser(
+      email: "${email}",
+      password: "${passwordHash}"
+    ) {
+      id
+    }
+  }`
+  return api.request<{ createUser: User }>(query).then(r => r.createUser.id)
+}
+
+interface Data {
   email: string
   password: string
 }
 
-export default async (event: FunctionEvent<EventData>) => {
+export default async (event: FunctionEvent<Data>) => {
   if (!event.context.graphcool.token) {
-    return { error: 'Function not configured correctly - needs token.' }
+    console.log('Please provide a valid root token!')
+    return { error: 'Email Signup not configured correctly.' }
   }
 
   const { email, password } = event.data
@@ -26,9 +50,10 @@ export default async (event: FunctionEvent<EventData>) => {
     return { error: 'Not a valid email' }
   }
 
-  const userExists = await api.request<{ User }>(`{ User(email: "${email}") { id } }`).then(r => r.User !== null)
-  if (userExists !== null) {
-    return { error: 'Email already in use' }
+  const graphcoolUser = await getGraphcoolUser(api, email)
+
+  if (graphcoolUser !== null) {
+    throw new Error('Email already in use')
   }
 
   const hash = await bcrypt.hash(password, SALT_ROUNDS)
@@ -36,18 +61,4 @@ export default async (event: FunctionEvent<EventData>) => {
   const token = await graphcool.generateNodeToken(graphcoolUserId, 'User')
 
   return { data: { id: graphcoolUserId, token } }
-}
-
-async function createGraphcoolUser(api: GraphQLClient, email: string, passwordHash: string): Promise<string> {
-  const query = `
-    mutation {
-      createUser(
-        email: "${email}",
-        password: "${passwordHash}"
-      ) {
-        id
-      }
-    }
-  `
-  return api.request<{ createUser: User }>(query).then(r => r.createUser.id)
 }
