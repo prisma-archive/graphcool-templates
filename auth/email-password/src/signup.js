@@ -1,5 +1,5 @@
 const fromEvent = require('graphcool-lib').fromEvent
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const validator = require('validator')
 
 function getGraphcoolUser(api, email) {
@@ -44,12 +44,13 @@ module.exports = function(event) {
   const graphcool = fromEvent(event)
   const api = graphcool.api('simple/v1')
   const SALT_ROUNDS = 10
+  const salt = bcrypt.genSaltSync(SALT_ROUNDS)
 
   if (validator.isEmail(email)) {
     return getGraphcoolUser(api, email)
       .then(graphcoolUser => {
         if (graphcoolUser === null) {
-          return bcrypt.hash(password, SALT_ROUNDS)
+          return bcrypt.hash(password, salt)
             .then(hash => createGraphcoolUser(api, email, hash))
         } else {
           return Promise.reject("Email already in use")
