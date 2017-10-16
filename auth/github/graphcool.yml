@@ -6,9 +6,9 @@ functions:
   githubAuthentication:
     handler:
       code:
-        src: ./src/githubAuthentication.js
+        src: ./src/githubAuthentication.ts
         environment:
-          CLIENT_ID: ${env:CLIENT_ID}
-          CLIENT_SECRET: ${env:CLIENT_SECRET}
+          GITHUB_CLIENT_ID: ${env:GITHUB_CLIENT_ID}
+          GITHUB_CLIENT_SECRET: ${env:GITHUB_CLIENT_SECRET}
     type: resolver
     schema: ./src/githubAuthentication.graphql
