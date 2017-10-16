@@ -67,22 +67,6 @@ const authenticate = async (event: FunctionEvent) => {
   return { data: { id: userId, token} }
 }
 
-async function getGraphcoolUser(api: GraphQLClient, facebookUserId: string): Promise<{ User }> {
-  const query = `
-    query getUser($facebookUserId: String!) {
-      User(facebookUserId: $facebookUserId) {
-        id
-      }
-    }
-  `
-
-  const variables = {
-    facebookUserId,
-  }
-
-  return api.request<{ User }>(query, variables)
-}
-
 async function getFacebookUser(facebookToken: string): Promise<FacebookUser> {
   const endpoint = `https://graph.facebook.com/v2.9/me?fields=id%2Cemail&access_token=${facebookToken}`
   const data = await fetch(endpoint)
@@ -98,6 +82,22 @@ async function getFacebookUser(facebookToken: string): Promise<FacebookUser> {
   }
 
   return data
+}
+
+async function getGraphcoolUser(api: GraphQLClient, facebookUserId: string): Promise<{ User }> {
+  const query = `
+    query getUser($facebookUserId: String!) {
+      User(facebookUserId: $facebookUserId) {
+        id
+      }
+    }
+  `
+
+  const variables = {
+    facebookUserId,
+  }
+
+  return api.request<{ User }>(query, variables)
 }
 
 async function createGraphcoolUser(api: GraphQLClient, facebookUser: FacebookUser): Promise<string> {
