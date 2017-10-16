@@ -5,7 +5,7 @@ interface User {
   id: string
 }
 
-// temoparily needed, remove when graphcool-lib exposes FunctionEvent + Context
+// temporarily needed, remove when graphcool-lib exposes FunctionEvent + Context
 interface FunctionEvent {
   data: any
   context: any
