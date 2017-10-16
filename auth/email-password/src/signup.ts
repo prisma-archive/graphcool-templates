@@ -1,6 +1,6 @@
-import { fromEvent } from 'graphcool-lib'
+import { fromEvent, Context } from 'graphcool-lib'
 import { GraphQLClient } from 'graphql-request'
-import * as bcrypt from 'bcrypt'
+import * as bcrypt from 'bcryptjs'
 import * as validator from 'validator'
 
 interface User {
@@ -12,6 +12,12 @@ interface EventData {
   password: string
 }
 
+// temoparily needed, remove when graphcool-lib exposes FunctionEvent
+interface FunctionEvent<T extends any> {
+  data: T
+  context: Context
+}
+
 export default async (event: FunctionEvent<EventData>) => {
   if (!event.context.graphcool.token) {
     return { error: 'Function not configured correctly - needs token.' }
@@ -21,6 +27,7 @@ export default async (event: FunctionEvent<EventData>) => {
   const graphcool = fromEvent(event)
   const api = graphcool.api('simple/v1')
   const SALT_ROUNDS = 10
+  const salt = bcrypt.genSaltSync(SALT_ROUNDS)
 
   if (!validator.isEmail(email)) {
     return { error: 'Not a valid email' }
