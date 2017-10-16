@@ -1,4 +1,4 @@
-import { fromEvent, Context } from 'graphcool-lib'
+import { fromEvent } from 'graphcool-lib'
 import { GraphQLClient } from 'graphql-request'
 import * as bcrypt from 'bcryptjs'
 import * as validator from 'validator'
@@ -12,10 +12,10 @@ interface EventData {
   password: string
 }
 
-// temoparily needed, remove when graphcool-lib exposes FunctionEvent
+// temoparily needed, remove when graphcool-lib exposes FunctionEvent + Context
 interface FunctionEvent<T extends any> {
   data: T
-  context: Context
+  context: any
 }
 
 export default async (event: FunctionEvent<EventData>) => {
