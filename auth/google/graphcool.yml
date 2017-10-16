@@ -4,6 +4,6 @@ functions:
   googleAuthentication:
     handler:
       code:
-        src: ./src/googleAuthentication.js
+        src: ./src/googleAuthentication.ts
     type: resolver
     schema: ./src/googleAuthentication.graphql
