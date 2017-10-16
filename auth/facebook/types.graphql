@@ -7,5 +7,5 @@ type User @model {
   updatedAt: DateTime! # read-only (managed by Graphcool)
 
   facebookUserId: String @isUnique
-  facebookEmail: String
+  email: String # optional, because it's obtained from Facebook API
 }

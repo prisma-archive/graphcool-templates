@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "graphcool-lib": "^0.0.3"
+    "graphcool-lib": "^0.0.3",
+    "graphql-request": "^1.4.0"
   }
 }

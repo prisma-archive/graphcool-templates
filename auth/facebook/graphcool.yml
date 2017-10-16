@@ -4,12 +4,12 @@ functions:
   facebookAuthentication:
     handler:
       code:
-        src: ./src/facebookAuthentication.js
+        src: ./src/facebookAuthentication.ts
     type: resolver
     schema: ./src/facebookAuthentication.graphql
   loggedInUser:
     handler:
       code:
-        src: ./src/loggedInUser.js
+        src: ./src/loggedInUser.ts
     type: resolver
     schema: ./src/loggedInUser.graphql
