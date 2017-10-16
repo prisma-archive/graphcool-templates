@@ -3,21 +3,20 @@ types: ./types.graphql
 
 # functions
 functions:
-
   signup:
     type: resolver
     schema: src/signup.graphql
     handler:
-      code: src/signup.js
+      code: src/signup.ts
 
   authenticate:
     type: resolver
     schema: src/authenticate.graphql
     handler:
-      code: src/authenticate.js
+      code: src/authenticate.ts
 
-  loggedInUser:
+  loggedInUser:s
     type: resolver
     schema: src/loggedInUser.graphql
     handler:
-      code: src/loggedInUser.js
+      code: src/loggedInUser.ts

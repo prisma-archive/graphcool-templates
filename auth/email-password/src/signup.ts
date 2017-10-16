@@ -18,48 +18,94 @@ interface FunctionEvent<T extends any> {
   context: any
 }
 
+const SALT_ROUNDS = 10
+
 export default async (event: FunctionEvent<EventData>) => {
-  try {
-    if (!event.context.graphcool.token) {
-      return { error: 'Function not configured correctly - needs token.' }
-    }
+  console.log(event)
 
-    const { email, password } = event.data
-    const graphcool = fromEvent(event)
-    const api = graphcool.api('simple/v1')
-    const SALT_ROUNDS = 10
-    const salt = bcrypt.genSaltSync(SALT_ROUNDS)
-
-    if (!validator.isEmail(email)) {
-      return { error: 'Not a valid email' }
-    }
-
-    const userExists = await api.request<{ User }>(`{ User(email: "${email}") { id } }`).then(r => r.User !== null)
-    if (userExists !== null) {
-      return { error: 'Email already in use' }
-    }
-
-    const hash = await bcrypt.hash(password, SALT_ROUNDS)
-    const graphcoolUserId = await createGraphcoolUser(api, email, hash)
-    const token = await graphcool.generateNodeToken(graphcoolUserId, 'User')
-
-    return { data: { id: graphcoolUserId, token } }
-  } catch (e) {
-    console.log(e)
-    return { error: 'An unexpected error occurred' }
-  }
+  return signup(event)
+    .then(r => r)
+    .catch(err => {
+      return { error: err.message }
+    })
 }
 
-async function createGraphcoolUser(api: GraphQLClient, email: string, passwordHash: string): Promise<string> {
+const signup = async (event: FunctionEvent<EventData>) => {
+  const graphcool = fromEvent(event)
+  const api = graphcool.api('simple/v1')
+
+  const { email, password } = event.data
+
+  if (!validator.isEmail(email)) {
+    throw new Error('Not a valid email')
+  }
+
+  // check if user exists already
+  const userExists: boolean = await getUserByEmail(api, email)
+    .then(r => r.User !== null)
+    .catch(err => {
+      console.log(err)
+      throw new Error('An unexpected error occured during signup.')
+    })
+
+  if (userExists) {
+    throw new Error('Email already in use')
+  }
+
+  // create password hash
+  const salt = bcrypt.genSaltSync(SALT_ROUNDS)
+  const hash = await bcrypt.hash(password, SALT_ROUNDS)
+
+  // create new user
+  const userId = await createGraphcoolUser(api, email, hash)
+    .catch(err => {
+      console.log(err)
+      throw new Error('An unexpected error occured during signup.')
+    })
+
+  // generate node token for new User node
+  const token = await graphcool.generateAuthToken(userId, 'User')
+    .catch(err => {
+      console.log(err)
+      throw new Error('An unexpected error occured during signup.')
+    })
+
+  return { data: { id: userId, token } }
+}
+
+async function getUserByEmail(api: GraphQLClient, email: string): Promise<{ User }> {
   const query = `
-    mutation {
+    query getUserByEmail($email: String!) {
+      User(email: $email) {
+        id
+      }
+    }
+  `
+
+  const variables = {
+    email,
+  }
+
+  return api.request<{ User }>(query, variables)
+}
+
+async function createGraphcoolUser(api: GraphQLClient, email: string, password: string): Promise<string> {
+  const mutation = `
+    mutation createGraphcoolUser($email: String!, $password: String!) {
       createUser(
-        email: "${email}",
-        password: "${passwordHash}"
+        email: $email,
+        password: $password
       ) {
         id
       }
     }
   `
-  return api.request<{ createUser: User }>(query).then(r => r.createUser.id)
+
+  const variables = {
+    email,
+    password: password,
+  }
+
+  return api.request<{ createUser: User }>(mutation, variables)
+    .then(r => r.createUser.id)
 }
