@@ -20,22 +20,7 @@ The [`add-template`](https://docs-next.graph.cool/reference/graphcool-cli/comman
 
 In order for the changes to take effect, you need to manually uncomment all the lines that have been added by the `add-template` command.
 
-### 3. Configure root token
-
-The function in [`googleAuthentication.js`](./src/googleAuthentication.js) needs access to a [root token](https://docs-next.graph.cool/reference/auth/authentication/authentication-tokens-eip7ahqu5o#root-tokens). 
-
-After you added the template to your service, you need to have (at least) one root token configured in your service.
-
-If the list of `rootTokens` in your `graphcool.yml` is currently empty, add the following root token to it:
-
-```yml
-rootTokens
-  - authentication
-```
-
-> Note that the _name_ of the root token is actually not relevant. You can call it something else than `authentication`.
-
-### 4. Deploy the service
+### 3. Deploy the service
 
 Finally, you need to apply all the changes you just made by deploying the service:
 
