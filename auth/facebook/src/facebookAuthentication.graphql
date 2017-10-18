@@ -1,7 +1,7 @@
-type AuthenticateUserPayload {
+type AuthenticateFacebookUserPayload {
   token: String!
 }
 
 extend type Mutation {
-  authenticateUser(facebookToken: String!): AuthenticateUserPayload
+  authenticateFacebookUser(facebookToken: String!): AuthenticateFacebookUserPayload
 }
