@@ -1,6 +1,9 @@
 {
   "dependencies": {
-    "graphcool-lib": "^0.0.3",
+    "graphcool-lib": "^0.1.0",
     "graphql-request": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.44"
   }
 }

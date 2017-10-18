@@ -7,3 +7,9 @@ functions:
         src: ./src/googleAuthentication.ts
     type: resolver
     schema: ./src/googleAuthentication.graphql
+  loggedInUser:
+    handler:
+      code:
+        src: ./src/loggedInUser.ts
+    type: resolver
+    schema: ./src/loggedInUser.graphql
