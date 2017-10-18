@@ -12,3 +12,9 @@ functions:
           GITHUB_CLIENT_SECRET: ${env:GITHUB_CLIENT_SECRET}
     type: resolver
     schema: ./src/githubAuthentication.graphql
+  loggedInUser:
+    handler:
+      code:
+        src: ./src/loggedInUser.ts
+    type: resolver
+    schema: ./src/loggedInUser.graphql

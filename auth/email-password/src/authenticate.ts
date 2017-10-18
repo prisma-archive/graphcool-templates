@@ -1,4 +1,4 @@
-import { fromEvent } from 'graphcool-lib'
+import { fromEvent, FunctionEvent } from 'graphcool-lib'
 import { GraphQLClient } from 'graphql-request'
 import * as bcrypt from 'bcryptjs'
 
@@ -12,15 +12,11 @@ interface EventData {
   password: string
 }
 
-// temoparily needed, remove when graphcool-lib exposes FunctionEvent + Context
-interface FunctionEvent {
-  data: EventData
-  context: any
-}
-
 const SALT_ROUNDS = 10
 
-export default async (event: FunctionEvent) => {
+export default async (event: FunctionEvent<EventData>) => {
+  console.log(event)
+
   try {
     const graphcool = fromEvent(event)
     const api = graphcool.api('simple/v1')
@@ -43,12 +39,12 @@ export default async (event: FunctionEvent) => {
     }
 
     // generate node token for existing User node
-    const token = await graphcool.generateAuthToken(user.id, 'User')
+    const token = await graphcool.generateNodeToken(user.id, 'User')
 
     return { data: { id: user.id, token} }
   } catch (e) {
     console.log(e)
-    return { error: 'An unexpected error occured during signup.' }
+    return { error: 'An unexpected error occured during authentication.' }
   }
 }
 

@@ -1,4 +1,4 @@
-import { fromEvent } from 'graphcool-lib'
+import { fromEvent, FunctionEvent } from 'graphcool-lib'
 import { GraphQLClient } from 'graphql-request'
 
 interface User {
@@ -14,71 +14,48 @@ interface EventData {
   facebookToken: string
 }
 
-// temoparily needed, remove when graphcool-lib exposes FunctionEvent + Context
-interface FunctionEvent {
-  data: EventData
-  context: any
-}
-
-export default async (event: FunctionEvent) => {
+export default async (event: FunctionEvent<EventData>) => {
   console.log(event)
 
-  return authenticate(event)
-    .then(r => r)
-    .catch(err => {
-      return { error: err.message }
-    })
-}
+  try {
+    const graphcool = fromEvent(event)
+    const api = graphcool.api('simple/v1')
 
-const authenticate = async (event: FunctionEvent) => {
-  const graphcool = fromEvent(event)
-  const api = graphcool.api('simple/v1')
+    const { facebookToken } = event.data
 
-  const { facebookToken } = event.data
+    // call Facebook API to obtain user data
+    const facebookUser = await getFacebookUser(facebookToken)
 
-  // call Facebook API to obtain user data
-  const facebookUser = await getFacebookUser(facebookToken)
+    // get graphcool user by facebook id
+    const user: User = await getGraphcoolUser(api, facebookUser.id)
+      .then(r => r.User)
 
-  // get graphcool user by facebook id
-  const user: User = await getGraphcoolUser(api, facebookUser.id)
-    .then(r => r.User)
-    .catch(err => {
-      console.log(err)
-      throw new Error('An unexpected error occured during authentication.')
-    })
+    // check if graphcool user exists, and create new one if not
+    let userId: string | null = null
 
+    if (!user) {
+      userId = await createGraphcoolUser(api, facebookUser)
+    } else {
+      userId = user.id
+    }
 
-  // check if graphcool user exists, and create new one if not
-  let userId: string | null = null
+    // generate node token for User node
+    const token = await graphcool.generateNodeToken(userId!, 'User')
 
-  if (!user) {
-    userId = await createGraphcoolUser(api, facebookUser)
-  } else {
-    userId = user.id
+    return { data: { id: userId, token} }
+  } catch (e) {
+    console.log(e)
+    return { error: 'An unexpected error occured during authentication.' }
   }
-
-  // generate node token for User node
-  const token = await graphcool.generateAuthToken(userId!, 'User')
-    .catch(err => {
-      console.log(err)
-      throw new Error('An unexpected error occured during authentication.')
-    })
-
-  return { data: { id: userId, token} }
 }
 
 async function getFacebookUser(facebookToken: string): Promise<FacebookUser> {
   const endpoint = `https://graph.facebook.com/v2.9/me?fields=id%2Cemail&access_token=${facebookToken}`
   const data = await fetch(endpoint)
     .then(response => response.json())
-    .catch(err => {
-      console.log(err)
-      throw new Error('An unexpected error occured during authentication.')
-    })
 
   if (data.error) {
-    console.log(data.error)
-    throw new Error('An unexpected error occured during authentication.')
+    throw new Error(JSON.stringify(data.error))
   }
 
   return data
