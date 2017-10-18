@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "isomorphic-fetch": "^2.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.44"
   }
 }
