@@ -15,7 +15,7 @@ functions:
     handler:
       code: src/authenticate.ts
 
-  loggedInUser:s
+  loggedInUser:
     type: resolver
     schema: src/loggedInUser.graphql
     handler:
