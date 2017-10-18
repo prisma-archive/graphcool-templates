@@ -3,19 +3,19 @@
     "path": "auth/email-password",
     "description": "Short description"
   },
-  "email": {
+  "email-auth": {
     "path": "auth/email-password",
     "description": "Short description"
   },
-  "facebook": {
+  "facebook-auth": {
     "path": "auth/facebook",
     "description": "Short description"
   },
-  "github": {
+  "github-auth": {
     "path": "auth/github",
     "description": "Short description"
   },
-  "google": {
+  "google-auth": {
     "path": "auth/google",
     "description": "Short description"
   }
