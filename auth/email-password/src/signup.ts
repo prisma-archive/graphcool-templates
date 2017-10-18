@@ -21,56 +21,39 @@ interface FunctionEvent<T extends any> {
 const SALT_ROUNDS = 10
 
 export default async (event: FunctionEvent<EventData>) => {
-  console.log(event)
+  try {
+    const graphcool = fromEvent(event)
+    const api = graphcool.api('simple/v1')
 
-  return signup(event)
-    .then(r => r)
-    .catch(err => {
-      return { error: err.message }
-    })
-}
+    const { email, password } = event.data
 
-const signup = async (event: FunctionEvent<EventData>) => {
-  const graphcool = fromEvent(event)
-  const api = graphcool.api('simple/v1')
+    if (!validator.isEmail(email)) {
+      return { error: 'Not a valid email') }
+    }
 
-  const { email, password } = event.data
+    // check if user exists already
+    const userExists: boolean = await getUserByEmail(api, email)
+      .then(r => r.User !== null)
 
-  if (!validator.isEmail(email)) {
-    throw new Error('Not a valid email')
+    if (userExists) {
+      return { error: 'Email already in use' }
+    }
+
+    // create password hash
+    const salt = bcrypt.genSaltSync(SALT_ROUNDS)
+    const hash = await bcrypt.hash(password, SALT_ROUNDS)
+
+    // create new user
+    const userId = await createGraphcoolUser(api, email, hash)
+
+    // generate node token for new User node
+    const token = await graphcool.generateAuthToken(userId, 'User')
+
+    return { data: { id: userId, token } }
+  } catch (e) {
+    console.log(e)
+    return { error: 'An unexpected error occured during signup.' }
   }
-
-  // check if user exists already
-  const userExists: boolean = await getUserByEmail(api, email)
-    .then(r => r.User !== null)
-    .catch(err => {
-      console.log(err)
-      throw new Error('An unexpected error occured during signup.')
-    })
-
-  if (userExists) {
-    throw new Error('Email already in use')
-  }
-
-  // create password hash
-  const salt = bcrypt.genSaltSync(SALT_ROUNDS)
-  const hash = await bcrypt.hash(password, SALT_ROUNDS)
-
-  // create new user
-  const userId = await createGraphcoolUser(api, email, hash)
-    .catch(err => {
-      console.log(err)
-      throw new Error('An unexpected error occured during signup.')
-    })
-
-  // generate node token for new User node
-  const token = await graphcool.generateAuthToken(userId, 'User')
-    .catch(err => {
-      console.log(err)
-      throw new Error('An unexpected error occured during signup.')
-    })
-
-  return { data: { id: userId, token } }
 }
 
 async function getUserByEmail(api: GraphQLClient, email: string): Promise<{ User }> {

@@ -12,39 +12,30 @@ interface FunctionEvent {
 }
 
 export default async (event: FunctionEvent) => {
-  console.log(event)
+  try {
+    if (!event.context.auth || !event.context.auth.nodeId) {
+      return { data: null }
+    }
 
-  return loggedInUser(event)
-    .then(r => r)
-    .catch(err => {
-      return { error: err.message }
-    })
-}
+    const userId = event.context.auth.nodeId
+    const graphcool = fromEvent(event)
+    const api = graphcool.api('simple/v1')
 
-const loggedInUser = async (event: FunctionEvent) => {
-  // no logged in user
-  if (!event.context.auth || !event.context.auth.nodeId) {
-    return { data: null }
+    // get user by id
+    const user: User = await getUserById(api, userId)
+      .then(r => r.User)
+
+    // no logged in user
+    if (!user || !user.id) {
+      return { data: null }
+    }
+
+    // return user data 
+    return { data: { id: user.id } }
+  } catch (e) {
+    console.log(e)
+    return { error: 'An unexpected error occured during signup.' }
   }
-
-  const userId = event.context.auth.nodeId
-  const graphcool = fromEvent(event)
-  const api = graphcool.api('simple/v1')
-
-  // get user by id
-  const user: User = await getUserById(api, userId)
-    .then(r => r.User)
-    .catch(err => {
-      console.log(err)
-      throw new Error('An unexpected error occured during authentication.')
-    })
-
-  // no logged in user
-  if (!user || !user.id) {
-    return { data: null }
-  }
-
-  return { data: { id: user.id } }
 }
 
 async function getUserById(api: GraphQLClient, id: string): Promise<{ User }> {
