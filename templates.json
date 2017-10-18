@@ -14,5 +14,9 @@
   "google-auth": {
     "path": "auth/google",
     "description": "Authentication using Google OAuth2"
+  },
+  "fixer-wrapper": {
+    "path": "misc/fixer",
+    "description": "GraphQL wrapper of fixer.io"
   }
 }
