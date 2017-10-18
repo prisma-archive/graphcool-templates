@@ -17,6 +17,6 @@
   },
   "fixer-wrapper": {
     "path": "misc/fixer",
-    "description": "GraphQL wrapper of fixer.io"
+    "description": "GraphQL wrapper for fixer.io"
   }
 }
