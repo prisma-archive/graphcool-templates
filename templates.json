@@ -1,22 +1,18 @@
 {
   "email-password": {
     "path": "auth/email-password",
-    "description": "Short description"
-  },
-  "email-auth": {
-    "path": "auth/email-password",
-    "description": "Short description"
+    "description": "Simple email-password based authentication"
   },
   "facebook-auth": {
     "path": "auth/facebook",
-    "description": "Short description"
+    "description": "Authentication using Facebook OAuth2"
   },
   "github-auth": {
     "path": "auth/github",
-    "description": "Short description"
+    "description": "Authentication using Github OAuth2"
   },
   "google-auth": {
     "path": "auth/google",
-    "description": "Short description"
+    "description": "Authentication using Google OAuth2"
   }
 }
