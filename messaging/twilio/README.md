@@ -42,14 +42,14 @@ graphcool playground
 Hook into the function logs:
 
 ```sh
-graphcool logs -f sendTwilioSms --tail
+graphcool logs -f sendSms --tail
 ```
 
 Run this mutation to create a new email:
 
 ```graphql
 mutation {
-  sendTwilioSms(
+  sendSms(
     to: "__RECIPIENT_NUMBER__"
     from: "__SENDER_NUMBER__"
     body: "Hey there, check this cool image!"
