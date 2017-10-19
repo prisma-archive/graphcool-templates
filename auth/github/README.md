@@ -23,9 +23,10 @@ In order for the changes to take effect, you need to manually uncomment all the 
 
 ### 3. Deploy the service
 
-Finally, you need to apply all the changes you just made by deploying the service:
+Finally, you need to install the [node dependencies](./package.json#L2) and apply all the changes you just made by deploying the service:
 
 ```sh
+yarn install
 graphcool deploy
 ```
 
