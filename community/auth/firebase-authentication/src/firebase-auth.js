@@ -95,7 +95,9 @@ const createGraphcoolUser = async (
       const createUserResult = await api.request(`
       mutation {
         createUser(firebaseUserId: "${firebaseUserId}") {
-          User
+          User {
+            id
+          }
         }
       }`);
       const graphcoolUserId: string = createUserResult.createUser.user.id;
