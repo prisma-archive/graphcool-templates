@@ -5,8 +5,8 @@ import { FunctionEvent } from 'graphcool-lib';
 
 const ses = new aws.SES({
   region: process.env.AWS_REGION,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  accessKeyId: 'AWS_ACCESS_KEY_ID',
+  secretAccessKey: 'AWS_SECRET_ACCESS_KEY',
 });
 
 
@@ -24,28 +24,26 @@ interface EventData {
 
 export default async (event: FunctionEvent<EventData>) => {
   console.log(event)
+  console.log('ENV:', process.env) 
 
-  if (!process.env['AWS_ACCESS_KEY_ID']) {
+  if (!process.env['ACCESS_KEY_ID']) {
     console.log('Please provide a valid AWS Access Key ID!');
     return { error: 'Module not configured correctly.' }
   }
 
-  if (!process.env['AWS_SECRET_ACCESS_KEY']) {
+  if (!process.env['SECRET_ACCESS_KEY']) {
     console.log('Please provide a valid AWS Secret Access Key!');
     return { error: 'Module not configured correctly.' }
   }
 
   try {
 
-    // const token = new Buffer(`api:${process.env['AWS_ACCESS_KEY_ID']}`).toString('base64')
-    // const endpoint = 'email-smtp.us-west-2.amazonaws.com'
-
     const { to, from, subject, text, html } = event.data
     const recipientVariables = event.data.recipientVariables || {}
 
     const params = {
       Destination: {
-        ToAddresses: ['iamclaytonray@gmail.com']
+        ToAddresses: ['johndoe@gmail.com']
       },
       Message: {
         Body: {
@@ -66,25 +64,6 @@ export default async (event: FunctionEvent<EventData>) => {
       ReturnPath: from,
       Source: from
     }
-
-
-    // if (to.length > 1000) {
-    //   return { error: `Can't batch more than 1000 emails!` }
-    // }
-
-    // const form = new FormData()
-    // form.append('from', from)
-
-    // for (var i = 0; i < to.length; i++) {
-    //   form.append('to', to[i])
-    // }
-
-    // form.append('subject', subject)
-    // form.append('text', text)
-    // form.append('recipient-variables', JSON.stringify(recipientVariables))
-
-    // const data = await ses.sendEmail(err, params)
-    // .then(response => response.json())
 
     ses.sendEmail(params, (err, data) => {
       if (err) {
