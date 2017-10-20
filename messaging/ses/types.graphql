@@ -1,11 +1,1 @@
-# # This file contains the GraphQL Types
-
-# type SesEmail implements Node {
-#   id: ID! @isUnique
-#   createdAt: DateTime!
-#   updatedAt: DateTime!
-#   fromEmail: String!
-#   toEmail: String!
-#   subject: String!
-#   content: String!
-# }
+# This file contains the GraphQL Types
