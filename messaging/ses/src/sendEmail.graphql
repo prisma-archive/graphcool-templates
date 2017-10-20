@@ -7,8 +7,7 @@ extend type Mutation {
     from: String!
     to: [String!]!
     subject: String!
-    text: String!
-    html: String!
-    recipientVariables: Json
+    text: String
+    html: String
   ): SesEmailPayload
 }

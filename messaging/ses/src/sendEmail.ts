@@ -1,5 +1,3 @@
-import * as fetch from 'isomorphic-fetch';
-import * as FormData from 'form-data';
 import * as aws from 'aws-sdk';
 import { FunctionEvent } from 'graphcool-lib';
 
@@ -16,7 +14,6 @@ interface EventData {
   subject: string
   text: string
   html: string
-  recipientVariables: Object | null
 }
 
 
@@ -26,12 +23,12 @@ export default async (event: FunctionEvent<EventData>) => {
   console.log(event)
   console.log('ENV:', process.env) 
 
-  if (!process.env['ACCESS_KEY_ID']) {
+  if (!process.env['AWS_ACCESS_KEY_ID']) {
     console.log('Please provide a valid AWS Access Key ID!');
     return { error: 'Module not configured correctly.' }
   }
 
-  if (!process.env['SECRET_ACCESS_KEY']) {
+  if (!process.env['AWS_SECRET_ACCESS_KEY']) {
     console.log('Please provide a valid AWS Secret Access Key!');
     return { error: 'Module not configured correctly.' }
   }
@@ -39,11 +36,10 @@ export default async (event: FunctionEvent<EventData>) => {
   try {
 
     const { to, from, subject, text, html } = event.data
-    const recipientVariables = event.data.recipientVariables || {}
 
     const params = {
       Destination: {
-        ToAddresses: ['johndoe@gmail.com']
+        ToAddresses: to
       },
       Message: {
         Body: {
@@ -65,15 +61,19 @@ export default async (event: FunctionEvent<EventData>) => {
       Source: from
     }
 
-    ses.sendEmail(params, (err, data) => {
-      if (err) {
-        console.log(err, err.stack)
-      } else {
-        response => response.json()
-      }
+    ses.sendEmail(params, (err, response) => {
+      return new Promise((resolve, reject) => {
+        if (err) {
+          console.log(err, err.stack)
+          reject(err)
+        } else {
+          resolve(response => response.json())
+        }
+      })    
     })
 
     return { data: { success: true } }
+
   } catch(e) {
     console.log(`Email could not be sent because an error occured:`)
     console.log(e)
