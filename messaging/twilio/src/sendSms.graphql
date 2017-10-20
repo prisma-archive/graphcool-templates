@@ -3,7 +3,7 @@ type TwilioSmsPayload {
 }
 
 extend type Mutation {
-  sendTwilioSms(
+  sendSms(
     to: String!
     from: String!
     body: String!

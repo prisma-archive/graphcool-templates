@@ -1,5 +1,10 @@
 {
   "dependencies": {
+    "@types/twilio": "0.0.9",
+    "graphcool-lib": "^0.1.0",
     "twilio": "^3.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.45"
   }
 }

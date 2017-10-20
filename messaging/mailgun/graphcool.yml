@@ -6,7 +6,7 @@ functions:
   sendEmail:
     handler:
       code:
-        src: ./src/sendEmail.js
+        src: ./src/sendEmail.ts
         environment:
           MAILGUN_API_KEY: ${env:MAILGUN_API_KEY}
           MAILGUN_DOMAIN: ${env:MAILGUN_DOMAIN}
