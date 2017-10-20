@@ -1,0 +1,14 @@
+type SesEmailPayload {
+  success: Boolean!
+}
+
+extend type Mutation {
+  sendSesEmail(
+    from: String!
+    to: [String!]!
+    subject: String!
+    text: String!
+    html: String!
+    recipientVariables: Json
+  ): SesEmailPayload
+}
