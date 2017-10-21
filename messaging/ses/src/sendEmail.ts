@@ -21,7 +21,6 @@ interface EventData {
 
 export default async (event: FunctionEvent<EventData>) => {
   console.log(event)
-  console.log('ENV:', process.env) 
 
   if (!process.env['AWS_ACCESS_KEY_ID']) {
     console.log('Please provide a valid AWS Access Key ID!');
@@ -61,15 +60,15 @@ export default async (event: FunctionEvent<EventData>) => {
       Source: from
     }
 
-    ses.sendEmail(params, (err, response) => {
-      return new Promise((resolve, reject) => {
+    new Promise((resolve, reject) => {
+      ses.sendEmail(params, (err) => {
         if (err) {
           console.log(err, err.stack)
           reject(err)
         } else {
           resolve(response => response.json())
         }
-      })    
+      })
     })
 
     return { data: { success: true } }
