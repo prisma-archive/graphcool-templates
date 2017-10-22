@@ -6,8 +6,8 @@ functions:
   sendEmail:
     handler:
       code:
-        src: ./src/sendEmail.js
+        src: ./src/sendEmail.ts
         environment:
           SENDGRID_API_KEY: ${env:SENDGRID_API_KEY}
-    type: subscription
-    query: ./src/sendEmail.graphql
+    type: resolver
+    schema: ./src/sendEmail.graphql

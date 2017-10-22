@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "graphcool-lib": "^0.1.0",
     "pusher": "^1.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.45"
   }
 }
