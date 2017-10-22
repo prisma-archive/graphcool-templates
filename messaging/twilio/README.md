@@ -4,32 +4,41 @@ Send Sms with Twilio in your Graphcool project 🎁
 
 ## Getting Started
 
+### 1. Add the template to your Graphcool service
+
 ```sh
-npm -g install graphcool
-graphcool init
-graphcool modules add graphcool/modules/messaging/twilio
+graphcool add-template messaging/twilio
 ```
 
-## Configuration
+### 2. Uncomment lines in `graphcool.yml` and `types.graphql`
 
-In your base project, you need to configure the following **environment variables**.
+The [`add-template`](https://docs-next.graph.cool/reference/graphcool-cli/commands-aiteerae6l#graphcool-add-template) command is performing three major steps:
 
-- `TWILIO_ACCOUNT_SID`: Twilio Account SID
-- `TWILIO_AUTH_TOKEN`: Twilio Auth Token
+1. Download the source files from the [`src`](./src) directory and put them into your service's `src` directory (into a subdirectory called `twilio`).
+2. Download the contents from [`graphcool.yml`](./graphcool.yml) and append them as comments to your service's `graphcool.yml`.
+3. Download the contents from [`types.graphql`](./types.graphql) and append them as comments to your service's `types.graphql`.
+
+In order for the changes to take effect, you need to manually uncomment all the lines that have been added by the `add-template` command.
+
+### 3. Setup Twilio credentials
+
+You need to configure these credentials as environment variables:
+
+* `TWILIO_ACCOUNT_SID`
+* `TWILIO_AUTH_TOKEN`
 
 You can receive them after [signing up at Twilio](https://twilio.com/).
 
-An easy way to setup environment variables is using [direnv](https://direnv.net/).
-To use `direnv`, put the following into `.envrc` in you project root:
+To manage your environment variables, you can use a tool like [direnv](https://direnv.net/).
+
+### 4. Deploy the service
+
+Finally, you need to install the [node dependencies](./package.json#L2) and apply all the changes you just made by deploying the service:
 
 ```sh
-export TWILIO_ACCOUNT_SID=xxx
-export TWILIO_AUTH_TOKEN=xxx
+npm install
+graphcool deploy
 ```
-
-## Flow
-
-Whenever the `sendSms` mutation is called, a new SMS will be sent according to the passed in sender, recipient and body. Media content can optionally be included as well.
 
 ## Test the Code
 

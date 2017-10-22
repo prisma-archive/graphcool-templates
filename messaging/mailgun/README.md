@@ -4,39 +4,41 @@ Send emails with mailgun in your Graphcool project 🎁
 
 ## Getting Started
 
+### 1. Add the template to your Graphcool service
+
 ```sh
-npm -g install graphcool
-graphcool init
-graphcool modules add graphcool/modules/messaging/mailgun
+graphcool add-template messaging/mailgun
 ```
 
-## Configuration
+### 2. Uncomment lines in `graphcool.yml` and `types.graphql`
 
-In your base project, you need to configure the following **environment variables**.
+The [`add-template`](https://docs-next.graph.cool/reference/graphcool-cli/commands-aiteerae6l#graphcool-add-template) command is performing three major steps:
 
-- `MAILGUN_API_KEY`: mailgun API Key
-- `MAILGUN_DOMAIN`: mailgun domain
+1. Download the source files from the [`src`](./src) directory and put them into your service's `src` directory (into a subdirectory called `mailgun`).
+2. Download the contents from [`graphcool.yml`](./graphcool.yml) and append them as comments to your service's `graphcool.yml`.
+3. Download the contents from [`types.graphql`](./types.graphql) and append them as comments to your service's `types.graphql`.
+
+In order for the changes to take effect, you need to manually uncomment all the lines that have been added by the `add-template` command.
+
+### 3. Setup Github credentials
+
+You need to configure these credentials as environment variables:
+
+* `MAILGUN_API_KEY`
+* `MAILGUN_DOMAIN`
 
 You can receive them after [signing up at mailgun](https://app.mailgun.com/app/dashboard).
 
-An easy way to setup environment variables is using [direnv](https://direnv.net/).
-To use `direnv`, put the following into `.envrc` in you project root:
+To manage your environment variables, you can use a tool like [direnv](https://direnv.net/).
+
+### 4. Deploy the service
+
+Finally, you need to install the [node dependencies](./package.json#L2) and apply all the changes you just made by deploying the service:
 
 ```sh
-export MAILGUN_API_KEY=xxx
-export MAILGUN_DOMAIN=xxx
+npm install
+graphcool deploy
 ```
-
-## Flow
-
-Use the `sendMailgunEmail` mutation to send emails according to its parameters:
-
-* `tag: String!`: custom tag for internal logging
-* `from: String!`: sender email
-* `to: [String!]!`: a list of recipient emails
-* `subject: String!`: the email subject, can contain references to `recipientVariables`
-* `text: String!`: the email body, can contain references to `recipientVariables`
-* `recipientVariables: Json`: optional recipient variables for [batched emails](http://mg-documentation.readthedocs.io/en/latest/user_manual.html#batch-sending). Read the documentation for more information on the encoding.
 
 ## Test the Code
 
