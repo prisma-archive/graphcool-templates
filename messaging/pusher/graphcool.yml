@@ -2,14 +2,14 @@
 types: ./types.graphql
 
 functions:
-  triggerPusherEvent:
+  pushNotification:
     handler:
       code:
-        src: ./src/triggerPusherEvent.js
+        src: ./src/pushNotification.ts
         environment:
           PUSHER_APP_ID: ${env:PUSHER_APP_ID}
           PUSHER_KEY: ${env:PUSHER_KEY}
           PUSHER_SECRET: ${env:PUSHER_SECRET}
           PUSHER_CLUSTER: ${env:PUSHER_CLUSTER}
     type: resolver
-    schema: ./src/triggerPusherEvent.graphql
+    schema: ./src/pushNotification.graphql
