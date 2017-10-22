@@ -1,0 +1,12 @@
+type SendEmailPayload {
+  success: Boolean!
+}
+
+extend type Mutation {
+  sendEmail(
+    from: String!
+    to: String!
+    subject: String!
+    content: String!
+  ): SendEmailPayload
+}
