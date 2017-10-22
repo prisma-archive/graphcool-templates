@@ -1,26 +1,34 @@
 {
-  "email-password": {
+  "auth/email-password": {
     "path": "auth/email-password",
     "description": "Simple email-password based authentication"
   },
-  "facebook-auth": {
+  "auth/facebook": {
     "path": "auth/facebook",
     "description": "Authentication using Facebook OAuth2"
   },
-  "github-auth": {
+  "auth/github": {
     "path": "auth/github",
     "description": "Authentication using Github OAuth2"
   },
-  "google-auth": {
+  "auth/google": {
     "path": "auth/google",
     "description": "Authentication using Google OAuth2"
   },
-  "fixer-wrapper": {
+  "misc/fixer": {
     "path": "misc/fixer",
     "description": "GraphQL wrapper for fixer.io"
   },
-  "mailgun": {
+  "messaging/mailgun": {
     "path": "messaging/mailgun",
     "description": "Send emails with Mailgun"
+  },
+  "messaging/pusher": {
+    "path": "messaging/pusher",
+    "description": "Send Push Notifications with Pusher"
+  },
+  "messaging/twilio": {
+    "path": "messaging/twilio",
+    "description": "Send SMS with Twilio"
   }
 }
