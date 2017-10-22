@@ -1,7 +1,0 @@
-type User {
-  id: ID!
-
-  # Must be unique
-  # Make it required if Github is the only authorization method in your app
-  githubUserId: String @isUnique
-}

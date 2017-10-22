@@ -7,7 +7,7 @@ Add Facebook Authentication to your Graphcool project 🎁
 ### 1. Add the template to your Graphcool service
 
 ```sh
-graphcool add-template graphcool/templates/auth/facebook
+graphcool add-template auth/facebook
 ```
 
 ### 2. Uncomment lines in `graphcool.yml` and `types.graphql`

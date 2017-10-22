@@ -1,7 +1,0 @@
-type User {
-  id: ID!
-
-  # Must be unique
-  # Make it required if Google is the only authorization method in your app
-  googleUserId: String @isUnique
-}

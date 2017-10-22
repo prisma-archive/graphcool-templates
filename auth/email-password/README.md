@@ -7,7 +7,7 @@ Add email and password login to your Graphcool Project 🎁
 ### 1. Add the template to your Graphcool service
 
 ```sh
-graphcool add-template graphcool/templates/auth/email-password
+graphcool add-template auth/email-password
 ```
 
 ### 2. Uncomment lines in `graphcool.yml` and `types.graphql`
