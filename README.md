@@ -15,6 +15,10 @@ We maintain a number of officially supported templates:
 
 Notice that the [outdated](./outdated) templates are _not_ officially supported. Right now, most of the templates inside the [outdated](./outdated) directory are not working when used with the [`graphcool add-template`](https://docs-next.graph.cool/reference/graphcool-cli/commands-aiteerae6l#add-template) command!
 
+### Contributions
+
+Contributions are _highly_ welcome :green_heart: if you'd like to add a new template, you can get inspiration from the [help wanted label](https://github.com/graphcool/templates/labels/help%20wanted), or suggest your own template!
+
 ## Adding templates to your service
 
 There are two ways how you can use a template in your service:
