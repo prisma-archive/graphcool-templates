@@ -8,7 +8,7 @@ Add Github Authentication to your Graphcool project 🎁
 ### 1. Add the template to your Graphcool service
 
 ```sh
-graphcool add-template auth/github
+graphcool add-template graphcool/templates/auth/github
 ```
 
 ### 2. Uncomment lines in `graphcool.yml` and `types.graphql`
