@@ -24,7 +24,7 @@ const fetchAuth0Profile = accessToken =>
     .then(response => response.json())
     .then(json => json);
 
-const createGraphCoolUser = ({ email }, api) => {
+const createGraphCoolUser = ({ email, user_id }, api) => {
   return api
     .request(
       `
@@ -59,7 +59,7 @@ module.exports = event => {
       return Promise.resolve(graphCoolUser);
     })
     .then(graphCoolUser =>
-      graphcool.generateAuthToken(graphCoolUser.id, 'Auth0User')
+      graphcool.generateAuthToken(graphCoolUser.id, 'User')
     )
     .then(token => {
       return { data: { token } };
