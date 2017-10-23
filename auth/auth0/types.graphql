@@ -7,4 +7,5 @@ type User @model {
   updatedAt: DateTime! # read-only (managed by Graphcool)
 
   auth0UserId: String @isUnique
+  email: String!
 }
