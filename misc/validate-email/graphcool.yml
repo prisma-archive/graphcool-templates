@@ -1,0 +1,12 @@
+types: ./types.graphql
+
+functions:
+  validateEmail:
+    type: operationBefore
+    operation: Customer.create
+    handler:
+      code: src/validateEmail.ts
+
+# development permissions
+permissions:
+- operation: "*"
