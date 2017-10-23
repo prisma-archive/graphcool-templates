@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "graphcool-lib": "^0.1.4",
+    "graphql-request": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.46"
+  }
+}

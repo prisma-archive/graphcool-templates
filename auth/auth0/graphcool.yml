@@ -1,0 +1,15 @@
+types: ./types.graphql
+
+functions:
+  auth0Authentication:
+    handler:
+      code:
+        src: ./src/auth0Authentication.ts
+    type: resolver
+    schema: ./src/auth0Authentication.graphql
+  loggedInUser:
+    handler:
+      code:
+        src: ./src/loggedInUser.ts
+    type: resolver
+    schema: ./src/loggedInUser.graphql

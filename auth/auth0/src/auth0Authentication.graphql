@@ -1,0 +1,8 @@
+type AuthenticateUserPayload {
+  id: ID!
+  idToken: String!
+}
+
+extend type Mutation {
+  authenticateUser(idToken: String!): AuthenticateUserPayload
+}
