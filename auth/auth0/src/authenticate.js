@@ -42,12 +42,13 @@ const getGraphcoolUser = (auth0UserId, api) =>
   api
     .request(
       `
-        query {
-          User(auth0UserId: "${auth0UserId}"){
+        query getUser($auth0UserId: String!){
+          User(auth0UserId: $auth0UserId){
             id
           }
         }
-      `
+      `,
+      { auth0UserId }
     )
     .then(queryResult => queryResult.User);
 
@@ -66,14 +67,15 @@ const createGraphCoolUser = ({ user_id }, api) =>
   api
     .request(
       `
-        mutation {
+        mutation createUser($auth0UserId: String!) {
           createUser(
-            auth0UserId:"${user_id}"
+            auth0UserId: $auth0UserId
           ){
             id
           }
         }
-      `
+      `,
+      { auth0UserId }
     )
     .then(queryResult => queryResult.createUser);
 
