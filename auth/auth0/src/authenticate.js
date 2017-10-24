@@ -2,7 +2,13 @@ const isomorphicFetch = require('isomorphic-fetch');
 const jwt = require('jsonwebtoken');
 const fromEvent = require('graphcool-lib').fromEvent;
 
-const logger = message => (process.env.DEBUG === true ? logger(message) : null);
+const verifyToken = (token, secretOrPublicKey) =>
+  new Promise((resolve, reject) =>
+    jwt.verify(token, secretOrPublicKey, (err, decoded) => {
+      if (err) return reject(err);
+      return resolve(decoded.sub);
+    })
+  );
 
 const getGraphcoolUser = (auth0UserId, api) =>
   api
@@ -24,32 +30,35 @@ const fetchAuth0Profile = accessToken =>
     .then(response => response.json())
     .then(json => json);
 
-const createGraphCoolUser = ({ email, user_id }, api) => {
-  return api
+const createGraphCoolUser = ({ user_id }, api) =>
+  api
     .request(
       `
     mutation {
       createUser(
         auth0UserId:"${user_id}"
-        email: "${email}"
       ){
         id
       }
-    }
-  `
+    }`
     )
     .then(queryResult => queryResult.createUser);
-};
 
 module.exports = event => {
+  const secretOrPublicKey = process.env.AUTH0_CLIENT_ID || process.env.AUTH0_SECRET;
+
+  if (!secretOrPublicKey || !process.env.AUTH0_DOMAIN) {
+    console.error('Please provide a valid client id or secret and a domain!')
+    return { error: 'Auth0 Authentication not configured correctly.' }
+  }
+
   const { accessToken, idToken } = event.data;
-  //TODO Check if Token is R256 or H256 and pass the correct encryption param to the verify method below
-  const { sub: auth0UserId } = jwt.verify(idToken, process.env.AUTH0_SECRET);
 
   const graphcool = fromEvent(event);
   const api = graphcool.api('simple/v1');
 
-  return getGraphcoolUser(auth0UserId, api)
+  return verifyToken(idToken, secretOrPublicKey);
+    .then(auth0UserId => getGraphcoolUser(auth0UserId, api))
     .then(graphCoolUser => {
       if (graphCoolUser === null) {
         return fetchAuth0Profile(accessToken).then(auth0Profile =>
@@ -65,7 +74,7 @@ module.exports = event => {
       return { data: { token } };
     })
     .catch(error => {
-      console.log(`Error: ${JSON.stringify(error)}`);
+      console.error(`Error: ${JSON.stringify(error)}`);
       return { error: 'An unexpected error occured' };
     });
 };
