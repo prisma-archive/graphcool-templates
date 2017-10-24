@@ -1,4 +1,4 @@
-function displayAuthResults(accessToken, idToken) {
+function displayAuthResults(idToken) {
   var el = document.getElementById('mutation');
   el.style.visibility = 'visible';
   var mutation = `
@@ -6,7 +6,6 @@ function displayAuthResults(accessToken, idToken) {
 
   mutation {
     authenticateUser(
-      accessToken: "${accessToken}"
       idToken: "${idToken}"
     ) {
       token
@@ -29,5 +28,5 @@ var lock = new Auth0Lock('__CLIENT_ID__', '__AUTH0_DOMAIN__', {
 lock.show();
 
 lock.on('authenticated', function(authResult) {
-  displayAuthResults(authResult.accessToken, authResult.idToken);
+  displayAuthResults(authResult.idToken);
 });

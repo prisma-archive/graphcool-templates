@@ -31,7 +31,7 @@ const verifyToken = token =>
         },
         (err, decoded) => {
           if (err) throw new Error(err);
-          return resolve(decoded.sub);
+          return resolve(decoded);
         }
       );
     });
@@ -52,18 +52,8 @@ const getGraphcoolUser = (auth0UserId, api) =>
     )
     .then(queryResult => queryResult.User);
 
-//Fetches the user's Auth0 profile
-const fetchAuth0Profile = accessToken =>
-  fetch(
-    `https://${process.env.AUTH0_DOMAIN}/userinfo?access_token=${accessToken}`
-  )
-    .then(response => response.json())
-    .then(json => json);
-
-//Creates a new User record. It is possible to save more information from Auth0 here, email profile, name ...
-//by destructuring the first parameter and adding them to the mutation.
-//More info about the user info obkect here : https://auth0.com/docs/api/authentication#get-user-info
-const createGraphCoolUser = ({ user_id }, api) =>
+//Creates a new User record.
+const createGraphCoolUser = ({ sub }, api) =>
   api
     .request(
       `
@@ -75,7 +65,7 @@ const createGraphCoolUser = ({ user_id }, api) =>
           }
         }
       `,
-      { auth0UserId }
+      { auth0UserId: sub }
     )
     .then(queryResult => queryResult.createUser);
 
@@ -86,19 +76,18 @@ export default async event => {
         'Missing AUTH0_DOMAIN or AUTH0_CLIENT_ID environment variable'
       );
     }
-    const { accessToken, idToken } = event.data;
+    const { idToken } = event.data;
 
-    const auth0UserId = await verifyToken(idToken);
+    const decodedToken = await verifyToken(idToken);
     const graphcool = fromEvent(event);
     const api = graphcool.api('simple/v1');
 
     let graphCoolUser = null;
 
-    graphCoolUser = await getGraphcoolUser(auth0UserId, api);
+    graphCoolUser = await getGraphcoolUser(decodedToken.sub, api);
     //If the user doesn't exist. a new record is created.
     if (graphCoolUser === null) {
-      const auth0Profile = await fetchAuth0Profile(accessToken);
-      graphCoolUser = await createGraphCoolUser(auth0Profile, api);
+      graphCoolUser = await createGraphCoolUser(decodedToken, api);
     }
     const token = await graphcool.generateAuthToken(graphCoolUser.id, 'User');
 
