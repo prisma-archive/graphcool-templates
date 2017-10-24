@@ -3,36 +3,33 @@ const jwt = require('jsonwebtoken');
 const jwkRsa = require('jwks-rsa');
 const fromEvent = require('graphcool-lib').fromEvent;
 
+
 const verifyToken = token =>
-  new Promise((resolve, reject) => {
+  new Promise(resolve => {
     //First let's decode the token
-    try {
-      const decoded = jwt.decode(token, { complete: true });
-      if (!decoded || !decoded.header || !decoded.header.kid) {
-        throw new Error('Unable to retrieve key identifier from token');
-      }
-      // Then retrieve the JKWS using the key identifier from our decode token
-      const jkwsClient = jwkRsa({
-        cache: true,
-        jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
-      });
-      jkwsClient.getSigningKey(decoded.header.kid, (err, key) => {
-        if (err) return reject(err);
-        //If the JWT Token was valid, we now can verify its validity with our signingKey
-        const signingKey = key.publicKey || key.rsaPublicKey;
-        jwt.verify(
-          token,
-          signingKey,
-          { algorithms: ['RS256'] },
-          (err, decoded) => {
-            if (err) return reject(err);
-            return resolve(decoded.sub);
-          }
-        );
-      });
-    } catch (err) {
-      return reject(err);
+    const decoded = jwt.decode(token, { complete: true });
+    if (!decoded || !decoded.header || !decoded.header.kid) {
+      throw new Error('Unable to retrieve key identifier from token');
     }
+    // Then retrieve the JKWS using the key identifier from our decode token
+    const jkwsClient = jwkRsa({
+      cache: true,
+      jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
+    });
+    jkwsClient.getSigningKey(decoded.header.kid, (err, key) => {
+      if (err) throw new Error(err);
+      //If the JWT Token was valid, we now can verify its validity with our signingKey
+      const signingKey = key.publicKey || key.rsaPublicKey;
+      jwt.verify(
+        token,
+        signingKey,
+        { algorithms: ['RS256'] },
+        (err, decoded) => {
+          if (err) throw new Error(err);
+          return resolve(decoded.sub);
+        }
+      );
+    });
   });
 
 const getGraphcoolUser = (auth0UserId, api) =>
@@ -69,35 +66,29 @@ const createGraphCoolUser = ({ user_id }, api) =>
     )
     .then(queryResult => queryResult.createUser);
 
-module.exports = event => {
-  if (!process.env.AUTH0_DOMAIN) {
-    console.error('Please provide a valid domain!');
-    return { error: 'Auth0 Authentication not configured correctly.' };
+export default async event => {
+  try {
+    if (!process.env.AUTH0_DOMAIN) {
+      throw new Error('Missing AUTH0_DOMAIN environment variable');
+    }
+    const { accessToken, idToken } = event.data;
+
+    const auth0UserId = await verifyToken(idToken);
+    const graphcool = fromEvent(event);
+    const api = graphcool.api('simple/v1');
+
+    let graphCoolUser = null;
+
+    graphCoolUser = await getGraphcoolUser(auth0UserId, api);
+    if (graphCoolUser === null) {
+      const auth0Profile = await fetchAuth0Profile(accessToken);
+      graphCoolUser = await createGraphCoolUser(auth0Profile, api);
+    }
+    const token = await graphcool.generateAuthToken(graphCoolUser.id, 'User');
+
+    return { data: { id: graphCoolUser.id, token } };
+  } catch (err) {
+    console.log(err);
+    return { error: 'An unexpected error occured' };
   }
-
-  const { accessToken, idToken } = event.data;
-
-  const graphcool = fromEvent(event);
-  const api = graphcool.api('simple/v1');
-
-  return verifyToken(idToken)
-    .then(auth0UserId => getGraphcoolUser(auth0UserId, api))
-    .then(graphCoolUser => {
-      if (graphCoolUser === null) {
-        return fetchAuth0Profile(accessToken).then(auth0Profile =>
-          createGraphCoolUser(auth0Profile, api)
-        );
-      }
-      return Promise.resolve(graphCoolUser);
-    })
-    .then(graphCoolUser =>
-      graphcool.generateAuthToken(graphCoolUser.id, 'User')
-    )
-    .then(token => {
-      return { data: { token } };
-    })
-    .catch(error => {
-      console.error(`Error: ${JSON.stringify(error)}`);
-      return { error: 'An unexpected error occured' };
-    });
 };
