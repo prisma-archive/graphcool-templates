@@ -10,12 +10,12 @@ const verifyToken = token =>
     const decoded = jwt.decode(token, { complete: true });
     if (!decoded || !decoded.header || !decoded.header.kid) {
       throw new Error('Unable to retrieve key identifier from token');
-    } 
+    }
     const jkwsClient = jwkRsa({
       cache: true,
       jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
     });
-     //Retrieve the JKWS's signing key using the decode token's key identifier (kid)
+    //Retrieve the JKWS's signing key using the decode token's key identifier (kid)
     jkwsClient.getSigningKey(decoded.header.kid, (err, key) => {
       if (err) throw new Error(err);
       const signingKey = key.publicKey || key.rsaPublicKey;
@@ -23,7 +23,12 @@ const verifyToken = token =>
       jwt.verify(
         token,
         signingKey,
-        { algorithms: ['RS256'] },
+        {
+          algorithms: ['RS256'],
+          audience: process.env.AUTH0_CLIENT_ID,
+          ignoreExpiration: false,
+          issuer: `https://${process.env.AUTH0_DOMAIN}/`
+        },
         (err, decoded) => {
           if (err) throw new Error(err);
           return resolve(decoded.sub);
@@ -74,8 +79,10 @@ const createGraphCoolUser = ({ user_id }, api) =>
 
 export default async event => {
   try {
-    if (!process.env.AUTH0_DOMAIN) {
-      throw new Error('Missing AUTH0_DOMAIN environment variable');
+    if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_CLIENT_ID) {
+      throw new Error(
+        'Missing AUTH0_DOMAIN or AUTH0_CLIENT_ID environment variable'
+      );
     }
     const { accessToken, idToken } = event.data;
 
