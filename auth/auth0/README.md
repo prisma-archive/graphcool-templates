@@ -8,7 +8,7 @@ Add Auth0 Authentication to your Graphcool project 🎁
 ### 1. Add the template to your Graphcool service
 
 ```sh
-graphcool add-template auth/auth0
+graphcool add-template graphcool/templates/auth/auth0
 ```
 
 ### 2. Uncomment lines in `graphcool.yml` and `types.graphql`
