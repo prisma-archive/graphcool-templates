@@ -8,7 +8,8 @@ functions:
       code:
         src: ./src/authenticate.js
         environment:
-          AUTH0_SECRET: ${env:BACKEND_AUTH0_SECRET}
-          AUTH0_DOMAIN: ${env:BACKEND_AUTH0_DOMAIN}
+          AUTH0_SECRET: ${env:AUTH0_SECRET}
+          AUTH0_CLIENT_ID: ${env:AUTH0_CLIENT_ID}
+          AUTH0_DOMAIN: ${env:AUTH0_DOMAIN}
     type: resolver
     schema: ./src/authenticate.graphql
