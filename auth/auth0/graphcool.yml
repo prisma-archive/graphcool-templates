@@ -6,9 +6,9 @@ functions:
   authenticate:
     handler:
       code:
-        src: ./src/authenticate.js
+        src: ./src/auth0Authentication.js
         environment:
           AUTH0_DOMAIN: ${env:AUTH0_DOMAIN}
           AUTH0_CLIENT_ID: ${env:AUTH0_CLIENT_ID}
     type: resolver
-    schema: ./src/authenticate.graphql
+    schema: ./src/auth0Authentication.graphql
