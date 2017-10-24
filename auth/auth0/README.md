@@ -44,7 +44,7 @@ In order for the changes to take effect, you need to manually uncomment all the 
 
 ### 4. Deploy the service
 
-*Make sure the `AUTH0_DOMAIN` and `AUTH0_CLIENT_ID` environement variables are properly set before running the command below.*
+*Make sure the `AUTH0_DOMAIN` and `AUTH0_CLIENT_ID` environment variables are properly set before running the command below.*
 
 Finally, you need to install the [node dependencies](./package.json#L2) and apply all the changes you just made by deploying the service:
 
