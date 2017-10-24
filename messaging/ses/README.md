@@ -33,7 +33,7 @@ export REGION=xxx
 
 Whenever a new `SesEmail` node is created with information about the recipient, sender, subject and email body, the server-side subscription picks it up and invokes the SES API to send out the email.
 
-**Important Note:* You can only use verified emails to send and receive. You can learn more [from the AWS docs](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html)
+**Important Note:** You can only use verified emails to send and receive. You can learn more [from the AWS docs](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html)
 
 ## Test the Code
 
