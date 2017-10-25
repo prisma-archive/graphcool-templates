@@ -1,4 +1,4 @@
-function displayAuthResults(idToken) {
+function displayAuthResults(accessToken) {
   var el = document.getElementById('mutation');
   el.style.visibility = 'visible';
   var mutation = `
@@ -6,8 +6,9 @@ function displayAuthResults(idToken) {
 
   mutation {
     authenticateUser(
-      idToken: "${idToken}"
+      accessToken: "${accessToken}"
     ) {
+      id
       token
     }
   }
@@ -16,17 +17,26 @@ function displayAuthResults(idToken) {
 }
 
 //Replace __CLIENT_ID__ and __AUTH0_DOMAIN__ with your Auth0 ClientId and Domain
-var lock = new Auth0Lock('__CLIENT_ID__', '__AUTH0_DOMAIN__', {
-  container: 'lock',
-  auth: {
-    redirect: true,
-    redirectUrl: 'http://localhost:8080',
+document.addEventListener('DOMContentLoaded', function(event) {
+  var webAuth = new auth0.WebAuth({
+    audience: '__AUTH0_API_IDENTIFIER__',
+    clientID: '__AUTH0_CLIENT_ID__',
+    domain: '__AUTH0_DOMAIN__',
+    redirectUri: 'http://localhost:8080',
     responseType: 'token'
-  }
-});
+  });
 
-lock.show();
+  var elButton = document.getElementById('authenticate');
+  elButton.addEventListener('click', function() {
+    webAuth.authorize();
+  });
 
-lock.on('authenticated', function(authResult) {
-  displayAuthResults(authResult.idToken);
+  webAuth.parseHash(function(err, authResult) {
+    if (err) return console.error(err);
+    if (authResult && authResult.accessToken) {
+      window.location.hash = '';
+      displayAuthResults(authResult.accessToken);
+    }
+    console.log(authResult);
+  });
 });

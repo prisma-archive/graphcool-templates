@@ -21,9 +21,17 @@ The [`add-template`](https://docs-next.graph.cool/reference/graphcool-cli/comman
 
 In order for the changes to take effect, you need to manually uncomment all the lines that have been added by the `add-template` command.
 
-### 3. Setup Auth0 credentials
+### 3. Setup Auth0
+
+#### 3.1 Create an API
 
 * Create a new Auth0 account or log-in to your existing one
+* Create a new API. Select `RS256` as the signing algorithm. Keep the Identifier value handy as we will use it later on.
+
+![](./docs/create-api.png)
+
+#### 3.2 Create a Client
+
 * Create a new Auth0 client with the following settings
 
 ![](./docs/new-client.png)
@@ -34,17 +42,17 @@ In order for the changes to take effect, you need to manually uncomment all the 
   
 ![](./docs/settings.png)
 
-  * In Advanced Settings Section - OAuth tab set JWT Signature Algorithm to value *RS256*
+  * In Advanced Settings Section - OAuth tab set JWT Signature Algorithm to value *RS256* and turn on the OIDC Conformant swith.
 
 ![](./docs/advanced-settings-oauth.png)
   
-  * In Advanced Settings Section - Grant Types tab leave only *Implicit* and *Password* grant types enabled
+  * In Advanced Settings Section - Grant Types tab only leave the *Implicit* grant type enabled.
 
 ![](./docs/advanced-settings-grant.png)
 
 ### 4. Deploy the service
 
-*Make sure the `AUTH0_DOMAIN` and `AUTH0_CLIENT_ID` environment variables are properly set before running the command below.*
+*Make sure the `AUTH0_DOMAIN` and `AUTH0_API_IDENTIFIER` environment variables are properly set before running the command below. The `AUTH0_API_IDENTIFIER` should match the identifier set in 3.1 Create an API*
 
 Finally, you need to install the [node dependencies](./package.json#L2) and apply all the changes you just made by deploying the service:
 
@@ -57,7 +65,7 @@ graphcool deploy
 
 ### Setting up the test app
 
-* In order to setup Auth0 Lock Widget replace `__AUTH0_DOMAIN__` and `__CLIENT_ID__` in `test/index.js` with the credentials from your client settings.
+* In order to setup Auth0 Lock Widget replace `__AUTH0_DOMAIN__`, `__AUTH0_CLIENT_ID__` and `__AUTH0_API_IDENTIFIER__`in `test/index.js` with the credentials from your api/client settings.
 * Serve the test application locally on port 8080. For example :
 ```bash
 npm i -g http-server

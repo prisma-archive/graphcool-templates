@@ -11,6 +11,11 @@ const verifyToken = token =>
     if (!decoded || !decoded.header || !decoded.header.kid) {
       throw new Error('Unable to retrieve key identifier from token');
     }
+    if (decoded.header.alg !== 'RS256') {
+      throw new Error(
+        `Wrong signature algorithm, expected RS256, got ${decoded.header.alg}`
+      );
+    }
     const jkwsClient = jwkRsa({
       cache: true,
       jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
@@ -25,7 +30,7 @@ const verifyToken = token =>
         signingKey,
         {
           algorithms: ['RS256'],
-          audience: process.env.AUTH0_CLIENT_ID,
+          audience: process.env.AUTH0_API_IDENTIFIER,
           ignoreExpiration: false,
           issuer: `https://${process.env.AUTH0_DOMAIN}/`
         },
@@ -71,14 +76,14 @@ const createGraphCoolUser = ({ sub }, api) =>
 
 export default async event => {
   try {
-    if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_CLIENT_ID) {
+    if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_API_IDENTIFIER) {
       throw new Error(
-        'Missing AUTH0_DOMAIN or AUTH0_CLIENT_ID environment variable'
+        'Missing AUTH0_DOMAIN or AUTH0_API_IDENTIFIER environment variable'
       );
     }
-    const { idToken } = event.data;
+    const { accessToken } = event.data;
 
-    const decodedToken = await verifyToken(idToken);
+    const decodedToken = await verifyToken(accessToken);
     const graphcool = fromEvent(event);
     const api = graphcool.api('simple/v1');
 
