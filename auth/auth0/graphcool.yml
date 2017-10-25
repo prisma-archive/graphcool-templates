@@ -9,6 +9,6 @@ functions:
         src: ./src/auth0Authentication.js
         environment:
           AUTH0_DOMAIN: ${env:AUTH0_DOMAIN}
-          AUTH0_CLIENT_ID: ${env:AUTH0_CLIENT_ID}
+          AUTH0_API_IDENTIFIER: ${env:AUTH0_API_IDENTIFIER}
     type: resolver
     schema: ./src/auth0Authentication.graphql
