@@ -1,31 +1,13 @@
-# GraphQL types
 types: ./types.graphql
 
-# Functions
 functions:
   sendEmail:
     handler:
-      code: src/sendEmail.ts
-    environment:
-      ACCESS_KEY_ID: ${env:ACCESS_KEY_ID}
-      SECRET_ACCESS_KEY: ${env:SECRET_ACCESS_KEY}
-      REGION: ${env:REGION}
+      code: 
+        src: src/sendEmail.ts
+        environment:
+          ACCESS_KEY_ID: ${env:ACCESS_KEY_ID}
+          SECRET_ACCESS_KEY: ${env:SECRET_ACCESS_KEY}
+          REGION: ${env:REGION}
     type: resolver
     schema: src/sendEmail.graphql
-
-
-# Model/Relation permissions are used to limit the API access
-# To take the burden of thinking about those while development, we 
-# preconfigured the wildcard ("*") permission that allows everything
-# Read more here:
-# https://docs-next.graph.cool/reference/auth/authorization/overview-iegoo0heez
-permissions:
-- operation: "*"
-
-  
-# Your root tokens used for functions to get full access to the API
-# Read more here:
-# https://docs-next.graph.cool/reference/auth/authentication/authentication-tokens-eip7ahqu5o
-rootTokens:
-- mytoken
-
