@@ -67,13 +67,12 @@ export default async (event: FunctionEvent<EventData>) => {
       Source: from
     }
 
-    new Promise((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       ses.sendEmail(params, (err) => {
         if (err) {
-          console.log(err, err.stack)
-          reject(err)
+          throw new Error(JSON.stringify(err))
         } else {
-          resolve(response => response.json())
+          resolve({})
         }
       })
     })
