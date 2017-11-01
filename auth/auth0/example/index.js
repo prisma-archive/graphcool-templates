@@ -16,14 +16,15 @@ function displayAuthResults(accessToken) {
   el.innerHTML = mutation;
 }
 
-//Replace __CLIENT_ID__ and __AUTH0_DOMAIN__ with your Auth0 ClientId and Domain
+//Replace __CLIENT_ID__, __AUTH0_DOMAIN__ and __AUTH0_API_IDENTIFIER__ with your Auth0 ClientId and Domain
 document.addEventListener('DOMContentLoaded', function(event) {
   var webAuth = new auth0.WebAuth({
     audience: '__AUTH0_API_IDENTIFIER__',
-    clientID: '__AUTH0_CLIENT_ID__',
+    clientID: '__CLIENT_ID__',
     domain: '__AUTH0_DOMAIN__',
     redirectUri: 'http://localhost:8080',
-    responseType: 'token'
+    responseType: 'token',
+    scope: 'openid email'
   });
 
   var elButton = document.getElementById('authenticate');
