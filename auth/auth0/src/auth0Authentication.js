@@ -58,21 +58,29 @@ const getGraphcoolUser = (auth0UserId, api) =>
     .then(queryResult => queryResult.User);
 
 //Creates a new User record.
-const createGraphCoolUser = ({ sub }, api) =>
+const createGraphCoolUser = (auth0UserId, email, api) =>
   api
     .request(
       `
-        mutation createUser($auth0UserId: String!) {
+        mutation createUser($auth0UserId: String!, $email: String) {
           createUser(
             auth0UserId: $auth0UserId
+            email: $email
           ){
             id
           }
         }
       `,
-      { auth0UserId: sub }
+      { auth0UserId, email }
     )
     .then(queryResult => queryResult.createUser);
+
+const fetchAuth0Email = accessToken =>
+  fetch(
+    `https://${process.env.AUTH0_DOMAIN}/userinfo?access_token=${accessToken}`
+  )
+    .then(response => response.json())
+    .then(json => json.email);
 
 export default async event => {
   try {
@@ -87,12 +95,14 @@ export default async event => {
     const graphcool = fromEvent(event);
     const api = graphcool.api('simple/v1');
 
-    let graphCoolUser = null;
-
-    graphCoolUser = await getGraphcoolUser(decodedToken.sub, api);
+    let graphCoolUser = await getGraphcoolUser(decodedToken.sub, api);
     //If the user doesn't exist. a new record is created.
     if (graphCoolUser === null) {
-      graphCoolUser = await createGraphCoolUser(decodedToken, api);
+      let email = null;
+      if (decodedToken.scope.includes('email')) {
+        email = await fetchAuth0Email(accessToken);
+      }
+      graphCoolUser = await createGraphCoolUser(decodedToken.sub, email, api);
     }
     const token = await graphcool.generateAuthToken(graphCoolUser.id, 'User');
 
