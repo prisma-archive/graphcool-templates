@@ -72,8 +72,8 @@ A big thank you to all contributors and supporters of this repository 💚
 <a href="https://github.com/yusinto/" target="_blank">
   <img src="https://github.com/yusinto.png?size=64" width="64" height="64" alt="yusinto">
 </a>
-<a href="https://github.com/kuldarkalvik/" target="_blank">
-  <img src="https://github.com/kuldarkalvik.png?size=64" width="64" height="64" alt="kuldarkalvik">
+<a href="https://github.com/kuldar/" target="_blank">
+  <img src="https://github.com/kuldar.png?size=64" width="64" height="64" alt="kuldar">
 </a>
 <a href="https://github.com/heymartinadams/" target="_blank">
   <img src="https://github.com/heymartinadams.png?size=64" width="64" height="64" alt="heymartinadams">
