@@ -2,10 +2,10 @@ import * as aws from 'aws-sdk';
 import { FunctionEvent } from 'graphcool-lib';
 
 const ses = new aws.SES({
-  region: process.env.AWS_REGION,
-  accessKeyId: 'AWS_ACCESS_KEY_ID',
-  secretAccessKey: 'AWS_SECRET_ACCESS_KEY',
-});
+  region: process.env.REGION,
+  accessKeyId: process.env.ACCESS_KEY_ID,
+  secretAccessKey: process.env.SECRET_ACCESS_KEY,
+})
 
 
 interface EventData {
@@ -22,13 +22,20 @@ interface EventData {
 export default async (event: FunctionEvent<EventData>) => {
   console.log(event)
 
-  if (!process.env['AWS_ACCESS_KEY_ID']) {
-    console.log('Please provide a valid AWS Access Key ID!');
+  console.log(process.env)
+
+  if (!process.env['ACCESS_KEY_ID']) {
+    console.log('Please provide a valid AWS Access Key ID!')
     return { error: 'Module not configured correctly.' }
   }
 
-  if (!process.env['AWS_SECRET_ACCESS_KEY']) {
-    console.log('Please provide a valid AWS Secret Access Key!');
+  if (!process.env['SECRET_ACCESS_KEY']) {
+    console.log('Please provide a valid AWS Secret Access Key!')
+    return { error: 'Module not configured correctly.' }
+  }
+
+  if (!process.env['REGION']) {
+    console.log(`Please provide a valid AWS region, for example 'us-east-2'!`)
     return { error: 'Module not configured correctly.' }
   }
 
