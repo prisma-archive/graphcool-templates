@@ -1,5 +1,5 @@
-import * as aws from 'aws-sdk';
-import { FunctionEvent } from 'graphcool-lib';
+import * as aws from 'aws-sdk'
+import { FunctionEvent } from 'graphcool-lib'
 
 const ses = new aws.SES({
   region: process.env.REGION,
@@ -15,9 +15,6 @@ interface EventData {
   text: string
   html: string
 }
-
-
-
 
 export default async (event: FunctionEvent<EventData>) => {
   console.log(event)
@@ -56,7 +53,7 @@ export default async (event: FunctionEvent<EventData>) => {
           Text: {
             Charset: 'UTF-8',
             Data: text
-          }
+          },
         },
         Subject: {
           Charset: 'UTF-8',
@@ -78,7 +75,6 @@ export default async (event: FunctionEvent<EventData>) => {
     })
 
     return { data: { success: true } }
-
   } catch(e) {
     console.log(`Email could not be sent because an error occured:`)
     console.log(e)
