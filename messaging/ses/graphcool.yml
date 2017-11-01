@@ -1,0 +1,13 @@
+types: ./types.graphql
+
+functions:
+  sendEmail:
+    handler:
+      code: 
+        src: src/sendEmail.ts
+        environment:
+          ACCESS_KEY_ID: ${env:ACCESS_KEY_ID}
+          SECRET_ACCESS_KEY: ${env:SECRET_ACCESS_KEY}
+          REGION: ${env:REGION}
+    type: resolver
+    schema: src/sendEmail.graphql

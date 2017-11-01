@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "aws-sdk": "^2.135.0",
+    "graphcool-lib": "^0.1.3"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.45"
+  }
+}
