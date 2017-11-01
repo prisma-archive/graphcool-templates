@@ -1,0 +1,5 @@
+type Customer @model {
+  id: ID! @isUnique
+  name: String!
+  email: String!
+}

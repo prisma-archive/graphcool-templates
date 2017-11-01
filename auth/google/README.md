@@ -25,21 +25,11 @@ In order for the changes to take effect, you need to manually uncomment all the 
 Finally, you need to install the [node dependencies](./package.json#L2) and apply all the changes you just made by deploying the service:
 
 ```sh
-yarn install
+npm install
 graphcool deploy
 ```
 
-## Flow
-
-1. The user clicks `Authenticate with Google` button
-2. The Google UI is loaded and the user accepts to authenticate
-3. Your app receives a Google Access Token
-4. Your app calls the Graphcool mutation `authenticateUser(googleToken: String!)`
-5. If no user exists yet that corresponds to the passed `googleToken`, a new `GoogleUser` node will be created
-6. In any case, the `authenticateUser(googleToken: String!)` mutation returns a valid token for the user
-7. Your app stores the token and uses it in its `Authorization` header for all further requests to Graphcool
-
-## Setup
+## Configuration
 
 Follow the steps on https://developers.google.com/identity/ for how to work with the Google Identity Platform.
 * First, create a new project:

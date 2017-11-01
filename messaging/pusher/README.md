@@ -4,36 +4,43 @@ Send push notifications with Pusher in your Graphcool project 🎁
 
 ## Getting Started
 
+### 1. Add the template to your Graphcool service
+
 ```sh
-npm -g install graphcool
-graphcool init
-graphcool modules add graphcool/modules/messaging/pusher
+graphcool add-template messaging/pusher
 ```
 
-## Configuration
+### 2. Uncomment lines in `graphcool.yml` and `types.graphql`
 
-In your base project, you need to configure the following **environment variables**.
+The [`add-template`](https://docs-next.graph.cool/reference/graphcool-cli/commands-aiteerae6l#graphcool-add-template) command is performing three major steps:
 
-* `PUSHER_APP_ID`: Pusher app id
-* `PUSHER_KEY`: Pusher key
-* `PUSHER_SECRET`: Pusher secret
-* `PUSHER_CLUSTER`: Pusher cluster
+1. Download the source files from the [`src`](./src) directory and put them into your service's `src` directory (into a subdirectory called `pusher`).
+2. Download the contents from [`graphcool.yml`](./graphcool.yml) and append them as comments to your service's `graphcool.yml`.
+3. Download the contents from [`types.graphql`](./types.graphql) and append them as comments to your service's `types.graphql`.
+
+In order for the changes to take effect, you need to manually uncomment all the lines that have been added by the `add-template` command.
+
+### 3. Setup Pusher credentials
+
+You need to configure these credentials as environment variables:
+
+* `PUSHER_APP_ID`
+* `PUSHER_KEY`
+* `PUSHER_SECRET`
+* `PUSHER_CLUSTER`
 
 You can receive them after [signing up at Pusher](https://pusher.com/).
 
-An easy way to setup environment variables is using [direnv](https://direnv.net/).
-To use `direnv`, put the following into `.envrc` in you project root:
+To manage your environment variables, you can use a tool like [direnv](https://direnv.net/).
+
+### 4. Deploy the service
+
+Finally, you need to install the [node dependencies](./package.json#L2) and apply all the changes you just made by deploying the service:
 
 ```sh
-export PUSHER_APP_ID=xxx
-export PUSHER_KEY=xxx
-export PUSHER_SECRET=xxx
-export PUSHER_CLUSTER=xxx
+npm install
+graphcool deploy
 ```
-
-## Flow
-
-Whenever the `triggerPusherEvent` mutation is called, a new push notification event will be sent to the specified channels.
 
 ## Test the Code
 
@@ -60,7 +67,7 @@ and run this mutation to push a notification to your browser:
 
 ```graphql
 mutation {
-  triggerPusherEvent(
+  pushNotification(
     channels: ["my-channel"]
     event: "my-event"
     message: "Hello from the Graphcool pusher module!"

@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "graphcool-lib": "^0.1.0",
-    "pusher": "^1.5.1"
+    "isomorphic-fetch": "^2.2.1",
+    "sendgrid": "^5.2.3"
   },
   "devDependencies": {
     "@types/node": "^8.0.45"

@@ -21,34 +21,25 @@ The [`add-template`](https://docs-next.graph.cool/reference/graphcool-cli/comman
 
 In order for the changes to take effect, you need to manually uncomment all the lines that have been added by the `add-template` command.
 
-### 3. Deploy the service
+### 3. Setup Github credentials
+
+You need to configure these credentials from a new Github OAuth2 app as environment variables:
+
+* `GITHUB_CLIENT_ID`
+* `GITHUB_CLIENT_SECRET`
+
+Read more [here](https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/registering-oauth-apps).
+
+To manage your environment variables, you can use a tool like [direnv](https://direnv.net/).
+
+### 4. Deploy the service
 
 Finally, you need to install the [node dependencies](./package.json#L2) and apply all the changes you just made by deploying the service:
 
 ```sh
-yarn install
+npm install
 graphcool deploy
 ```
-
-## Configuration
-
-Setup a new OAuth app on Github according to this guide: https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/registering-oauth-apps/ and copy its **client id** and **client secret**.
-
-In your base project, you need to configure the following **environment variables**.
-
-- `CLIENT_ID`: Github Client ID
-- `CLIENT_SECRET`: Github Client Secret
-
-
-An easy way to set these up is using [direnv](https://direnv.net/).
-To use `direnv`, put the following into `.envrc` in you project root:
-
-```sh
-export CLIENT_ID=xxx
-export CLIENT_SECRET=xxx
-```
-
-Read on to see how to obtain a Github code to test the authentication function.
 
 ## Test the Code
 
@@ -82,6 +73,6 @@ mutation {
 }
 ```
 
-You should see that a new user has been created. The returned token can be used to authenticate requests to your Graphcool API as that user. Note that running the mutation again with the same Github code will not add a new user.
+You should see that a new user has been created. The returned token can be used to authenticate requests to your Graphcool API as that user. Note that running the mutation again with a new Github code for the same user will not add a new user.
 
 ![](http://i.imgur.com/5RHR6Ku.png)

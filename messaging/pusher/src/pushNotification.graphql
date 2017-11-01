@@ -1,0 +1,11 @@
+type PushNotificationPayload {
+  success: Boolean!
+}
+
+extend type Mutation {
+  pushNotification(
+    channels: [String!]!
+    event: String!
+    message: String!
+  ): PushNotificationPayload!
+}
