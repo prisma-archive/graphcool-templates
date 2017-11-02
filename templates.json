@@ -1,4 +1,8 @@
 {
+  "auth0": {
+    "path": "auth/auth0",
+    "description": "Authentication using Auth0"
+  },
   "email-password": {
     "path": "auth/email-password",
     "description": "Simple email-password based authentication"
@@ -26,6 +30,10 @@
   "pusher": {
     "path": "messaging/pusher",
     "description": "Send Push Notifications with Pusher"
+  },
+  "ses": {
+    "path": "messaging/ses",
+    "description": "Send emails with AWS SES"
   },
   "twilio": {
     "path": "messaging/twilio",
