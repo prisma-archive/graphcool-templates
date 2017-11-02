@@ -1,7 +1,5 @@
-# GraphQL types
 types: ./types.graphql
 
-# functions
 functions:
   authenticate:
     handler:

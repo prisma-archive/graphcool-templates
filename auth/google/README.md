@@ -7,7 +7,7 @@ Add Google Authentication to your Graphcool project 🎁
 ### 1. Add the template to your Graphcool service
 
 ```sh
-graphcool add-template auth/google
+graphcool add-template graphcool/templates/auth/google
 ```
 
 ### 2. Uncomment lines in `graphcool.yml` and `types.graphql`

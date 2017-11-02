@@ -65,11 +65,12 @@ graphcool deploy
 
 ### Setting up the example app
 
-* In order to setup Auth0 Lock Widget replace `__AUTH0_DOMAIN__`, `__AUTH0_CLIENT_ID__` and `__AUTH0_API_IDENTIFIER__`in `example/index.js` with the credentials from your api/client settings.
+* In order to setup Auth0 Lock Widget replace `__AUTH0_DOMAIN__`, `__AUTH0_CLIENT_ID__` and `__AUTH0_API_IDENTIFIER__`in `example/index.js` with the credentials from your API/Client settings.
 * Serve the test application locally on port 8080. For example :
+
 ```bash
 npm i -g http-server
-cd test
+cd example
 http-server
 ```
 * Open `http://localhost:8080/` in a browser and authenticate with the Auth0 Widget.
