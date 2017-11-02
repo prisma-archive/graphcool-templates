@@ -4,5 +4,5 @@ type AuthenticateUserPayload {
 }
 
 extend type Mutation {
-  authenticateUser(accessToken: String!): AuthenticateUserPayload
+  authenticateUser(accessToken: String!): AuthenticateUserPayload!
 }
