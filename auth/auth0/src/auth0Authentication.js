@@ -104,7 +104,11 @@ export default async event => {
       }
       graphCoolUser = await createGraphCoolUser(decodedToken.sub, email, api);
     }
-    const token = await graphcool.generateAuthToken(graphCoolUser.id, 'User');
+    const token = await graphcool.generateNodeToken(
+      graphCoolUser.id,
+      'User',
+      decodedToken.exp
+    );
 
     return { data: { id: graphCoolUser.id, token } };
   } catch (err) {
