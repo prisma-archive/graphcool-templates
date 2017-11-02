@@ -1,9 +1,16 @@
 {
   "dependencies": {
+    "express-jwt": "^5.3.0",
     "graphcool-lib": "^0.1.4",
-    "graphql-request": "^1.4.0"
+    "graphql-request": "^1.4.0",
+    "jsonwebtoken": "^8.1.0",
+    "jwks-rsa": "^1.2.1"
+  },
+  "scripts": {
+    "watch:ts": "tsc -w"
   },
   "devDependencies": {
-    "@types/node": "^8.0.46"
+    "@types/node": "^8.0.46",
+    "typescript": "^2.6.1"
   }
 }
