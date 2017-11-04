@@ -9,7 +9,7 @@ interface User {
 }
 
 interface EventData {
-  idToken: string
+  accessToken: string
 }
 
 export default async (event: FunctionEvent<EventData>) => {
@@ -21,13 +21,13 @@ export default async (event: FunctionEvent<EventData>) => {
   try {
     const graphcool = fromEvent(event)
     const api = graphcool.api('simple/v1')
-    const { idToken } = event.data
+    const { accessToken } = event.data
 
-    // check auth0 token
-    await checkJwt(idToken)
+    // check auth0 access token
+    await checkJwt(accessToken)
 
     // get graphcool user with auth0UserId
-    const { sub: auth0UserId } = decode(idToken);
+    const { sub: auth0UserId } = decode(accessToken);
     const user: User = await getGraphcoolUser(api, auth0UserId)
 
     // check if graphcool user exists, and create new one if not
@@ -42,9 +42,9 @@ export default async (event: FunctionEvent<EventData>) => {
   }
 }
 
-async function checkJwt(idToken: string) {
-  // Inject idToken in a header to permit express middleware usage.
-  const req: any = { headers: { authorization: `Bearer ${idToken}` } }
+async function checkJwt(accessToken: string) {
+  // Inject accessToken in a header to permit express middleware usage.
+  const req: any = { headers: { authorization: `Bearer ${accessToken}` } }
 
   return new Promise((resolve, reject) => {
     const next = (err) => err ? reject(err) : resolve();
