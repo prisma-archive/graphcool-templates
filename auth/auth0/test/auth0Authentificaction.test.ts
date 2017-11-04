@@ -18,11 +18,11 @@ const getEvent = (accessToken?): any => ({
 describe('auth0Authentification', () => {
   beforeEach(() => {
     // set env params
-    process.env.AUTH0_DOMAIN = 'climbstat.eu.auth0.com'
-    process.env.AUTH0_AUDIENCE = 'https://climbstat.eu.auth0.com/api/v2/'
+    process.env.AUTH0_DOMAIN = 'myproject.eu.auth0.com'
+    process.env.AUTH0_AUDIENCE = 'https://myproject.eu.auth0.com/api/v2/'
 
     // well-known mock
-    nock('https://climbstat.eu.auth0.com')
+    nock('https://myproject.eu.auth0.com')
       .get('/.well-known/jwks.json')
       .reply(200)
 
@@ -87,7 +87,7 @@ describe('auth0Authentification', () => {
 
   it('should create a user', () => {
     // getAuth0User mock
-    nock('https://climbstat.eu.auth0.com')
+    nock('https://myproject.eu.auth0.com')
       .get(/\/userinfo\?access_token/)
       .reply(200, JSON.stringify({ sub: "new-user" }))
 
@@ -99,7 +99,7 @@ describe('auth0Authentification', () => {
 
   it('should retrieve a user', () => {
     // getAuth0User mock
-    nock('https://climbstat.eu.auth0.com')
+    nock('https://myproject.eu.auth0.com')
       .get(/\/userinfo\?access_token/)
       .reply(200, JSON.stringify({ sub: "already-user" }))
 
