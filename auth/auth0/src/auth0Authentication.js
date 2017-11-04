@@ -30,7 +30,7 @@ const verifyToken = token =>
         signingKey,
         {
           algorithms: ['RS256'],
-          audience: process.env.AUTH0_API_IDENTIFIER,
+          audience: process.env.AUTH0_AUDIENCE,
           ignoreExpiration: false,
           issuer: `https://${process.env.AUTH0_DOMAIN}/`
         },
@@ -84,9 +84,9 @@ const fetchAuth0Email = accessToken =>
 
 export default async event => {
   try {
-    if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_API_IDENTIFIER) {
+    if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_AUDIENCE) {
       throw new Error(
-        'Missing AUTH0_DOMAIN or AUTH0_API_IDENTIFIER environment variable'
+        'Missing AUTH0_DOMAIN or AUTH0_AUDIENCE environment variable'
       )
     }
     const { accessToken } = event.data
