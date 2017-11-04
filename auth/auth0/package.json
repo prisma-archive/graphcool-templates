@@ -9,10 +9,30 @@
     "pify": "^3.0.0"
   },
   "scripts": {
-    "watch:ts": "tsc -w"
+    "watch:ts": "tsc -w",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "devDependencies": {
+    "@types/jest": "^21.1.5",
+    "@types/nock": "^8.2.1",
     "@types/node": "^8.0.46",
+    "jest": "^21.2.1",
+    "nock": "^9.0.27",
+    "ts-jest": "^21.1.4",
     "typescript": "^2.6.1"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js"
+    },
+    "testMatch": [
+      "**/test/**/*.test.(ts|js)"
+    ],
+    "testEnvironment": "node"
   }
 }
