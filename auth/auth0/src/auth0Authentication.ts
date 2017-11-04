@@ -4,7 +4,6 @@ import { decode } from 'jsonwebtoken'
 import * as fetch from 'isomorphic-fetch'
 import * as jwt from 'express-jwt'
 import * as jwksRsa from 'jwks-rsa'
-import * as pify from 'pify'
 
 interface User {
   id: string
@@ -64,7 +63,8 @@ async function checkJwt(accessToken: string) {
   // Inject accessToken in a header to permit express middleware usage.
   const req: any = { headers: { authorization: `Bearer ${accessToken}` } }
 
-  return pify(
+  return new Promise((resolve, reject) => {
+    const next = (err) => err ? reject(err) : resolve();
     jwt({
       // Dynamically provide a signing key based on the kid in the header and the singing keys provided by the JWKS endpoint.
       secret: jwksRsa.expressJwtSecret({
@@ -78,9 +78,8 @@ async function checkJwt(accessToken: string) {
       audience: process.env.AUTH0_AUDIENCE,
       issuer: `https://${process.env.AUTH0_DOMAIN}/`,
       algorithms: ['RS256']
-    })
-  )(req, null)
-
+    })(req, null, next)
+  })
 }
 
 async function getAuth0User(accessToken: string) {
