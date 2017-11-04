@@ -5,6 +5,9 @@ functions:
     handler:
       code:
         src: ./src/auth0Authentication.ts
+        environment:
+          AUTH0_DOMAIN: ${env:AUTH0_DOMAIN}
+          AUTH0_API_IDENTIFIER: ${env:AUTH0_API_IDENTIFIER}
     type: resolver
     schema: ./src/auth0Authentication.graphql
   loggedInUser:

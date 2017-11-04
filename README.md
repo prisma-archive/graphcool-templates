@@ -72,8 +72,8 @@ A big thank you to all contributors and supporters of this repository 💚
 <a href="https://github.com/yusinto/" target="_blank">
   <img src="https://github.com/yusinto.png?size=64" width="64" height="64" alt="yusinto">
 </a>
-<a href="https://github.com/kuldarkalvik/" target="_blank">
-  <img src="https://github.com/kuldarkalvik.png?size=64" width="64" height="64" alt="kuldarkalvik">
+<a href="https://github.com/kuldar/" target="_blank">
+  <img src="https://github.com/kuldar.png?size=64" width="64" height="64" alt="kuldar">
 </a>
 <a href="https://github.com/heymartinadams/" target="_blank">
   <img src="https://github.com/heymartinadams.png?size=64" width="64" height="64" alt="heymartinadams">
@@ -121,7 +121,13 @@ A big thank you to all contributors and supporters of this repository 💚
   <img src="https://github.com/jhalborg.png?size=64" width="64" height="64" alt="jhalborg">
 </a>
 <a href="https://github.com/felipesabino/" target="_blank">
-  <img src="https://github.com/felipesabino.png?size=64" width="64" height="64" alt="jhalborg">
+  <img src="https://github.com/felipesabino.png?size=64" width="64" height="64" alt="felipesabino">
+</a>
+<a href="https://github.com/iamclaytonray/" target="_blank">
+  <img src="https://github.com/iamclaytonray.png?size=64" width="64" height="64" alt="iamclaytonray">
+</a>
+<a href="https://github.com/fdidron/" target="_blank">
+  <img src="https://github.com/fdidron.png?size=64" width="64" height="64" alt="fdidron">
 </a>
 
 ## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
