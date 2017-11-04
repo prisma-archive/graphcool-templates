@@ -89,3 +89,19 @@ Paste the mutation copied from above
 You should see that a new user has been created. The returned token can be used to authenticate requests to your Graphcool API as that user. Note that running the mutation again with a new Auth0 token for the same user will not add a new user.
 
 ![](http://i.imgur.com/5RHR6Ku.png)
+
+### FAQ
+
+#### My `access_token` is not a valid jwt
+
+To have a jwt access_token you need to have (client side):
+
+- a correct `audience` set (you can find the correct API audience on https://manage.auth0.com/#/apis)
+- `responseType` should include `token`
+- `scope` should include `openid`
+
+Note: The easy way to know if your `access_token` is a jwt, is to try to decode it on https://jwt.io/
+
+#### Can I use other auth0 clients? (native, spa, non interactive clients)
+
+Of course! Just be sure to have a correct `access_token` as auth0 response :wink:
