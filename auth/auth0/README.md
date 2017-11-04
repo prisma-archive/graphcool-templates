@@ -52,7 +52,7 @@ In order for the changes to take effect, you need to manually uncomment all the 
 
 ### 4. Deploy the service
 
-*Make sure the `AUTH0_DOMAIN` and `AUTH0_API_IDENTIFIER` environment variables are properly set before running the command below. The `AUTH0_API_IDENTIFIER` should match the identifier set in 3.1 Create an API*
+*Make sure the `AUTH0_DOMAIN` and `AUTH0_AUDIENCE` environment variables are properly set before running the command below. The `AUTH0_AUDIENCE` should match the identifier set in 3.1 Create an API*
 
 Finally, you need to install the [node dependencies](./package.json#L2) and apply all the changes you just made by deploying the service:
 
@@ -65,7 +65,7 @@ graphcool deploy
 
 ### Setting up the example app
 
-* In order to setup Auth0 Lock Widget replace `__AUTH0_DOMAIN__`, `__AUTH0_CLIENT_ID__` and `__AUTH0_API_IDENTIFIER__`in `example/index.js` with the credentials from your API/Client settings.
+* In order to setup Auth0 Lock Widget replace `__AUTH0_DOMAIN__`, `__AUTH0_CLIENT_ID__` and `__AUTH0_AUDIENCE__`in `example/index.js` with the credentials from your API/Client settings.
 * Serve the test application locally on port 8080. For example :
 
 ```bash
