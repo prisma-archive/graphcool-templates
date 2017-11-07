@@ -137,24 +137,19 @@ index 6e747cb..39854b3 100644
 
 ```diff
 diff --git a/auth/auth0/src/auth0Authentication.ts b/auth/auth0/src/auth0Authentication.ts
-index cc3b123..374dd3f 100644
+index cc3b123..d4c6e5c 100644
 --- a/auth/auth0/src/auth0Authentication.ts
 +++ b/auth/auth0/src/auth0Authentication.ts
-@@ -112,7 +112,12 @@ async function createGraphcoolUser(api: GraphQLClient, auth0User: Auth0User): Pr
-   return api
-     .request<{ createUser: User }>(
-     `
--      mutation createUser($auth0UserId: String!, $email: String) {
-+      mutation createUser(
-+        $auth0UserId: String!,
-+        $email: String,
-+        $picture: String,
-+        $nickname: String
-+      ) {
+@@ -115,12 +115,19 @@ async function createGraphcoolUser(api: GraphQLClient, auth0User: Auth0User): Pr
+       mutation createUser($auth0UserId: String!, $email: String) {
          createUser(
            auth0UserId: $auth0UserId,
-           email: $email
-@@ -121,6 +126,11 @@ async function createGraphcoolUser(api: GraphQLClient, auth0User: Auth0User): Pr
+-          email: $email
++          email: $email,
++          picture: $picture,
++          nickname: $nickname
+         ){
+           id
          }
        }
      `,
@@ -164,9 +159,10 @@ index cc3b123..374dd3f 100644
 +      email: auth0User.email,
 +      picture: auth0User.picture,
 +      nickname: auth0User.nickname
-+    }
++     }
      ).then(res => res.createUser.id)
  }
+
 ```
 
 3. That's it! Now you have `nickname` and `picture` in your graphcool User data.
