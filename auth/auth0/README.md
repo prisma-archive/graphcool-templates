@@ -105,3 +105,68 @@ Note: The easy way to know if your `access_token` is a jwt, is to try to decode 
 #### Can I use other auth0 clients? (native, spa, non interactive clients)
 
 Of course! Just be sure to have a correct `access_token` as auth0 response :wink:
+
+#### How can I retrieve user data from auth0
+
+You have many user data available into auth0 (depends of which provider you choose).
+
+First of all, you need to set your scope as `openid email profile`.
+
+With `profile` in the scope, you will receive many more data (cf https://auth0.com/docs/user-profile/normalized/auth0)
+
+For example, I want to add `picture` and `nickname` into User node.
+
+1. Add `picture` and `nickname` into User type
+
+```diff
+diff --git a/auth/auth0/types.graphql b/auth/auth0/types.graphql
+index 6e747cb..39854b3 100644
+--- a/auth/auth0/types.graphql
++++ b/auth/auth0/types.graphql
+@@ -7,5 +7,7 @@ type User @model {
+   updatedAt: DateTime! # read-only (managed by Graphcool)
+ 
+   email: String
++  picture: String
++  nickname: String
+   auth0UserId: String @isUnique
+ }
+```
+
+2. Add auth0 user data into `createUser` mutation
+
+```diff
+diff --git a/auth/auth0/src/auth0Authentication.ts b/auth/auth0/src/auth0Authentication.ts
+index cc3b123..374dd3f 100644
+--- a/auth/auth0/src/auth0Authentication.ts
++++ b/auth/auth0/src/auth0Authentication.ts
+@@ -112,7 +112,12 @@ async function createGraphcoolUser(api: GraphQLClient, auth0User: Auth0User): Pr
+   return api
+     .request<{ createUser: User }>(
+     `
+-      mutation createUser($auth0UserId: String!, $email: String) {
++      mutation createUser(
++        $auth0UserId: String!,
++        $email: String,
++        $picture: String,
++        $nickname: String
++      ) {
+         createUser(
+           auth0UserId: $auth0UserId,
+           email: $email
+@@ -121,6 +126,11 @@ async function createGraphcoolUser(api: GraphQLClient, auth0User: Auth0User): Pr
+         }
+       }
+     `,
+-    { auth0UserId: auth0User.sub, email: auth0User.email }
++    {
++      auth0UserId: auth0User.sub,
++      email: auth0User.email,
++      picture: auth0User.picture,
++      nickname: auth0User.nickname
++    }
+     ).then(res => res.createUser.id)
+ }
+```
+
+3. That's it! Now you have `nickname` and `picture` in your graphcool User data.
