@@ -108,15 +108,15 @@ Of course! Just be sure to have a correct `access_token` as auth0 response :wink
 
 #### How can I retrieve user data from auth0
 
-You have many user data available into auth0 (depends of which provider you choose).
+You have a lot of user data available in auth0 (depends on which provider you choose).
 
 First of all, you need to set your scope as `openid email profile`.
 
-With `profile` in the scope, you will receive many more data (cf https://auth0.com/docs/user-profile/normalized/auth0)
+With `profile` in the scope, you will receive a lot more data (cf https://auth0.com/docs/user-profile/normalized/auth0)
 
-For example, I want to add `picture` and `nickname` into User node.
+For example, I want to add `picture` and `nickname` to User node.
 
-1. Add `picture` and `nickname` into User type
+1. Add `picture` and `nickname` to User type
 
 ```diff
 diff --git a/auth/auth0/types.graphql b/auth/auth0/types.graphql
@@ -133,7 +133,7 @@ index 6e747cb..39854b3 100644
  }
 ```
 
-2. Add auth0 user data into `createUser` mutation
+2. Add auth0 user data to `createUser` mutation
 
 ```diff
 diff --git a/auth/auth0/src/auth0Authentication.ts b/auth/auth0/src/auth0Authentication.ts
