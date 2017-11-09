@@ -1,6 +1,6 @@
 # Graphcool Templates 📗
 
-**Use Graphcool [templates](https://docs-next.graph.cool/docs/reference/service-definition/templates-zeiv8phail) to quickly pull in predefined functionality into your own Graphcool service.**
+**Use Graphcool [templates](https://www.graph.cool/docs/reference/service-definition/templates-zeiv8phail/) to quickly pull in predefined functionality into your own Graphcool service.**
 
 ## Overview
 
@@ -13,7 +13,7 @@ We maintain a number of officially supported templates:
 
 ### Outdated templates
 
-Notice that the [outdated](./outdated) templates are _not_ officially supported. Right now, most of the templates inside the [outdated](./outdated) directory are not working when used with the [`graphcool add-template`](https://docs-next.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l/#graphcool-add-template) command!
+Notice that the [outdated](./outdated) templates are _not_ officially supported. Right now, most of the templates inside the [outdated](./outdated) directory are not working when used with the [`graphcool add-template`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l/#graphcool-add-template) command!
 
 ### Contributions
 
@@ -24,7 +24,7 @@ Contributions are _highly_ welcome :green_heart: if you'd like to add a new temp
 There are two ways how you can use a template in your service:
 
 1. Manually download and copy the code from a template directory in this repository. 
-2. Use the [`add-template`](https://docs-next.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l/#graphcool-add-template) command from the [CLI](!alias-zboghez5go).
+2. Use the [`add-template`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l/#graphcool-add-template) command from the [CLI](!alias-zboghez5go).
 
 ### Option 1: Manually adding templates
 
@@ -34,7 +34,7 @@ Adding a template manually:
 
 1. Download the folder that contains the service definition of the template you want to use.
 2. Copy that folder into the root directory of your Graphcool service.
-3. Copy over the contents from the template's `graphcool.yml` into the `graphcool.yml` of your own service. Be sure to adjust any file references, e.g. source files that contain code for [functions](https://docs-next.graph.cool/docs/reference/functions/overview-aiw4aimie9), if necessary.
+3. Copy over the contents from the template's `graphcool.yml` into the `graphcool.yml` of your own service. Be sure to adjust any file references, e.g. source files that contain code for [functions](https://www.graph.cool/docs/reference/functions/overview-aiw4aimie9/), if necessary.
 4. Copy over the contents from the template's `types.graphql` into the `types.graphql` of your own service. 
 5. Deploy your changes with `graphcool deploy`.
 
