@@ -1,5 +1,3 @@
-'use latest'
-
 const { fromEvent } = require('graphcool-lib')
 
 module.exports = function(event) {
@@ -45,8 +43,7 @@ module.exports = function(event) {
   }
 
   function generateGraphcoolToken(graphcoolUserId) {
-    console.log(`graphcooluserid ${graphcoolUserId}`)
-    return graphcool.generateAuthToken(graphcoolUserId, 'User')
+    return graphcool.generateNodeToken(graphcoolUserId, 'User')
   }
 
   return getLinkedInAccountData(linkedInToken)

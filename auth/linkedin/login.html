@@ -1,0 +1,26 @@
+<html>
+
+<head>
+    <script type="text/javascript" src="//platform.linkedin.com/in.js">
+        api_key: __CLIENT_ID__
+        authorize: true
+        onLoad: onLinkedInLoad
+    </script>
+
+    <script type="text/javascript">
+        function onLinkedInLoad() {
+            IN.Event.on(IN, "auth", authenticateUser);
+        }
+
+        function authenticateUser() {
+            console.log('Token: ', IN.ENV.auth.oauth_token)
+            // call Graphcool authenticateLinkedInUser mutation
+        }
+    </script>
+</head>
+
+<body>
+    <script type="in/Login"></script>
+</body>
+
+</html>
