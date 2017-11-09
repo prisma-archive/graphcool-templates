@@ -1,0 +1,11 @@
+type User {
+  # Required system field:
+  id: ID! @isUnique # read-only (managed by Graphcool)
+
+  # Optional system fields (remove if not needed):
+  createdAt: DateTime! # read-only (managed by Graphcool)
+  updatedAt: DateTime! # read-only (managed by Graphcool)
+
+  # Make it required if LinkedIn is the only authorization method in your app
+  linkedInUserId: String @isUnique
+}

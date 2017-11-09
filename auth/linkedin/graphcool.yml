@@ -1,0 +1,15 @@
+types: ./types.graphql
+
+functions:
+  linkedInAuthentication:
+    handler:
+      code:
+        src: ./src/linkedInAuthentication.ts
+    type: resolver
+    schema: ./src/linkedInAuthentication.graphql
+  loggedInUser:
+    handler:
+      code:
+        src: ./src/loggedInUser.ts
+    type: resolver
+    schema: ./src/loggedInUser.graphql
