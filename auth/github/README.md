@@ -50,7 +50,7 @@ First, update the configuration of the OAuth app on Github you just created:
 * Set the **Homepage URL** to `http://localhost:8000/`
 * Set the **Application Callback URL** to `http://localhost:8000/login.html`
 * Replace `__CLIENT_ID__` in `login.html` with the **client id** of your OAuth app
-* Server `login.html`, for example by using `python -m SimpleHTTPServer`
+* Serve `login.html`, for example by using `python -m SimpleHTTPServer`
 * Open `https://localhost:8000/login.html` in a browser, open the DevTools and authenticate with your Github account
 * Copy the code printed in the Console of your DevTools
 
