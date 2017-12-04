@@ -12,8 +12,6 @@ interface EventData {
   password: string
 }
 
-const SALT_ROUNDS = 10
-
 export default async (event: FunctionEvent<EventData>) => {
   console.log(event)
 
