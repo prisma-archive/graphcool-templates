@@ -36,7 +36,7 @@ export default async (event: FunctionEvent<EventData>) => {
 
     // create password hash
     const salt = bcrypt.genSaltSync(SALT_ROUNDS)
-    const hash = await bcrypt.hash(password, SALT_ROUNDS)
+    const hash = await bcrypt.hash(password, salt)
 
     // create new user
     const userId = await createGraphcoolUser(api, email, hash)
