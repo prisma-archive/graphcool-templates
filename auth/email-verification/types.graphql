@@ -1,0 +1,10 @@
+type User @model {
+  accountActivationCode: AccountActivationCode  @relation(name: "AccountActivationCodeOnUser")
+  accountActivated: Boolean @defaultValue(value: false)
+}
+
+type AccountActivationCode @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  user: User  @relation(name: "AccountActivationCodeOnUser")
+}

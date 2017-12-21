@@ -1,20 +1,20 @@
-# email-password
+# email-verification
 
-Reset password functionality on your Graphcool Project - based on email-password template 🎁
+Email verification functionality on your Graphcool Project - based on email-password template 🎁
 
 ## Getting Started
 
 ### 1. Add the template to your Graphcool service
 
 ```sh
-graphcool add-template graphcool/templates/auth/reset-password
+graphcool add-template graphcool/templates/auth/email-verification
 ```
 
 ### 2. Uncomment lines in `graphcool.yml` and `types.graphql`
 
 The [`add-template`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l#graphcool-add-template) command is performing three major steps:
 
-1. Download the source files from the [`src`](./src) directory and put them into your service's `src` directory (into a subdirectory called `reset-password`).
+1. Download the source files from the [`src`](./src) directory and put them into your service's `src` directory (into a subdirectory called `email-password`).
 2. Download the contents from [`graphcool.yml`](./graphcool.yml) and append them as comments to your service's `graphcool.yml`.
 3. Download the contents from [`types.graphql`](./types.graphql) and append them as comments to your service's `types.graphql`.
 
@@ -37,14 +37,12 @@ Go to the Graphcool Playground:
 graphcool playground
 ```
 
-Run this mutation to send password reset email to user:
+Run this mutation to send account activation email:
 
 ```graphql
- mutation {
-   sendResetPasswordEmail(email: "EMAIL@EMAIL.com") {
-     result
-   }
- }
+mutation {
+  sendAccountActivationEmail(id: ID, name: "NAME", email: "EMAIL") {
+    result
+  }
+}
 ```
-
-
