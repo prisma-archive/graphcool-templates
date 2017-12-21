@@ -47,4 +47,11 @@ Run this mutation to send password reset email to user:
  }
 ```
 
+```graphql
+mutation {
+  resetPassword(id: "ID") {
+    result
+  }
+}
+```
 

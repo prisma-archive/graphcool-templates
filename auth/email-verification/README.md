@@ -46,3 +46,13 @@ mutation {
   }
 }
 ```
+
+
+Run this mutation to activate the account:
+```graphql
+mutation {
+  activateAccount(id: "ID") {
+    result
+  }
+}
+```
