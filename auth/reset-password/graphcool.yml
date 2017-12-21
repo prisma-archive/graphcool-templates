@@ -1,0 +1,28 @@
+# GraphQL types
+types: ./types.graphql
+
+# functions
+functions:
+  # send reset password email
+  sendPasswordResetEmail:
+    type: resolver
+    schema: src/sendPasswordResetEmail.graphql
+    handler:
+      code: 
+        src: src/sendPasswordResetEmail.ts
+        environment:
+          MAILGUN_API_KEY: MAILGUN_API_KEY
+          MAILGUN_SUBDOMAIN: mail.your-domain.com
+          PASSWORD_RESET_URL: https://www.YOUR_DOMAIN.com/password-reset
+  
+  # reset user password
+  resetPassword:
+    type: resolver
+    schema: src/resetPassword.graphql
+    handler:
+      code: 
+        src: src/resetPassword.ts
+        environment:
+          MAILGUN_API_KEY: MAILGUN_API_KEY
+          MAILGUN_SUBDOMAIN: mail.your-domain.com
+          LOGIN_URL: https://www.YOUR_DOMAIN.com/change-password
