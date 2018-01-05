@@ -13,7 +13,7 @@ We maintain a number of officially supported templates:
 
 ### Outdated templates
 
-Notice that the [outdated](./outdated) templates are _not_ officially supported. Right now, most of the templates inside the [outdated](./outdated) directory are not working when used with the [`graphcool add-template`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l/#graphcool-add-template) command!
+Notice that the [outdated](./outdated) templates are _not_ officially supported. Right now, most of the templates inside the [outdated](./outdated) directory are not working when used with the [`graphcool-framework add-template`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l/#graphcool-add-template) command!
 
 ### Contributions
 
@@ -45,13 +45,13 @@ The `add-template` command in the Graphcool CLI basically automates the process 
 Official templates can be added by providing their relative path in this repository, e.g. for the [`email-password`](https://github.com/graphcool/modules)-template:
 
 ```sh
-graphcool add-template auth/email-password
+graphcool-framework add-template auth/email-password
 ```
 
 To install your own templates, you can provide the path to a GitHub repository, too: 
 
 ```sh
-graphcool add-template graphcool/templates/auth/email-password
+graphcool-framework add-template graphcool/templates/auth/email-password
 ```
 
 When merging the template's `graphcool.yml` and `types.graphql` files with the ones from your local service definition, the CLI will only add the contents from the template files into your local files _as comments_. So **you need to explicitly uncomment the parts form the template files that you actually want to use in your service**.
