@@ -1,0 +1,7 @@
+type AuthenticatePhoneUserPayload {
+  token: String!
+}
+
+extend type Mutation {
+  authenticatePhoneUser(phoneNumber: String!, deviceId: String!): AuthenticatePhoneUserPayload
+}
