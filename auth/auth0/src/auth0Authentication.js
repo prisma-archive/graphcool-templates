@@ -5,7 +5,7 @@ const fromEvent = require('graphcool-lib').fromEvent
 
 //Validates the request JWT token
 const verifyToken = token =>
-  new Promise(resolve => {
+  new Promise((resolve, reject) => {
     //Decode the JWT Token
     const decoded = jwt.decode(token, { complete: true })
     if (!decoded || !decoded.header || !decoded.header.kid) {
@@ -22,23 +22,29 @@ const verifyToken = token =>
     })
     //Retrieve the JKWS's signing key using the decode token's key identifier (kid)
     jkwsClient.getSigningKey(decoded.header.kid, (err, key) => {
-      if (err) throw new Error(err)
-      const signingKey = key.publicKey || key.rsaPublicKey
-      //If the JWT Token was valid, verify its validity against the JKWS's signing key
-      jwt.verify(
-        token,
-        signingKey,
-        {
-          algorithms: ['RS256'],
-          audience: process.env.AUTH0_API_IDENTIFIER,
-          ignoreExpiration: false,
-          issuer: `https://${process.env.AUTH0_DOMAIN}/`
-        },
-        (err, decoded) => {
-          if (err) throw new Error(err)
-          return resolve(decoded)
-        }
-      )
+      if (err) {
+        reject(new Error(err))
+      } else {
+        const signingKey = key.publicKey || key.rsaPublicKey
+        //If the JWT Token was valid, verify its validity against the JKWS's signing key
+        jwt.verify(
+          token,
+          signingKey,
+          {
+            algorithms: ['RS256'],
+            audience: process.env.AUTH0_API_IDENTIFIER,
+            ignoreExpiration: false,
+            issuer: `https://${process.env.AUTH0_DOMAIN}/`
+          },
+          (err, decoded) => {
+            if (err) {
+              reject(new Error(err))
+            } else {
+              return resolve(decoded)
+            }
+          }
+        )
+      }
     })
   })
 
