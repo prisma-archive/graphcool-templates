@@ -110,7 +110,7 @@ export default async event => {
     const token = await graphcool.generateNodeToken(
       graphCoolUser.id,
       'User',
-      decodedToken.exp
+      decodedToken.exp - decodedToken.iat
     )
 
     return { data: { id: graphCoolUser.id, token } }
