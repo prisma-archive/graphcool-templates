@@ -1,0 +1,7 @@
+type ActivateAccountPayload {
+  result: Boolean!
+}
+
+extend type Mutation {
+  activateAccount(id: ID!): ActivateAccountPayload
+}

@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@types/bcryptjs": "^2.4.1",
+    "@types/validator": "^6.3.0",
+    "Base64": "^1.0.1",
+    "bcryptjs": "^2.4.3",
+    "form-data": "^2.3.1",
+    "graphcool-lib": "^0.1.0",
+    "graphql-request": "^1.4.0",
+    "validator": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.44"
+  }
+}

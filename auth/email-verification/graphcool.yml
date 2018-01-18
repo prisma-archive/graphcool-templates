@@ -1,0 +1,23 @@
+# GraphQL types
+types: ./types.graphql
+
+# functions
+functions:
+  #send verification email - creates and sends uuid with url to user 
+  sendAccountActivationEmail: 
+    type: resolver
+    schema: src/sendAccountActivationEmail.graphql
+    handler:
+      code: 
+        src: src/sendAccountActivationEmail.ts
+        environment:
+          MAILGUN_API_KEY: MAILGUN_API_KEY
+          MAILGUN_SUBDOMAIN: mail.your-domain.com
+          ACCOUNT_ACTIVATION_URL: https://www.YOUR_DOMAIN.com/activate-account
+
+  # handles verification of user's email using supplied verification code
+  activateAccount:
+    type: resolver
+    schema: src/activateAccount.graphql
+    handler:
+      code: src/activateAccount.ts

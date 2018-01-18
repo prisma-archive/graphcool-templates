@@ -1,0 +1,10 @@
+type User @model {
+  password: String!
+  resetPassword: PasswordResetCode @relation(name: "PasswordResetCodeOnUser")
+}
+
+type PasswordResetCode @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  user: User @relation(name: "PasswordResetCodeOnUser")
+}
