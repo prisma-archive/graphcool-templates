@@ -7,7 +7,7 @@ Send emails with mailgun in your Graphcool project 🎁
 ### 1. Add the template to your Graphcool service
 
 ```sh
-graphcool add-template messaging/mailgun
+graphcool add-template graphcool/templates/messaging/mailgun
 ```
 
 ### 2. Uncomment lines in `graphcool.yml` and `types.graphql`
