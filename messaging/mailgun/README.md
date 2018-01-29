@@ -20,7 +20,7 @@ The [`add-template`](https://www.graph.cool/docs/reference/graphcool-cli/command
 
 In order for the changes to take effect, you need to manually uncomment all the lines that have been added by the `add-template` command.
 
-### 3. Setup Github credentials
+### 3. Setup Mailgun credentials
 
 You need to configure these credentials as environment variables:
 
